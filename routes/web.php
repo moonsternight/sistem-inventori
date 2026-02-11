@@ -69,7 +69,7 @@ Route::middleware(['auth.pemilik'])->group(function () {
     });
 
 
-    // 5. MODUL LAPORAN (REPORTING)
+    // 5. MODUL LAPORAN
     Route::prefix('laporan')->group(function () {
 
         // --- Laporan Penjualan ---

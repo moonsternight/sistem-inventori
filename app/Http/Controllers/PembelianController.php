@@ -40,7 +40,8 @@ class PembelianController extends Controller
             foreach ($keranjang as $item) {
                 $hargaBeliBaru = (int) preg_replace('/[^\d]/', '', $item['harga']);
                 $jumlahBeli = (int) $item['jumlah'];
-                $barang = Barang::where('nama_barang', $item['nama'])
+                $barang = Barang::select('id_barang', 'nama_barang', 'merek', 'stok_sistem', 'harga_beli')
+                    ->where('nama_barang', $item['nama'])
                     ->where('merek', $item['merek'])
                     ->first();
 

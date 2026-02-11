@@ -23,7 +23,7 @@ class LaporanTransaksiPenjualanController extends Controller
             }
 
             if ($tglMulai && $tglAkhir && $tglMulai > $tglAkhir) {
-                return back();
+                return back()->withInput();
             }
 
             $adaData = Penjualan::whereBetween('tanggal', [$tglMulai, $tglAkhir])->exists();
@@ -42,12 +42,12 @@ class LaporanTransaksiPenjualanController extends Controller
 
         $dataTransaksi = Penjualan::select(
             'penjualan.*',
-            DB::raw('(SELECT SUM((dp.harga - dp.modal) * dp.jumlah) 
-                          FROM detail_penjualan dp 
-                          WHERE dp.id_penjualan = penjualan.id_penjualan) as laba_faktur')
+            DB::raw('SUM((detail_penjualan.harga - detail_penjualan.modal) * detail_penjualan.jumlah) as laba_faktur')
         )
-            ->whereDate('tanggal', $tanggal)
-            ->orderBy('no_transaksi', 'asc')
+            ->leftJoin('detail_penjualan', 'penjualan.id_penjualan', '=', 'detail_penjualan.id_penjualan')
+            ->whereDate('penjualan.tanggal', $tanggal)
+            ->groupBy('penjualan.id_penjualan')
+            ->orderBy('penjualan.no_transaksi', 'asc')
             ->paginate($perPage)
             ->withQueryString();
 

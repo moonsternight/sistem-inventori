@@ -72,6 +72,6 @@ class LaporanRekapPembelianController extends Controller
         });
 
         return redirect()->route('laporan.rekap.pembelian')
-            ->with('success', 'Rekap pembelian berhasil dikosongkan.');
+            ->with('success', 'Rekap dikosongkan.');
     }
 }

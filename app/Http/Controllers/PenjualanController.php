@@ -26,7 +26,7 @@ class PenjualanController extends Controller
         }
 
         $no_transaksi = 'TRANS-' . $today . '-' . $nextNumber;
-        $barang = Barang::all();
+        $barang = Barang::select('id_barang', 'nama_barang', 'merek', 'harga_jual', 'stok_sistem')->get();
 
         return view('penjualan', compact('no_transaksi', 'barang'));
     }
@@ -50,7 +50,8 @@ class PenjualanController extends Controller
             $penjualan->save();
 
             foreach ($keranjang as $item) {
-                $barang = Barang::where('nama_barang', trim($item['nama']))
+                $barang = Barang::select('id_barang', 'stok_sistem', 'harga_beli')
+                    ->where('nama_barang', trim($item['nama']))
                     ->where('merek', trim($item['merek']))
                     ->first();
 

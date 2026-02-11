@@ -38,10 +38,17 @@ class StokOpnameController extends Controller
     public function simpanHasil(Request $request)
     {
         $dataOpname = $request->input('hasil_opname');
-        foreach ($dataOpname as $namaBarang => $detail) {
-            \App\Models\Barang::where('nama_barang', $namaBarang)
-                ->update(['stok_sistem' => $detail['stokFisik']]);
+
+        if (!$dataOpname) {
+            return response()->json(['success' => false]);
         }
+
+        DB::transaction(function () use ($dataOpname) {
+            foreach ($dataOpname as $namaBarang => $detail) {
+                Barang::where('nama_barang', $namaBarang)
+                    ->update(['stok_sistem' => $detail['stokFisik']]);
+            }
+        });
 
         return response()->json(['success' => true]);
     }

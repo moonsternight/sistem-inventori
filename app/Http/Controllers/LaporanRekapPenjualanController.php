@@ -20,7 +20,8 @@ class LaporanRekapPenjualanController extends Controller
         }
 
         if ($request->has('page')) {
-            session(['rekap_penjualan_last_page' => $request->input('page')]);
+            $currentPage = $request->input('page');
+            session(['rekap_penjualan_last_page' => $currentPage]);
         } else {
             $currentPage = session('rekap_penjualan_last_page', 1);
             \Illuminate\Pagination\Paginator::currentPageResolver(function () use ($currentPage) {
@@ -69,6 +70,6 @@ class LaporanRekapPenjualanController extends Controller
         });
 
         return redirect()->route('laporan.rekap.penjualan')
-            ->with('success', 'Rekap penjualan berhasil dikosongkan.');
+            ->with('success', 'Rekap dikosongkan.');
     }
 }

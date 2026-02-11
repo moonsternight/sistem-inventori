@@ -9,6 +9,12 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             display: flex;
@@ -16,6 +22,10 @@
             background-color: #F1F5F9;
             font-family: 'Inter', sans-serif;
             color: #1E293B;
+        }
+
+        body.sidebar-open {
+            overflow: hidden;
         }
 
         .sidebar {
@@ -53,6 +63,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         .title-box {
@@ -162,6 +173,253 @@
             align-items: center;
             margin-bottom: 20px;
             border: 1.5px solid #94A3B8;
+        }
+
+        .sidebar-toggle-btn {
+            display: none;
+            width: 38px;
+            height: 38px;
+            background-color: #F8FAFC;
+            border: 1.5px solid #94A3B8;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            color: #1E293B;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .sidebar-toggle-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.45);
+            display: none;
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 1023.98px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow-x: clip;
+            }
+
+            .main-container {
+                padding: 20px;
+                overflow-y: visible;
+                overflow-x: clip;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100dvh;
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+                z-index: 1000;
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle-btn {
+                display: inline-flex;
+            }
+
+            .page-header {
+                padding: 10px 12px;
+                gap: 10px;
+                border-radius: 10px;
+            }
+
+            .header-left {
+                gap: 10px;
+                min-width: 0;
+            }
+
+            .page-header h2 {
+                font-size: 16px;
+            }
+
+            .content-wrapper,
+            .opname-filter-wrapper,
+            .summary-container {
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            .content-wrapper {
+                padding: 15px;
+            }
+
+            .opname-filter-wrapper {
+                padding: 12px;
+                gap: 12px;
+                grid-template-columns: 1fr;
+                align-items: stretch;
+            }
+
+            .btn-opname {
+                width: 100%;
+            }
+
+            .summary-container {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .table-scroll-wrapper {
+                overflow-x: hidden;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 1023.98px) {
+            .main-container {
+                padding: 20px;
+                overflow-y: auto;
+            }
+
+            .opname-filter-wrapper {
+                grid-template-columns: 1.5fr 1fr 1fr 1fr;
+                gap: 12px;
+                align-items: flex-end;
+            }
+
+            .btn-opname {
+                width: auto;
+            }
+
+            .pagination-wrapper {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .pagination-wrapper>.pagination-info-right {
+                width: auto;
+            }
+
+            .pagination-wrapper>.pagination-btns {
+                width: auto;
+                flex-direction: row;
+            }
+
+            .pagination-btns .btn-page {
+                width: auto;
+            }
+
+            .summary-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 639.98px) {
+            .header-left {
+                gap: 10px !important;
+            }
+
+            .page-header h2 {
+                font-size: 16px !important;
+                white-space: nowrap !important;
+            }
+
+            .header-left {
+                flex-wrap: nowrap !important;
+                min-width: 0 !important;
+            }
+
+            .page-header {
+                justify-content: flex-start !important;
+            }
+
+            .header-right {
+                margin-left: auto !important;
+            }
+
+            .btn-opname {
+                width: 100% !important;
+            }
+
+            table {
+                table-layout: auto;
+                min-width: 640px;
+            }
+
+            .content-wrapper {
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+            }
+
+            .table-scroll-wrapper {
+                overflow-x: auto;
+                margin-left: 0;
+                margin-right: 0;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .opname-filter-wrapper {
+                grid-template-columns: 1fr !important;
+            }
+
+            .opname-filter-wrapper .form-group {
+                width: 100%;
+            }
+
+            .summary-container {
+                grid-template-columns: 1fr;
+            }
+
+            .pagination-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
+                gap: 8px;
+                min-height: 0;
+            }
+
+            .pagination-wrapper>.pagination-info-right {
+                order: 0 !important;
+                position: static !important;
+                right: auto !important;
+                top: auto !important;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .pagination-wrapper>.pagination-btns {
+                order: 1 !important;
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .pagination-btns {
+                width: 100%;
+            }
+
+            .pagination-btns .btn-page {
+                width: 100%;
+                text-align: center;
+            }
         }
 
         .header-left {
@@ -347,7 +605,7 @@
             border: 1.5px solid #64748B;
             text-transform: uppercase;
             font-weight: 800;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
@@ -410,6 +668,18 @@
             max-width: 100%;
         }
 
+        .table-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin-bottom: 10px;
+            padding: 0;
+            border-radius: 8px;
+            border: 1.5px solid #E2E8F0;
+            background-color: #FFFFFF;
+            display: block;
+        }
+
         table {
             width: 100% !important;
             max-width: 100%;
@@ -428,7 +698,7 @@
             font-weight: 800;
             letter-spacing: 0.3px;
             white-space: nowrap;
-            border-top: 1.5px solid #E2E8F0;
+            border-top: none;
             border-bottom: 1.5px solid #E2E8F0;
         }
 
@@ -451,6 +721,16 @@
             border-right: 1.5px solid #E2E8F0;
         }
 
+        .table-scroll-wrapper table td:first-child,
+        .table-scroll-wrapper table th:first-child {
+            border-left: none;
+        }
+
+        .table-scroll-wrapper table td:last-child,
+        .table-scroll-wrapper table th:last-child {
+            border-right: none;
+        }
+
         table thead tr th:first-child {
             border-top-left-radius: 8px;
         }
@@ -460,7 +740,7 @@
         }
 
         table tbody tr:last-child td {
-            border-bottom: 1.5px solid #E2E8F0 !important;
+            border-bottom: none !important;
         }
 
         table tbody tr:last-child td:first-child {
@@ -561,7 +841,7 @@
         .pagination-info-right {
             position: absolute;
             right: 0;
-            font-size: 13px;
+            font-size: 12px;
             color: #64748B;
             display: flex;
             align-items: center;
@@ -585,7 +865,7 @@
         .btn-page.disabled {
             background-color: #F1F5F9;
             color: #94A3B8;
-            cursor: not-allowed;
+            cursor: default;
             border: 1.5px solid #E2E8F0;
         }
 
@@ -595,7 +875,7 @@
             padding: 6px 12px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             color: #64748B;
         }
 
@@ -611,11 +891,11 @@
             color: #1E293B;
             outline: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: calc(100% - 3px) center;
             background-size: 8px;
@@ -654,7 +934,7 @@
             border: 1.5px solid #64748B;
             padding: 15px;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 12px;
             font-weight: 800;
             text-transform: uppercase;
             cursor: pointer;
@@ -780,6 +1060,13 @@
             gap: 10px;
         }
 
+        @media (max-width: 639.98px) {
+            #toast-container {
+                top: 31px;
+                right: 30px;
+            }
+        }
+
         .toast {
             background: #ffffff;
             padding: 10px 15px;
@@ -897,6 +1184,7 @@
 </head>
 
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <aside class="sidebar">
         <div class="header-sidebar">
             <div class="logo-box"><img src="{{ asset('images/NavMekarJaya.png') }}" alt="Logo"></div>
@@ -984,6 +1272,14 @@
     <main class="main-container">
         <div class="page-header">
             <div class="header-left">
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" type="button" aria-label="Buka navigasi">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
                 <div class="header-title-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -1011,7 +1307,7 @@
         <div class="opname-filter-wrapper">
             <div class="form-group">
                 <label>LOKASI BARANG</label>
-                <select id="lokasi_barang" required>
+                <select id="lokasi_barang">
                     <option value="" disabled {{ !$lokasi ? 'selected' : '' }} hidden>Pilih</option>
                     <option value="Gudang A" {{ $lokasi == 'Gudang A' ? 'selected' : '' }}>Gudang A</option>
                     <option value="Gudang B" {{ $lokasi == 'Gudang B' ? 'selected' : '' }}>Gudang B</option>
@@ -1036,43 +1332,45 @@
             </div>
         </div>
         <div class="content-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="col-no">No</th>
-                        <th class="col-nama">Nama Barang</th>
-                        <th class="col-merek">Merek</th>
-                        <th class="col-satuan">Satuan</th>
-                        <th class="col-stok-sis">Stok Sistem</th>
-                        <th class="col-stok-fis">Stok Fisik</th>
-                        <th class="col-selisih">Selisih</th>
-                        <th class="col-status">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($dataBarang as $barang)
+            <div class="table-scroll-wrapper">
+                <table>
+                    <thead>
                         <tr>
-                            <td style="text-align: center;">
-                                {{ ($dataBarang->currentPage() - 1) * $dataBarang->perPage() + $loop->iteration }}
-                            </td>
-                            <td style="text-align: left;">{{ $barang->nama_barang }}</td>
-                            <td style="text-align: left;">{{ $barang->merek }}</td>
-                            <td style="text-align: center;">{{ $barang->satuan }}</td>
-                            <td style="text-align: center;">{{ $barang->stok_sistem }}</td>
-                            <td style="text-align: center;">—</td>
-                            <td style="text-align: center;">—</td>
-                            <td style="text-align: center;">—</td>
+                            <th class="col-no">No</th>
+                            <th class="col-nama">Nama Barang</th>
+                            <th class="col-merek">Merek</th>
+                            <th class="col-satuan">Satuan</th>
+                            <th class="col-stok-sis">Stok Sistem</th>
+                            <th class="col-stok-fis">Stok Fisik</th>
+                            <th class="col-selisih">Selisih</th>
+                            <th class="col-status">Status</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8"
-                                style="padding: 50px; text-align: center; color: #94A3B8; font-style: italic; font-size: 12px;">
-                                Pilih lokasi untuk menampilkan data barang.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse ($dataBarang as $barang)
+                            <tr>
+                                <td style="text-align: center;">
+                                    {{ ($dataBarang->currentPage() - 1) * $dataBarang->perPage() + $loop->iteration }}
+                                </td>
+                                <td style="text-align: left;">{{ $barang->nama_barang }}</td>
+                                <td style="text-align: left;">{{ $barang->merek }}</td>
+                                <td style="text-align: center;">{{ $barang->satuan }}</td>
+                                <td style="text-align: center;">{{ $barang->stok_sistem }}</td>
+                                <td style="text-align: center;">—</td>
+                                <td style="text-align: center;">—</td>
+                                <td style="text-align: center;">—</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8"
+                                    style="padding: 50px; text-align: center; color: #94A3B8; font-style: italic; font-size: 12px;">
+                                    Pilih lokasi untuk menampilkan data barang.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
             <div class="pagination-wrapper">
                 <div class="pagination-btns">
                     @if ($dataBarang->onFirstPage() || $dataBarang->isEmpty())
@@ -1136,7 +1434,53 @@
 
     <div id="toast-container"></div>
 
+    <input type="file" id="excelFileInput" accept=".xlsx" style="display:none" />
+
     <script>
+        (function() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.getElementById('sidebarToggleBtn');
+            const overlay = document.getElementById('sidebarOverlay');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            function openSidebar() {
+                if (!sidebar || !overlay) return;
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.classList.add('sidebar-open');
+            }
+
+            function closeSidebar() {
+                if (!sidebar || !overlay) return;
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.classList.remove('sidebar-open');
+            }
+
+            function toggleSidebar() {
+                if (!sidebar) return;
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            if (toggle) toggle.addEventListener('click', toggleSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) closeSidebar();
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeSidebar();
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) closeSidebar();
+            });
+        })();
+
         const loadingOverlay = document.getElementById('loading-overlay');
         const lokasiSelect = document.getElementById('lokasi_barang');
         const perPageSelect = document.getElementById('perPageSelect');
@@ -1299,85 +1643,109 @@
                 return;
             }
 
-            try {
-                const [fileHandle] = await window.showOpenFilePicker({
-                    types: [{
-                        description: 'Excel Files',
-                        accept: {
-                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
-                                '.xlsx'
-                            ]
-                        }
-                    }],
-                    multiple: false
-                });
+            function processImportedFile(file) {
+                try {
+                    if (!file || !file.name || !file.name.toLowerCase().endsWith('.xlsx')) {
+                        showErrorToast("Format file tidak valid.");
+                        return;
+                    }
 
-                const file = await fileHandle.getFile();
-                if (!file.name.endsWith('.xlsx')) {
-                    throw new Error("Format file tidak valid.");
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, {
+                            type: 'array'
+                        });
+
+                        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                        const excelRows = XLSX.utils.sheet_to_json(firstSheet);
+                        if (excelRows.length === 0) {
+                            showErrorToast("File Excel kosong.");
+                            return;
+                        }
+
+                        const requiredColumns = ["No", "Nama Barang", "Merek", "Stok Fisik"];
+                        const excelColumns = Object.keys(excelRows[0] || {});
+                        const isFormatValid = requiredColumns.every(col => excelColumns.includes(col));
+                        if (!isFormatValid) {
+                            showErrorToast("Format data tidak sesuai.");
+                            return;
+                        }
+                        if (excelRows.length !== dataBarangLengkap.length) {
+                            showErrorToast("Format data tidak sesuai.");
+                            return;
+                        }
+
+                        let hasilOpname = {};
+                        let isOrderValid = true;
+                        dataBarangLengkap.forEach((barang, index) => {
+                            const excelItem = excelRows[index];
+                            if (
+                                excelItem["No"] != (index + 1) ||
+                                excelItem["Nama Barang"] !== barang.nama_barang ||
+                                excelItem["Merek"] !== barang.merek
+                            ) {
+                                isOrderValid = false;
+                            }
+                            const stokFisik = parseInt(excelItem["Stok Fisik"] || 0);
+                            const stokSistem = parseInt(barang.stok_sistem);
+                            const selisih = stokFisik - stokSistem;
+                            let status = "COCOK";
+                            if (selisih < 0) status = "KURANG";
+                            if (selisih > 0) status = "LEBIH";
+                            hasilOpname[barang.nama_barang] = {
+                                stokFisik: stokFisik,
+                                selisih: selisih,
+                                status: status
+                            };
+                        });
+
+                        if (!isOrderValid) {
+                            showErrorToast("Format data tidak sesuai.");
+                            return;
+                        }
+                        sessionStorage.setItem('dataOpname', JSON.stringify(hasilOpname));
+                        applyOpnameToTable();
+                    };
+                    reader.readAsArrayBuffer(file);
+                } catch (err) {
+                    showErrorToast(err.message || "Terjadi kesalahan saat membaca file.");
+                }
+            }
+
+            try {
+                if ('showOpenFilePicker' in window) {
+                    const [fileHandle] = await window.showOpenFilePicker({
+                        types: [{
+                            description: 'Excel Files',
+                            accept: {
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
+                                    '.xlsx'
+                                ]
+                            }
+                        }],
+                        multiple: false
+                    });
+
+                    const file = await fileHandle.getFile();
+                    processImportedFile(file);
+                    return;
                 }
 
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const data = new Uint8Array(e.target.result);
-                    const workbook = XLSX.read(data, {
-                        type: 'array'
-                    });
+                const fileInput = document.getElementById('excelFileInput');
+                if (!fileInput) {
+                    showErrorToast("Perangkat tidak mendukung import file.");
+                    return;
+                }
 
-                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-                    const excelRows = XLSX.utils.sheet_to_json(firstSheet);
-                    if (excelRows.length === 0) {
-                        showErrorToast("File Excel kosong.");
-                        return;
-                    }
-
-                    const requiredColumns = ["No", "Nama Barang", "Merek", "Stok Fisik"];
-                    const excelColumns = Object.keys(excelRows[0] || {});
-                    const isFormatValid = requiredColumns.every(col => excelColumns.includes(col));
-                    if (!isFormatValid) {
-                        showErrorToast("Format data tidak sesuai.");
-                        return;
-                    }
-                    if (excelRows.length !== dataBarangLengkap.length) {
-                        showErrorToast("Format data tidak sesuai.");
-                        return;
-                    }
-
-                    let hasilOpname = {};
-                    let isOrderValid = true;
-                    dataBarangLengkap.forEach((barang, index) => {
-                        const excelItem = excelRows[index];
-                        if (
-                            excelItem["No"] != (index + 1) ||
-                            excelItem["Nama Barang"] !== barang.nama_barang ||
-                            excelItem["Merek"] !== barang.merek
-                        ) {
-                            isOrderValid = false;
-                        }
-                        const stokFisik = parseInt(excelItem["Stok Fisik"] || 0);
-                        const stokSistem = parseInt(barang.stok_sistem);
-                        const selisih = stokFisik - stokSistem;
-                        let status = "COCOK";
-                        if (selisih < 0) status = "KURANG";
-                        if (selisih > 0) status = "LEBIH";
-                        hasilOpname[barang.nama_barang] = {
-                            stokFisik: stokFisik,
-                            selisih: selisih,
-                            status: status
-                        };
-                    });
-
-                    if (!isOrderValid) {
-                        showErrorToast("Format data tidak sesuai.");
-                        return;
-                    }
-                    sessionStorage.setItem('dataOpname', JSON.stringify(hasilOpname));
-                    applyOpnameToTable();
+                fileInput.value = '';
+                fileInput.onchange = function() {
+                    const selectedFile = this.files && this.files[0] ? this.files[0] : null;
+                    processImportedFile(selectedFile);
                 };
-                reader.readAsArrayBuffer(file);
-
+                fileInput.click();
             } catch (err) {
-                if (err.name !== 'AbortError') {
+                if (err && err.name !== 'AbortError') {
                     showErrorToast(err.message || "Terjadi kesalahan saat membaca file.");
                 }
             }

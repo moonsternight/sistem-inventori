@@ -20,7 +20,7 @@ class LaporanDetailPenjualanController extends Controller
             }
 
             if ($tglMulai && $tglAkhir && $tglMulai > $tglAkhir) {
-                return back();
+                return back()->withInput();
             }
 
             $adaData = Penjualan::whereBetween('tanggal', [$tglMulai, $tglAkhir])->exists();

@@ -23,7 +23,7 @@ class LaporanFakturPembelianController extends Controller
             }
 
             if ($tglMulai > $tglAkhir) {
-                return back();
+                return back()->withInput();
             }
 
             $adaData = DB::table('pembelian')

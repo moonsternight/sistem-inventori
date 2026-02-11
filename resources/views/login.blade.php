@@ -8,13 +8,19 @@
     <link rel="icon" type="image/png" href="{{ asset('images/MekarJaya.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
         html,
         body {
-            overflow: hidden;
-            height: 100%;
+            min-height: 100%;
             width: 100%;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
 
         body {
@@ -23,12 +29,14 @@
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: grid;
+            place-items: center;
             height: 100vh;
+            height: 100svh;
+            height: 100dvh;
+            padding: 0;
             font-family: 'Inter', sans-serif;
-            position: fixed;
+            position: relative;
         }
 
         .login-card {
@@ -37,12 +45,31 @@
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid #FFFFFF;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            padding: 50px 30px;
+            padding: 36px 22px;
             border-radius: 24px;
-            width: 420px;
+            width: 100%;
+            max-width: 420px;
+            margin: 24px 16px;
             text-align: center;
             position: relative;
             z-index: 10;
+        }
+
+        @media (max-width: 1023.98px) {
+            body {
+                padding: 0 !important;
+                overflow-y: hidden !important;
+                overflow-x: hidden !important;
+                background-attachment: scroll;
+            }
+
+            .login-card {
+                margin: 0;
+                width: calc(100vw - 16px);
+                max-width: 420px;
+                justify-self: center;
+                align-self: center;
+            }
         }
 
         .login-card::after {
@@ -90,8 +117,8 @@
             border-bottom: 1px solid #64748b;
             background: transparent;
             text-align: center;
-            font-size: 32px;
-            letter-spacing: 10px;
+            font-size: 28px;
+            letter-spacing: 8px;
             margin-bottom: 20px;
             outline: none;
             color: #1e293b;
@@ -105,7 +132,7 @@
 
         .pin-input::placeholder {
             color: #64748b;
-            letter-spacing: 10px;
+            letter-spacing: 8px;
         }
 
         .btn-masuk {
@@ -245,6 +272,40 @@
 
             100% {
                 opacity: 0;
+            }
+        }
+
+        @media (min-width: 640px) {
+            .login-card {
+                padding: 44px 28px;
+                border-radius: 26px;
+                max-width: 460px;
+                margin: 32px 24px;
+            }
+
+            .pin-input {
+                font-size: 32px;
+                letter-spacing: 10px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .login-card {
+                padding: 50px 30px;
+                max-width: 480px;
+                margin: 40px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .login-card {
+                padding: 28px 18px;
+                border-radius: 20px;
+            }
+
+            .pin-input {
+                font-size: 24px;
+                letter-spacing: 6px;
             }
         }
     </style>

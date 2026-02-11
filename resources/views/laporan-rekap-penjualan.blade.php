@@ -162,6 +162,40 @@
             border: 1.5px solid #94A3B8;
         }
 
+        .sidebar-toggle-btn {
+            display: none;
+            width: 38px;
+            height: 38px;
+            background-color: #F8FAFC;
+            border: 1.5px solid #94A3B8;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            color: #1E293B;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .sidebar-toggle-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.45);
+            display: none;
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
         .header-left {
             display: flex;
             align-items: center;
@@ -284,7 +318,7 @@
             padding: 8px 30px;
             border-radius: 6px;
             border: none;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 800;
             text-transform: uppercase;
             cursor: pointer;
@@ -321,6 +355,212 @@
             gap: 18px;
             align-items: flex-end;
             margin-bottom: 20px;
+        }
+
+        .rekap-table-scroll-wrapper {
+            width: 100%;
+            overflow-x: visible;
+            overflow-y: hidden;
+            margin-bottom: 15px;
+            padding: 0;
+            border-radius: 8px;
+            border: 1.5px solid #E2E8F0;
+            background-color: #FFFFFF;
+            display: block;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        @media (max-width: 1023.98px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
+
+            body.sidebar-open {
+                overflow: hidden;
+            }
+
+            .main-container {
+                overflow-x: clip;
+                width: 100%;
+                max-width: 100%;
+                padding: 20px;
+                overflow-y: visible;
+                box-sizing: border-box;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100dvh;
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+                z-index: 1000;
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle-btn {
+                display: inline-flex;
+            }
+
+            .page-header {
+                padding: 10px 12px;
+                gap: 10px;
+                border-radius: 10px;
+            }
+
+            .header-left {
+                min-width: 0;
+            }
+
+            .rekap-table-scroll-wrapper {
+                overflow-x: auto;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .rekap-table-scroll-wrapper {
+                overflow-x: hidden;
+            }
+        }
+
+        @media (max-width: 639.98px) {
+            .main-container {
+                padding: 20px !important;
+            }
+
+            .page-header {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+
+            .header-left {
+                gap: 10px !important;
+            }
+
+            .page-header h2 {
+                font-size: 16px !important;
+                white-space: nowrap !important;
+            }
+
+            .report-filter-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .report-tab {
+                width: 100%;
+            }
+
+            .date-filter-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px;
+            }
+
+            .btn-tampilkan {
+                width: 100%;
+            }
+
+            .table-container {
+                padding: 15px;
+            }
+
+            .table-header-content {
+                gap: 10px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .btn-delete-all {
+                width: 100%;
+                text-align: center;
+                padding: 4.5px 15px;
+                border-radius: 4px;
+                font-size: 12px !important;
+            }
+
+            #modalHapusSemua .modal-content {
+                width: min(520px, calc(100vw - 40px)) !important;
+                max-width: calc(100vw - 40px) !important;
+                margin-left: 20px;
+                margin-right: 20px;
+                box-sizing: border-box;
+            }
+
+            .pagination-wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
+                gap: 8px;
+            }
+
+            .pagination-wrapper>.pagination-info-right {
+                order: 0 !important;
+                position: static !important;
+                right: auto !important;
+                top: auto !important;
+            }
+
+            .pagination-wrapper>.pagination-btns {
+                order: 1 !important;
+            }
+
+            .pagination-btns {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+                order: 0;
+            }
+
+            .pagination-btns .btn-page {
+                width: 100%;
+                text-align: center;
+            }
+
+            .pagination-info-right {
+                width: 100%;
+                justify-content: center;
+                order: 1;
+            }
+
+            th.col-rekap-tgl,
+            td.col-rekap-tgl {
+                width: 80.38px !important;
+                overflow: visible !important;
+                text-overflow: clip !important;
+                white-space: nowrap !important;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 1023.98px) {
+            .main-container {
+                padding: 20px;
+                overflow-y: auto;
+            }
+
+            th.col-rekap-tgl,
+            td.col-rekap-tgl {
+                width: 80.38px !important;
+                overflow: visible !important;
+                text-overflow: clip !important;
+                white-space: nowrap !important;
+            }
+
+            th.col-rekap-jml,
+            td.col-rekap-jml {
+                width: 189.62px !important;
+            }
         }
 
         .form-group {
@@ -360,7 +600,7 @@
             border: 1.5px solid #64748B !important;
             text-transform: uppercase;
             font-weight: 800;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -379,7 +619,7 @@
         .table-container {
             background-color: #FFFFFF;
             border-radius: 8px;
-            border: 1.5px solid #E2E8F0;
+            border: none;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             padding: 15px;
             overflow-x: hidden !important;
@@ -476,7 +716,7 @@
             background-color: #F8FAFC;
             color: #64748B;
             text-align: left;
-            border-top: 1.5px solid #E2E8F0;
+            border-top: none;
             border-bottom: 1.5px solid #E2E8F0;
             padding: 12px 8px;
             text-transform: uppercase;
@@ -494,7 +734,7 @@
         }
 
         table tbody tr:last-child td {
-            border-bottom: 1.5px solid #E2E8F0;
+            border-bottom: none;
         }
 
         table tbody tr:last-child td:first-child {
@@ -507,12 +747,12 @@
 
         table th:first-child,
         table td:first-child {
-            border-left: 1.5px solid #E2E8F0;
+            border-left: none;
         }
 
         table th:last-child,
         table td:last-child {
-            border-right: 1.5px solid #E2E8F0;
+            border-right: none;
         }
 
         table thead tr th:first-child {
@@ -529,9 +769,10 @@
             padding: 5px 15px;
             border-radius: 4px;
             border: 1.5px solid #94A3B8 !important;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 800;
-            text-transform: uppercase cursor: pointer;
+            text-transform: uppercase;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
@@ -554,7 +795,7 @@
         .pagination-info-right {
             position: absolute;
             right: 0;
-            font-size: 13px;
+            font-size: 12px;
             color: #64748B;
             display: flex;
             align-items: center;
@@ -578,7 +819,7 @@
         .btn-page.disabled {
             background-color: #F1F5F9;
             color: #94A3B8;
-            cursor: not-allowed;
+            cursor: default;
             border: 1.5px solid #E2E8F0;
         }
 
@@ -588,7 +829,7 @@
             padding: 6px 12px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             color: #64748B;
         }
 
@@ -604,11 +845,11 @@
             color: #1E293B;
             outline: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: calc(100% - 3px) center;
             background-size: 8px;
@@ -791,6 +1032,13 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+        }
+
+        @media (max-width: 639.98px) {
+            #toast-container {
+                top: 31px;
+                right: 30px;
+            }
         }
 
         .toast {
@@ -999,6 +1247,14 @@
     <main class="main-container">
         <div class="page-header">
             <div class="header-left">
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" type="button" aria-label="Buka navigasi">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
                 <div class="header-title-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -1053,46 +1309,51 @@
                 <h3>Rekap Penjualan</h3>
                 <button type="button" class="btn-delete-all">Hapus Semua</button>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th class="col-rekap-no">No</th>
-                        <th class="col-rekap-tgl">Tanggal</th>
-                        <th class="col-rekap-jml">Jumlah Transaksi</th>
-                        <th class="col-rekap-total">Total Penjualan</th>
-                        <th class="col-rekap-laba">Total Laba</th>
-                        <th class="col-rekap-aksi">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($dataRekap as $index => $rekap)
+            <div class="rekap-table-scroll-wrapper">
+                <table>
+                    <thead>
                         <tr>
-                            <td class="col-rekap-no">
-                                {{ ($dataRekap->currentPage() - 1) * $dataRekap->perPage() + $loop->iteration }}
-                            </td>
-                            <td class="col-rekap-tgl">{{ \Carbon\Carbon::parse($rekap->tanggal)->format('d/m/Y') }}
-                            </td>
-                            <td class="col-rekap-jml">{{ $rekap->jumlah_transaksi }}</td>
-                            <td class="col-rekap-total">Rp {{ number_format($rekap->total_penjualan, 0, ',', '.') }}
-                            </td>
-                            <td class="col-rekap-laba">Rp {{ number_format($rekap->total_laba, 0, ',', '.') }}</td>
-                            <td class="col-rekap-aksi">
-                                <button type="button" class="btn-view"
-                                    onclick="window.location.href = '{{ route('laporan.penjualan.transaksi', ['tanggal' => $rekap->tanggal]) }}&rekap_page={{ $dataRekap->currentPage() }}'">
-                                    Lihat
-                                </button>
-                            </td>
+                            <th class="col-rekap-no">No</th>
+                            <th class="col-rekap-tgl">Tanggal</th>
+                            <th class="col-rekap-jml">Jumlah Transaksi</th>
+                            <th class="col-rekap-total">Total Penjualan</th>
+                            <th class="col-rekap-laba">Total Laba</th>
+                            <th class="col-rekap-aksi">Aksi</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6"
-                                style="text-align: center; padding: 50px; color: #94a3b8; font-style: italic; font-size: 12px;">
-                                Rekap penjualan masih kosong.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse($dataRekap as $index => $rekap)
+                            <tr>
+                                <td class="col-rekap-no">
+                                    {{ ($dataRekap->currentPage() - 1) * $dataRekap->perPage() + $loop->iteration }}
+                                </td>
+                                <td class="col-rekap-tgl">
+                                    {{ \Carbon\Carbon::parse($rekap->tanggal)->format('d/m/Y') }}
+                                </td>
+                                <td class="col-rekap-jml">{{ $rekap->jumlah_transaksi }}</td>
+                                <td class="col-rekap-total">Rp
+                                    {{ number_format($rekap->total_penjualan, 0, ',', '.') }}
+                                </td>
+                                <td class="col-rekap-laba">Rp {{ number_format($rekap->total_laba, 0, ',', '.') }}
+                                </td>
+                                <td class="col-rekap-aksi">
+                                    <button type="button" class="btn-view"
+                                        onclick="window.location.href = '{{ route('laporan.penjualan.transaksi', ['tanggal' => $rekap->tanggal]) }}&rekap_page={{ $dataRekap->currentPage() }}'">
+                                        Lihat
+                                    </button>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6"
+                                    style="text-align: center; padding: 50px; color: #94a3b8; font-style: italic; font-size: 12px;">
+                                    Rekap penjualan masih kosong.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
 
             <div class="pagination-wrapper">
                 <div class="pagination-btns">
@@ -1136,6 +1397,8 @@
         </div>
     </main>
 
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <div class="modal-overlay" id="modalHapusSemua">
         <div class="modal-content" style="width: 300px; padding: 20px; position: relative;">
             <div style="display: flex; justify-content: center; margin-bottom: 10px;">
@@ -1178,6 +1441,50 @@
     <div id="toast-container"></div>
 
     <script>
+        (function() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.getElementById('sidebarToggleBtn');
+            const overlay = document.getElementById('sidebarOverlay');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            function openSidebar() {
+                if (!sidebar || !overlay) return;
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.classList.add('sidebar-open');
+            }
+
+            function closeSidebar() {
+                if (!sidebar || !overlay) return;
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.classList.remove('sidebar-open');
+            }
+
+            function toggleSidebar() {
+                if (!sidebar) return;
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            if (toggle) toggle.addEventListener('click', toggleSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) closeSidebar();
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeSidebar();
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) closeSidebar();
+            });
+        })();
+
         const loadingOverlay = document.getElementById('loading-overlay');
 
         function triggerLoading(targetUrl) {
@@ -1236,7 +1543,7 @@
             toast.innerHTML = `
             <div class="toast-icon">${icon}</div>
             <div class="toast-content">
-                <span class="toast-single-line"><strong>SUCCESS:</strong> ${message}</span>
+                <span class="toast-single-line"><strong>Success:</strong> ${message}</span>
             </div>
             <div class="toast-timer"></div>
         `;
@@ -1316,18 +1623,21 @@
             btnTriggerHapus.addEventListener('click', function(e) {
                 e.preventDefault();
                 modalHapus.style.display = 'flex';
+                document.body.classList.add('modal-open');
             });
         }
 
         if (btnBatal) {
             btnBatal.addEventListener('click', function() {
                 modalHapus.style.display = 'none';
+                document.body.classList.remove('modal-open');
             });
         }
 
         window.addEventListener('click', function(e) {
             if (e.target == modalHapus) {
                 modalHapus.style.display = 'none';
+                document.body.classList.remove('modal-open');
             }
         });
 

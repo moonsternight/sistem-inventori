@@ -9,6 +9,12 @@
     <link rel="icon" type="image/png" href="{{ asset('images/MekarJaya.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             display: flex;
@@ -16,6 +22,10 @@
             background-color: #F1F5F9;
             font-family: 'Inter', sans-serif;
             color: #1E293B;
+        }
+
+        body.sidebar-open {
+            overflow: hidden;
         }
 
         .sidebar {
@@ -162,6 +172,207 @@
             align-items: center;
             margin-bottom: 20px;
             border: 1.5px solid #94A3B8;
+        }
+
+        .sidebar-toggle-btn {
+            display: none;
+            width: 38px;
+            height: 38px;
+            background-color: #F8FAFC;
+            border: 1.5px solid #94A3B8;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            color: #1E293B;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .sidebar-toggle-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.45);
+            display: none;
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .sales-table-scroll-wrapper {
+            width: 100%;
+            overflow-x: visible;
+            overflow-y: hidden;
+            margin-bottom: 15px;
+            padding: 0;
+            border-radius: 8px;
+            border: 1.5px solid #E2E8F0;
+            background-color: #FFFFFF;
+            display: block;
+        }
+
+        @media (max-width: 1023.98px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow-x: clip;
+            }
+
+            .main-container {
+                overflow-x: clip;
+                width: 100%;
+                max-width: 100%;
+                padding: 12px;
+                overflow-y: clip;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100dvh;
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+                z-index: 1000;
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle-btn {
+                display: inline-flex;
+            }
+
+            .page-header {
+                padding: 10px 12px;
+                gap: 10px;
+                border-radius: 10px;
+            }
+
+            .header-left {
+                min-width: 0;
+            }
+
+            .sales-container {
+                padding: 12px;
+            }
+
+            .transaction-header-grid,
+            .item-input-grid,
+            .confirmation-box {
+                gap: 12px;
+                padding: 12px;
+            }
+
+            .sales-table-scroll-wrapper {
+                overflow-x: auto;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .sales-table-scroll-wrapper {
+                overflow-x: hidden;
+            }
+        }
+
+        @media (max-width: 639.98px) {
+            .main-container {
+                padding: 20px !important;
+            }
+
+            .sales-container h3 {
+                font-size: 16px !important;
+            }
+
+            .page-header {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+
+            .header-left {
+                gap: 10px !important;
+            }
+
+            .page-header h2 {
+                font-size: 16px !important;
+                white-space: nowrap !important;
+            }
+
+            .transaction-header-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .item-input-grid {
+                grid-template-columns: 1fr !important;
+                align-items: stretch;
+            }
+
+            .btn-add-item {
+                width: 100%;
+            }
+
+            .sales-table-container {
+                overflow: hidden;
+            }
+
+            .sales-table {
+                min-width: 1000px;
+            }
+
+            .confirmation-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .confirmation-wrapper {
+                justify-content: stretch;
+            }
+
+            .confirmation-box {
+                width: 100%;
+            }
+
+            .confirmation-box .form-group {
+                width: 100% !important;
+            }
+
+            .btn-finish {
+                width: 100%;
+                padding: 0 20px;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 1023.98px) {
+            .main-container {
+                padding: 20px;
+                overflow-y: auto;
+            }
+
+            .transaction-header-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+
+            .item-input-grid {
+                grid-template-columns: 1.4fr 1.4fr 0.5fr 0.8fr 0.8fr auto;
+                gap: 12px;
+            }
+
+            .confirmation-box {
+                flex-direction: row;
+                align-items: flex-end;
+            }
         }
 
         .header-left {
@@ -347,7 +558,7 @@
         #no_transaksi {
             text-align: left;
             background-color: #F1F5F9;
-            cursor: not-allowed;
+            cursor: default;
         }
 
         #metode_pembayaran {
@@ -363,7 +574,7 @@
 
         .input-readonly {
             background-color: #F1F5F9;
-            cursor: not-allowed;
+            cursor: default;
         }
 
         .form-group input:focus,
@@ -433,7 +644,7 @@
 
         #subtotal_input {
             background-color: #F1F5F9;
-            cursor: not-allowed;
+            cursor: default;
         }
 
         .btn-add-item {
@@ -462,7 +673,6 @@
             margin-top: 15px;
             background-color: #FFFFFF;
             border-radius: 8px;
-            border: 1.5px solid #E2E8F0;
             overflow: hidden;
         }
 
@@ -486,6 +696,10 @@
             font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
+        }
+
+        .sales-table tbody tr:last-child td {
+            border-bottom: none !important;
         }
 
         .col-no {
@@ -597,7 +811,6 @@
         .confirmation-wrapper {
             display: flex;
             justify-content: flex-end;
-            margin-top: 15px;
         }
 
         .confirmation-box {
@@ -619,7 +832,7 @@
             border: 1.5px solid #64748B !important;
             text-transform: uppercase;
             font-weight: 800;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -634,7 +847,7 @@
         #total_pembayaran {
             text-align: left;
             background-color: #F8FAFC;
-            cursor: not-allowed;
+            cursor: default;
             border-radius: 6px;
         }
 
@@ -748,6 +961,13 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+        }
+
+        @media (max-width: 639.98px) {
+            #toast-container {
+                top: 31px;
+                right: 30px;
+            }
         }
 
         .toast {
@@ -914,6 +1134,7 @@
 </head>
 
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <aside class="sidebar">
         <div class="header-sidebar">
             <div class="logo-box">
@@ -1003,6 +1224,14 @@
     <main class="main-container">
         <div class="page-header">
             <div class="header-left">
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" type="button" aria-label="Buka navigasi">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
                 <div class="header-title-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -1074,8 +1303,8 @@
                 </div>
                 <div class="form-group">
                     <label style="color: #0F172A; font-weight: 800; font-size: 11px;">HARGA</label>
-                    <input type="text" class="input-harga" inputmode="numeric" pattern="[0-9]*"
-                        autocomplete="off" spellcheck="false">
+                    <input type="text" class="input-harga" inputmode="numeric" autocomplete="off"
+                        spellcheck="false">
                 </div>
                 <div class="form-group">
                     <label style="color: #0F172A; font-weight: 800; font-size: 11px;">SUBTOTAL</label>
@@ -1084,24 +1313,26 @@
                 <button type="button" class="btn-add-item">Tambah</button>
             </div>
             <div class="sales-table-container">
-                <table class="sales-table">
-                    <thead>
-                        <tr>
-                            <th class="col-no">No</th>
-                            <th class="col-nama">Nama Barang</th>
-                            <th class="col-merek">Merek</th>
-                            <th class="col-jumlah">Jumlah</th>
-                            <th class="col-harga">Harga</th>
-                            <th class="col-subtotal">Subtotal</th>
-                            <th class="col-aksi">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="sales-items-body">
-                        <tr class="placeholder-row">
-                            <td colspan="7" class="placeholder-text">Keranjang masih kosong.</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="sales-table-scroll-wrapper">
+                    <table class="sales-table">
+                        <thead>
+                            <tr>
+                                <th class="col-no">No</th>
+                                <th class="col-nama">Nama Barang</th>
+                                <th class="col-merek">Merek</th>
+                                <th class="col-jumlah">Jumlah</th>
+                                <th class="col-harga">Harga</th>
+                                <th class="col-subtotal">Subtotal</th>
+                                <th class="col-aksi">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sales-items-body">
+                            <tr class="placeholder-row">
+                                <td colspan="7" class="placeholder-text">Keranjang masih kosong.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="confirmation-wrapper">
                 <div class="confirmation-box">
@@ -1137,6 +1368,50 @@
     <div id="toast-container"></div>
 
     <script>
+        (function() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.getElementById('sidebarToggleBtn');
+            const overlay = document.getElementById('sidebarOverlay');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            function openSidebar() {
+                if (!sidebar || !overlay) return;
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.classList.add('sidebar-open');
+            }
+
+            function closeSidebar() {
+                if (!sidebar || !overlay) return;
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.classList.remove('sidebar-open');
+            }
+
+            function toggleSidebar() {
+                if (!sidebar) return;
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            if (toggle) toggle.addEventListener('click', toggleSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) closeSidebar();
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeSidebar();
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) closeSidebar();
+            });
+        })();
+
         const loadingOverlay = document.getElementById('loading-overlay');
         const daftarBarang = @json($barang);
         const inputBarang = document.querySelector('.input-barang');
@@ -1427,7 +1702,7 @@
             const inputTotal = document.getElementById('total_pembayaran');
             if (inputTotal) {
                 inputTotal.value = formatRupiahVisual(total) || "Rp 0";
-                inputTotal.style.cursor = 'not-allowed';
+                inputTotal.style.cursor = 'default';
                 inputTotal.style.backgroundColor = '#F8FAFC';
                 inputTotal.readOnly = true;
             }

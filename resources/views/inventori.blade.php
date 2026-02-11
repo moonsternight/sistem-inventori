@@ -8,6 +8,12 @@
     <link rel="icon" type="image/png" href="{{ asset('images/MekarJaya.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             display: flex;
@@ -15,6 +21,17 @@
             background-color: #F1F5F9;
             font-family: 'Inter', sans-serif;
             color: #1E293B;
+        }
+
+        body.sidebar-open {
+            overflow: hidden;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
         }
 
         .sidebar {
@@ -52,6 +69,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         .title-box {
@@ -160,6 +178,325 @@
             align-items: center;
             margin-bottom: 20px;
             border: 1.5px solid #94A3B8;
+        }
+
+        .sidebar-toggle-btn {
+            display: none;
+            width: 38px;
+            height: 38px;
+            background-color: #F8FAFC;
+            border: 1.5px solid #94A3B8;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            color: #1E293B;
+            cursor: pointer;
+        }
+
+        .sidebar-toggle-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.45);
+            display: none;
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 1023.98px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow-x: clip;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100dvh;
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+                z-index: 1000;
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-container {
+                padding: 12px;
+                overflow-y: visible;
+                overflow-x: clip;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .summary-grid,
+            .filter-wrapper,
+            .table-container {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .page-header,
+            .summary-grid,
+            .filter-wrapper,
+            .table-container {
+                width: 100%;
+            }
+
+            .table-scroll-wrapper {
+                max-width: 100%;
+            }
+
+            .table-scroll-wrapper table {
+                max-width: none;
+            }
+
+            .page-header,
+            .summary-grid,
+            .filter-wrapper,
+            .table-container {
+                max-width: 100%;
+            }
+
+            .page-header,
+            .summary-grid,
+            .filter-wrapper,
+            .table-container {
+                margin-right: 0;
+                margin-left: 0;
+            }
+
+            .page-header {
+                padding: 10px 12px;
+                gap: 10px;
+                border-radius: 10px;
+            }
+
+            .header-left {
+                gap: 10px;
+                min-width: 0;
+            }
+
+            .sidebar-toggle-btn {
+                display: inline-flex;
+                flex-shrink: 0;
+            }
+
+            .page-header h2 {
+                font-size: 16px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .card {
+                padding: 14px;
+            }
+
+            .card-info h3 {
+                font-size: 16px;
+            }
+
+            .filter-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-input,
+            .filter-select {
+                width: 100%;
+            }
+
+            .table-container {
+                padding: 12px;
+            }
+
+            .table-header-content {
+                gap: 10px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .btn-add {
+                width: 100%;
+                text-align: center;
+                padding: 10px 12px;
+                border-radius: 8px;
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 1023.98px) {
+            .main-container {
+                padding: 20px;
+                overflow-y: auto;
+            }
+
+            .summary-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+            }
+
+            .card-info h3 {
+                font-size: 16px;
+                white-space: normal;
+                overflow: visible;
+            }
+
+            .card {
+                overflow: visible;
+            }
+
+            .filter-wrapper {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 12px;
+            }
+
+            .table-container {
+                padding-bottom: 12px;
+            }
+
+            .modal-overlay {
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            .table-header-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .btn-add {
+                width: auto;
+                text-align: center;
+                padding: 4.5px 15px;
+                border-radius: 4px;
+                font-size: 10px !important;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .table-scroll-wrapper {
+                overflow-x: hidden;
+            }
+        }
+
+        @media (max-width: 639.98px) {
+            .main-container {
+                padding: 20px !important;
+            }
+
+            .page-header {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+
+            .header-left {
+                gap: 10px !important;
+            }
+
+            .page-header h2 {
+                font-size: 16px !important;
+                white-space: nowrap !important;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr !important;
+                gap: 10px;
+            }
+
+            .card {
+                padding: 14px;
+            }
+
+            .card-info h3 {
+                white-space: normal;
+            }
+
+            .filter-wrapper {
+                grid-template-columns: 1fr !important;
+                gap: 10px;
+            }
+
+            .filter-input,
+            .filter-select {
+                width: 100%;
+            }
+
+            .modal-overlay {
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            .modal-content {
+                width: 100%;
+                max-width: min(320px, calc(100vw - 40px));
+                margin-left: auto;
+                margin-right: auto;
+                box-sizing: border-box;
+            }
+
+            .btn-add {
+                width: 100%;
+                text-align: center;
+                padding: 10px 12px;
+                border-radius: 8px;
+                font-size: 12px !important;
+            }
+
+            .pagination-wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
+                gap: 8px;
+            }
+
+            .pagination-wrapper>.pagination-info-right {
+                order: 0 !important;
+                position: static !important;
+                right: auto !important;
+                top: auto !important;
+            }
+
+            .pagination-wrapper>.pagination-btns {
+                order: 1 !important;
+            }
+
+            .pagination-btns {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+                order: 0;
+            }
+
+            .pagination-btns .btn-page {
+                width: 100%;
+                text-align: center;
+            }
+
+            .pagination-info-right {
+                width: 100%;
+                justify-content: center;
+                order: 1;
+            }
         }
 
         .header-left {
@@ -380,6 +717,7 @@
             outline: none;
             box-sizing: border-box;
             opacity: 1;
+            display: block;
         }
 
         .filter-input {
@@ -492,8 +830,8 @@
             padding: 4.5px 15px;
             border-radius: 4px;
             text-decoration: none;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 10px;
+            font-weight: 800;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -522,6 +860,9 @@
             background-repeat: no-repeat;
             background-position: right 12px center;
             background-size: 12px;
+            padding-right: 34px;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .form-control-select.placeholder-style {
@@ -571,7 +912,7 @@
         }
 
         table tbody tr:last-child td {
-            border-bottom: 1.5px solid #E2E8F0;
+            border-bottom: none;
         }
 
         table th:first-child,
@@ -625,8 +966,8 @@
 
         table th:nth-child(5),
         table td:nth-child(5) {
-            width: 65px;
-            min-width: 65px;
+            width: 70px;
+            min-width: 70px;
         }
 
         table th:nth-child(6),
@@ -758,7 +1099,7 @@
         .pagination-info-right {
             position: absolute;
             right: 0;
-            font-size: 13px;
+            font-size: 12px;
             color: #64748B;
             display: flex;
             align-items: center;
@@ -785,7 +1126,7 @@
             padding: 6px 12px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             color: #64748B;
         }
 
@@ -812,15 +1153,15 @@
             border-color: #FDE68A;
         }
 
-        .btn-delete {
-            background-color: #F8FAFC;
-            color: #64748B;
-        }
-
         .btn-delete:hover {
             background-color: #FEF2F2;
             color: #EF4444;
-            border-color: #FECACA;
+            border-color: #F87171;
+        }
+
+        .btn-delete {
+            background-color: #F8FAFC;
+            color: #64748B;
         }
 
         #btnKonfirmasiHapus {
@@ -837,17 +1178,27 @@
             color: #1E293B;
             outline: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: calc(100% - 3px) center;
             background-size: 8px;
         }
 
         table th:nth-child(1),
+        table td:nth-child(1),
+        table th:nth-child(6),
+        table td:nth-child(6),
+        table th:nth-child(7),
+        table td:nth-child(7),
+        table th:nth-child(8),
+        table td:nth-child(8) {
+            text-align: center;
+        }
+
         table td:nth-child(1),
         table th:nth-child(6),
         table td:nth-child(6),
@@ -984,7 +1335,7 @@
             color: #475569;
             padding: 5px 20px;
             border-radius: 4px;
-            font-weight: 600;
+            font-weight: 800;
             cursor: pointer;
             font-size: 12px;
             border: 1.5px solid #CBD5E1;
@@ -995,7 +1346,7 @@
             color: #FFFFFF;
             padding: 5px 20px;
             border-radius: 4px;
-            font-weight: 600;
+            font-weight: 800;
             cursor: pointer;
             font-size: 12px;
             border: 1.5px solid #0f172a;
@@ -1004,7 +1355,7 @@
         .btn-page.disabled {
             background-color: #F1F5F9;
             color: #94A3B8;
-            cursor: not-allowed;
+            cursor: default;
             border: 1.5px solid #E2E8F0;
         }
 
@@ -1123,6 +1474,13 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+        }
+
+        @media (max-width: 639.98px) {
+            #toast-container {
+                top: 31px;
+                right: 30px;
+            }
         }
 
         .toast {
@@ -1254,6 +1612,7 @@
 </head>
 
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <aside class="sidebar">
         <div class="header-sidebar">
             <div class="logo-box">
@@ -1343,6 +1702,14 @@
     <main class="main-container">
         <div class="page-header">
             <div class="header-left">
+                <button type="button" class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Buka menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
                 <div class="header-title-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -1477,7 +1844,7 @@
         <div class="table-container">
             <div class="table-header-content">
                 <h3>Daftar Barang</h3>
-                <button class="btn-add">Tambah Barang</button>
+                <button class="btn-add">TAMBAH BARANG</button>
             </div>
             <div class="table-scroll-wrapper">
                 <table>
@@ -1532,16 +1899,14 @@
                                         data-tanggal="{{ $item->tanggal_masuk }}" data-satuan="{{ $item->satuan }}"
                                         data-stok="{{ $item->stok_sistem }}" data-minstok="{{ $item->min_stok }}"
                                         data-hargabeli="{{ $item->harga_beli }}"
-                                        data-hargajual="{{ $item->harga_jual }}" data-lokasi="{{ $item->lokasi }}"
-                                        title="Edit">
+                                        data-hargajual="{{ $item->harga_jual }}" data-lokasi="{{ $item->lokasi }}">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round">
                                             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
                                         </svg>
                                     </button>
-                                    <button class="btn-action btn-delete" data-id="{{ $item->id_barang }}"
-                                        title="Hapus">
+                                    <button class="btn-action btn-delete" data-id="{{ $item->id_barang }}">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -1698,13 +2063,13 @@
                             <div class="form-group">
                                 <label>Tanggal Masuk</label>
                                 <input type="date" name="tanggal_masuk" id="tambahTanggal" readonly
-                                    style="background-color: #ffffff; cursor: not-allowed; border: 1px solid #CBD5E1; color: #0F172A;">
+                                    style="background-color: #ffffff; cursor: default; border: 1px solid #CBD5E1; color: #0F172A;">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-cancel" id="btnBatal">Batal</button>
-                        <button type="submit" class="btn-save">Simpan</button>
+                        <button type="button" class="btn-cancel" id="btnBatal">BATAL</button>
+                        <button type="submit" class="btn-save">SIMPAN</button>
                     </div>
                 </form>
             </div>
@@ -1804,19 +2169,19 @@
                             <div class="form-group">
                                 <label>Tanggal Masuk</label>
                                 <input type="date" id="editTanggal" readonly
-                                    style="background-color: #ffffff; cursor: not-allowed; border: 1px solid #CBD5E1; color: #0F172A;">
+                                    style="background-color: #ffffff; cursor: default; border: 1px solid #CBD5E1; color: #0F172A;">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-cancel" id="btnBatalEdit">Batal</button>
-                        <button type="submit" class="btn-save">Simpan</button>
+                        <button type="button" class="btn-cancel" id="btnBatalEdit">BATAL</button>
+                        <button type="submit" class="btn-save">SIMPAN</button>
                     </div>
                 </form>
             </div>
         </div>
         <div class="modal-overlay" id="modalHapus">
-            <div class="modal-content" style="width: 300px; padding: 20px; position: relative;">
+            <div class="modal-content" style="position: relative;">
                 <div style="display: flex; justify-content: center; margin-bottom: 10px;">
                     <div
                         style="background-color: #FEF2F2; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid #EF4444;">
@@ -1877,6 +2242,50 @@
     <div id="toast-container"></div>
 
     <script>
+        (function() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.getElementById('sidebarToggle');
+            const overlay = document.getElementById('sidebarOverlay');
+            const navLinks = sidebar ? sidebar.querySelectorAll('.nav-link') : [];
+
+            function openSidebar() {
+                if (!sidebar) return;
+                sidebar.classList.add('open');
+                if (overlay) overlay.classList.add('active');
+                document.body.classList.add('sidebar-open');
+            }
+
+            function closeSidebar() {
+                if (!sidebar) return;
+                sidebar.classList.remove('open');
+                if (overlay) overlay.classList.remove('active');
+                document.body.classList.remove('sidebar-open');
+            }
+
+            function toggleSidebar() {
+                if (!sidebar) return;
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            if (toggle) toggle.addEventListener('click', toggleSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) closeSidebar();
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeSidebar();
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) closeSidebar();
+            });
+        })();
+
         const modal = document.getElementById('modalTambah');
         const modalEdit = document.getElementById('modalEdit');
         const formEdit = document.getElementById('formEditBarang');
@@ -1887,6 +2296,23 @@
         const btnBatal = document.getElementById('btnBatal');
         const loadingOverlay = document.getElementById('loading-overlay');
         let formTambah;
+
+        function lockBodyScroll() {
+            if (document.body.classList.contains('modal-open')) return;
+            const scrollY = window.scrollY || window.pageYOffset || 0;
+            document.body.dataset.scrollY = String(scrollY);
+            document.body.style.top = `-${scrollY}px`;
+            document.body.classList.add('modal-open');
+        }
+
+        function unlockBodyScroll() {
+            if (!document.body.classList.contains('modal-open')) return;
+            const scrollY = parseInt(document.body.dataset.scrollY || '0', 10) || 0;
+            document.body.classList.remove('modal-open');
+            document.body.style.top = '';
+            delete document.body.dataset.scrollY;
+            window.scrollTo(0, scrollY);
+        }
 
         function resetDanTutupModalEdit() {
             clearValidationStyles(formEdit);
@@ -1902,6 +2328,7 @@
             if (modalEdit) {
                 modalEdit.style.display = 'none';
             }
+            unlockBodyScroll();
         }
 
         function formatRupiah(angka, prefix) {
@@ -1996,6 +2423,7 @@
                         dateInput.dispatchEvent(new Event('change'));
                     }
                     modal.style.display = 'flex';
+                    lockBodyScroll();
                 });
             }
 
@@ -2004,6 +2432,7 @@
                     if (formTambah) formTambah.reset();
                     clearValidationStyles(formTambah);
                     modal.style.display = 'none';
+                    unlockBodyScroll();
                 });
             }
 
@@ -2095,6 +2524,7 @@
                     document.getElementById('editHargaJual').value = this.dataset.hargajual;
 
                     modalEdit.style.display = 'flex';
+                    lockBodyScroll();
                 });
             });
 
@@ -2104,6 +2534,7 @@
                     if (idBarang) {
                         formHapus.action = `/inventori/hapus/${idBarang}`;
                         modalHapus.style.display = 'flex';
+                        lockBodyScroll();
                     }
                 });
             });
@@ -2119,6 +2550,7 @@
             if (btnTidakHapus) {
                 btnTidakHapus.addEventListener('click', () => {
                     modalHapus.style.display = 'none';
+                    unlockBodyScroll();
                 });
             }
 
@@ -2230,12 +2662,14 @@
                     clearValidationStyles(formTambahElemen);
                 }
                 modal.style.display = 'none';
+                unlockBodyScroll();
             }
             if (e.target == modalEdit) {
                 resetDanTutupModalEdit();
             }
             if (e.target == modalHapus) {
                 modalHapus.style.display = 'none';
+                unlockBodyScroll();
             }
         });
 

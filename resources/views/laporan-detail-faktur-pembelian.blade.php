@@ -153,7 +153,7 @@
 
         .page-header {
             background-color: #CBD5E1;
-            padding: 10px 20px;
+            padding: 10px 20px 10px 5px;
             border-radius: 8px;
             display: flex;
             justify-content: space-between;
@@ -284,7 +284,7 @@
             padding: 8px 30px;
             border-radius: 6px;
             border: none;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 800;
             text-transform: uppercase;
             cursor: pointer;
@@ -360,7 +360,7 @@
             border: 1.5px solid #64748B !important;
             text-transform: uppercase;
             font-weight: 800;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -565,6 +565,18 @@
             border-top-right-radius: 8px;
         }
 
+        .detail-table-scroll-wrapper {
+            width: 100%;
+            overflow-x: visible;
+            overflow-y: hidden;
+            margin-bottom: 15px;
+            padding: 0;
+            border-radius: 8px;
+            border: 1.5px solid #E2E8F0;
+            background-color: #FFFFFF;
+            display: block;
+        }
+
         #loading-overlay {
             position: fixed;
             top: 0;
@@ -671,10 +683,196 @@
             position: fixed;
             top: 31px;
             right: 37px;
-            z-index 10000;
+            z-index: 10000;
             display: flex;
             flex-direction: column;
             gap: 10px;
+        }
+
+        @media (max-width: 639.98px) {
+            #toast-container {
+                top: 31px;
+                right: 30px;
+            }
+        }
+
+        @media (max-width: 1023.98px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
+
+            body.sidebar-open {
+                overflow: hidden;
+            }
+
+            .main-container {
+                overflow-x: clip;
+                width: 100%;
+                max-width: 100%;
+                padding: 20px;
+                overflow-y: visible;
+                box-sizing: border-box;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100dvh;
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+                z-index: 1000;
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle-btn {
+                width: 38px;
+                height: 38px;
+                background-color: #F8FAFC;
+                border: 1.5px solid #94A3B8;
+                border-radius: 8px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                flex-shrink: 0;
+                color: #1E293B;
+            }
+
+            body.sidebar-open .sidebar-toggle-btn {
+                display: none;
+            }
+
+            .sidebar-toggle-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(15, 23, 42, 0.45);
+                display: none;
+                z-index: 999;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .page-header {
+                padding: 10px 12px;
+                gap: 10px;
+                border-radius: 10px;
+            }
+
+            .header-left {
+                min-width: 0;
+                gap: 15px;
+            }
+
+            .detail-table-scroll-wrapper {
+                overflow-x: auto;
+            }
+
+            .detail-table-scroll-wrapper table thead th {
+                border-top: none;
+            }
+
+            .detail-table-scroll-wrapper table tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+            .detail-table-scroll-wrapper table th:first-child,
+            .detail-table-scroll-wrapper table td:first-child {
+                border-left: none;
+            }
+
+            .detail-table-scroll-wrapper table th:last-child,
+            .detail-table-scroll-wrapper table td:last-child {
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .detail-table-scroll-wrapper {
+                overflow-x: hidden;
+                border: none;
+                background-color: transparent;
+                border-radius: 0;
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 639.98px) {
+            .page-header h2 {
+                font-size: 16px !important;
+                white-space: nowrap !important;
+            }
+
+            .report-filter-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .report-tab {
+                width: 100%;
+            }
+
+            .header-left {
+                gap: 10px !important;
+            }
+
+            .date-filter-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px;
+            }
+
+            .btn-tampilkan {
+                width: 100%;
+            }
+
+            .table-container {
+                padding: 15px;
+            }
+
+            .total-payment-row {
+                justify-content: stretch !important;
+            }
+
+            .total-payment-box {
+                width: 100% !important;
+                min-width: 0 !important;
+                box-sizing: border-box;
+            }
+
+            .info-label {
+                margin: 0;
+                font-size: 12px;
+                font-weight: 800;
+                color: #475569;
+            }
+
+            .info-capsule {
+                margin: 0;
+                background-color: #F1F5F9;
+                color: #1E293B;
+                padding: 2px 15px;
+                border-radius: 4px;
+                border: 1.5px solid #E2E8F0;
+                font-size: 8px;
+                font-weight: 800;
+                display: inline-block;
+            }
         }
 
         .toast {
@@ -856,6 +1054,14 @@
     <main class="main-container">
         <div class="page-header">
             <div class="header-left">
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" type="button" aria-label="Buka navigasi">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
                 <div class="header-title-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -934,7 +1140,7 @@
                     </div>
                 </div>
                 <a href="{{ route('laporan.pembelian.faktur', ['tanggal' => $pembelian->tanggal]) }}"
-                    class="btn-back" id="btnBackToFaktur" title="Kembali">
+                    class="btn-back" id="btnBackToFaktur">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
                         stroke-linecap="round" stroke-linejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -942,32 +1148,35 @@
                     </svg>
                 </a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th class="col-faktur-no">No</th>
-                        <th class="col-faktur-nama">Nama Barang</th>
-                        <th class="col-faktur-merek">Merek</th>
-                        <th class="col-faktur-jumlah">Jumlah</th>
-                        <th class="col-faktur-harga">Harga</th>
-                        <th class="col-faktur-subtotal">Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($detailBarang as $item)
+            <div class="detail-table-scroll-wrapper">
+                <table>
+                    <thead>
                         <tr>
-                            <td class="col-faktur-no">{{ $loop->iteration }}</td>
-                            <td class="col-faktur-nama">{{ $item->nama_barang }}</td>
-                            <td class="col-faktur-merek">{{ $item->merek }}</td>
-                            <td class="col-faktur-jumlah">{{ $item->jumlah }}</td>
-                            <td class="col-faktur-harga">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                            <td class="col-faktur-subtotal">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
+                            <th class="col-faktur-no">No</th>
+                            <th class="col-faktur-nama">Nama Barang</th>
+                            <th class="col-faktur-merek">Merek</th>
+                            <th class="col-faktur-jumlah">Jumlah</th>
+                            <th class="col-faktur-harga">Harga</th>
+                            <th class="col-faktur-subtotal">Subtotal</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div style="margin-top: 15px; display: flex; justify-content: flex-end;">
-                <div
+                    </thead>
+                    <tbody>
+                        @foreach ($detailBarang as $item)
+                            <tr>
+                                <td class="col-faktur-no">{{ $loop->iteration }}</td>
+                                <td class="col-faktur-nama">{{ $item->nama_barang }}</td>
+                                <td class="col-faktur-merek">{{ $item->merek }}</td>
+                                <td class="col-faktur-jumlah">{{ $item->jumlah }}</td>
+                                <td class="col-faktur-harga">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+                                <td class="col-faktur-subtotal">Rp {{ number_format($item->subtotal, 0, ',', '.') }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-payment-row" style="margin-top: 15px; display: flex; justify-content: flex-end;">
+                <div class="total-payment-box"
                     style="background: #F8FAFC; border: 1.5px solid #E2E8F0; padding: 15px; border-radius: 8px; min-width: 200px;">
                     <p style="font-size: 12px; font-weight: 800; color: #64748B; text-transform: uppercase;">
                         Total Pembayaran
@@ -995,6 +1204,8 @@
             </div>
         </div>
     </main>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <script>
         const loadingOverlay = document.getElementById('loading-overlay');
@@ -1054,13 +1265,14 @@
                     return;
                 }
 
+                if (valMulai > valAkhir) {
+                    return;
+                }
+
                 const url = new URL("{{ route('laporan.rekap.pembelian') }}", window.location.origin);
                 url.searchParams.set('tgl_mulai', valMulai);
                 url.searchParams.set('tgl_akhir', valAkhir);
                 url.searchParams.set('page', 1);
-
-                tglMulaiInput.value = "";
-                tglAkhirInput.value = "";
 
                 window.location.href = url.href;
             });
@@ -1080,6 +1292,50 @@
         if (btnBack) {
             btnBack.addEventListener('click', function(e) {});
         }
+
+        (function() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.getElementById('sidebarToggleBtn');
+            const overlay = document.getElementById('sidebarOverlay');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            function openSidebar() {
+                if (!sidebar || !overlay) return;
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+                document.body.classList.add('sidebar-open');
+            }
+
+            function closeSidebar() {
+                if (!sidebar || !overlay) return;
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.classList.remove('sidebar-open');
+            }
+
+            function toggleSidebar() {
+                if (!sidebar) return;
+                if (sidebar.classList.contains('open')) closeSidebar();
+                else openSidebar();
+            }
+
+            if (toggle) toggle.addEventListener('click', toggleSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) closeSidebar();
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeSidebar();
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) closeSidebar();
+            });
+        })();
     </script>
 </body>
 
