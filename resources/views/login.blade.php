@@ -173,6 +173,11 @@
             color: #475569;
         }
 
+        input::-ms-reveal,
+        input::-ms-clear {
+            display: none;
+        }
+
         #loading-overlay {
             position: fixed;
             top: 0;
