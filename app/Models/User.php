@@ -10,10 +10,12 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'pemilik';
+    protected $primaryKey = 'id_pemilik';
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nama',
+        'pin_hash',
     ];
 
     protected $hidden = [

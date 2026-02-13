@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pembelian', function (Blueprint $table) {
-            $table->id('id_pembelian'); // Primary Key kustom
+            $table->id('id_pembelian');
             $table->string('no_faktur');
             $table->string('pemasok');
             $table->date('tanggal');
             $table->string('metode_pembayaran');
-            $table->decimal('total', 15, 0); // Konsisten tanpa desimal sesuai keinginan Anda
+            $table->decimal('total', 15, 0);
             $table->timestamps();
         });
     }
@@ -27,7 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // PERBAIKAN: Ubah 'pembelians' menjadi 'pembelian'
         Schema::dropIfExists('pembelian');
     }
 };

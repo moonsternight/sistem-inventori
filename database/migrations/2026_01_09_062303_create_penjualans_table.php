@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id('id_penjualan');
-            $table->string('no_transaksi')->unique(); // Contoh: TRANS-20260109-001
-            $table->date('tanggal'); // Tanggal transaksi hari ini
-            $table->string('metode_pembayaran'); // Tunai atau Transfer BCA
-            $table->decimal('total', 15, 0); // Total akhir yang harus dibayar
+            $table->string('no_transaksi')->unique();
+            $table->date('tanggal');
+            $table->string('metode_pembayaran');
+            $table->decimal('total', 15, 0);
             $table->timestamps();
         });
     }
