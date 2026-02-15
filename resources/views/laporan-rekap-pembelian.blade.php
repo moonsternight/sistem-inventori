@@ -1410,7 +1410,7 @@
                     KOSONGKAN REKAP
                 </h3>
                 <p style="font-size: 14px; color: #64748B; margin-bottom: 20px; line-height: 1.5;">
-                    Anda yakin ingin menghapus <strong>seluruh data rekap pembelian</strong>?
+                    Anda yakin ingin menghapus <strong>seluruh data laporan pembelian</strong>?
                 </p>
                 <form action="{{ route('laporan.rekap.pembelian.hapus-semua') }}" method="POST"
                     id="formHapusSemua">

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Penjualan;
 use App\Models\DetailPenjualan;
-use Illuminate\Support\Facades\DB;
 
 class LaporanDetailPenjualanController extends Controller
 {
