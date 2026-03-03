@@ -269,6 +269,7 @@
             line-height: 1.2;
         }
 
+
         .report-filter-wrapper {
             background-color: #CBD5E1;
             padding: 10px 18px;
@@ -382,7 +383,7 @@
             border: 1.5px solid #E2E8F0;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             padding: 15px;
-            overflow-x: hidden !important;
+            overflow-x: visible !important;
             width: auto;
             box-sizing: border-box;
         }
@@ -413,27 +414,32 @@
         }
 
         .col-det-merek {
-            width: 80px;
-            text-align: left;
-        }
-
-        .col-det-jumlah {
-            width: 175px;
-            text-align: center;
-        }
-
-        .col-det-harga {
             width: 100px;
             text-align: left;
         }
 
+        .col-det-jumlah {
+            width: 90px;
+            text-align: center;
+        }
+
+        .col-det-harga {
+            width: 110px;
+            text-align: left;
+        }
+
         .col-det-subtotal {
-            width: 115px;
+            width: 110px;
             text-align: left;
         }
 
         .col-det-profit {
-            width: 125px;
+            width: 110px;
+            text-align: left;
+        }
+
+        .col-det-aksi {
+            width: 170px;
             text-align: left;
         }
 
@@ -453,6 +459,393 @@
         .transaction-info {
             display: flex;
             flex-direction: column;
+        }
+
+        .detail-actions-row {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0 0 15px 0;
+        }
+
+        .btn-add-item {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 27px;
+            padding: 4.5px 15px;
+            border-radius: 4px;
+            background-color: #1E293B;
+            color: #FFFFFF;
+            border: 1.5px solid #0F172A;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add-item:hover {
+            background-color: #334155;
+            border-color: #1e293b !important;
+            transition: all 0.3s ease;
+        }
+
+        .aksi-btns {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .aksi-btns .btn-edit,
+        .aksi-btns .btn-delete-item {
+            min-width: 70px;
+        }
+
+        .btn-edit {
+            background-color: #F8FAFC;
+            color: #475569;
+            padding: 5px 15px;
+            border-radius: 4px;
+            border: 1.5px solid #94A3B8 !important;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .btn-edit:hover {
+            background-color: #1e293b;
+            border-color: #0f172a !important;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+        }
+
+        /* Gaya Utama Tombol Edit Metode */
+        .btn-edit-metode {
+            background-color: #F8FAFC;
+            color: #64748B;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 4px;
+            padding: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            width: 23px;
+            height: 23px;
+            outline: none;
+            /* Menghilangkan garis biru bawaan browser saat diklik */
+        }
+
+        .btn-delete-item {
+            background-color: #ef4444;
+            color: #FFFFFF;
+            border: 1.5px solid #9f1239 !important;
+            padding: 4.5px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .btn-delete-item:hover {
+            background-color: #dc2626;
+            border-color: #881337 !important;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: min(320px, calc(100vw - 40px));
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cancel {
+            background-color: #F1F5F9;
+            color: #475569;
+            padding: 5px 20px;
+            border-radius: 4px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 12px;
+            border: 1.5px solid #CBD5E1;
+        }
+
+        .btn-save {
+            background-color: #1e293b;
+            color: #FFFFFF;
+            padding: 5px 20px;
+            border-radius: 4px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 12px;
+            border: 1.5px solid #0f172a;
+        }
+
+        #btnKonfirmasiHapus {
+            background-color: #EF4444 !important;
+            border: 1.5px solid #9f1239 !important;
+            color: #FFFFFF !important;
+            padding: 12px 0;
+        }
+
+        .minimal-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .minimal-modal-overlay.active {
+            display: flex;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        .minimal-modal {
+            width: 100%;
+            max-width: 360px;
+            background: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .minimal-modal-header {
+            padding: 14px 16px;
+            background: #F8FAFC;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .minimal-modal-title {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            color: #0F172A;
+        }
+
+        .minimal-modal-close {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 1px solid #E2E8F0;
+            background: #FFFFFF;
+            color: #64748B;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .minimal-modal-close svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .minimal-modal-body {
+            padding: 16px;
+        }
+
+        .minimal-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .minimal-form-grid .form-group {
+            margin: 0;
+        }
+
+        .minimal-form-grid .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 900;
+            color: #334155;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .minimal-form-grid .form-group input {
+            width: 100%;
+            height: 38px;
+            border-radius: 6px;
+            border: 1px solid #CBD5E1;
+            padding: 0 12px;
+            box-sizing: border-box;
+            outline: none;
+            color: #0F172A;
+            background: #FFFFFF;
+            font-size: 12px;
+        }
+
+        .minimal-form-grid .span-2 {
+            grid-column: span 2;
+        }
+
+        .minimal-readonly {
+            background: #F1F5F9 !important;
+            cursor: default;
+        }
+
+        .minimal-modal-footer {
+            padding: 14px 16px;
+            border-top: 1px solid #E2E8F0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            background: #FFFFFF;
+        }
+
+        .minimal-btn-primary {
+            background-color: #1E293B;
+            color: #FFFFFF;
+            height: 38px;
+            padding: 0 10px;
+            border-radius: 6px;
+            border: 1.5px solid #0F172A;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .minimal-btn-primary:hover {
+            background-color: #334155;
+            border-color: #1e293b !important;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 639.98px) {
+            .minimal-modal {
+                max-width: 440px;
+            }
+
+            .minimal-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .minimal-form-grid .span-2 {
+                grid-column: span 1;
+            }
+
+            .minimal-modal-footer {
+                justify-content: stretch;
+            }
+
+            .minimal-btn-primary {
+                width: 100%;
+            }
+
+            .info-label {
+                font-size: 11px !important;
+                white-space: nowrap;
+            }
+
+            .info-capsule {
+                font-size: 8px !important;
+                padding: 2px 8px !important;
+                white-space: nowrap;
+            }
+
+            .btn-edit-metode {
+                width: 20px !important;
+                height: 20px !important;
+                padding: 1px !important;
+            }
+
+            .btn-edit-metode svg {
+                width: 8px !important;
+                height: 8px !important;
+                stroke-width: 3 !important;
+            }
+        }
+
+        @media (max-width: 1023.98px) {
+            .minimal-modal-overlay {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .minimal-modal {
+                max-width: 320px;
+            }
+
+            .detail-actions-row {
+                justify-content: stretch;
+            }
+
+            #btnTambahBarang {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 1023.98px) {
+            .btn-add-item {
+                font-size: 12px;
+            }
         }
 
         .info-row {
@@ -983,6 +1376,91 @@
                 width: 0%;
             }
         }
+
+        .dropdown-suggestion {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .suggestion-item {
+            padding: 5px 15px;
+            cursor: pointer;
+            font-size: 10px;
+            color: #0F172A;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item strong {
+            color: #0F172A;
+            font-weight: 800;
+        }
+
+        .suggestion-item:hover strong,
+        .suggestion-item:hover small {
+            background: #f8fafc;
+            color: #10B981;
+        }
+
+
+        .toast.success .toast-icon {
+            background: #10B981;
+            color: #ffffff;
+            border: 1.5px solid #059669;
+        }
+
+        .toast.success .toast-timer {
+            background: #10B981;
+        }
+
+        .placeholder-row td.placeholder-text {
+            padding: 50px !important;
+            text-align: center;
+            color: #94A3B8;
+            font-style: italic;
+            border-bottom: none !important;
+            height: auto !important;
+            line-height: normal !important;
+            border-bottom: 1.5px solid #E2E8F0 !important;
+        }
+
+        .btn-toggle-metode {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 4px;
+            cursor: pointer;
+            color: #64748B;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn-toggle-metode:hover {
+            background: #e2e8f0;
+            color: #2563EB;
+            transform: scale(1.1);
+        }
+
+        .btn-toggle-metode:active {
+            transform: scale(0.9);
+        }
+
+        #text-metode-pembayaran {
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 
@@ -1126,14 +1604,28 @@
                         <p class="info-label">Tanggal :</p>
                         <p class="info-capsule">{{ \Carbon\Carbon::parse($penjualan->tanggal)->format('d/m/Y') }}</p>
                     </div>
-                    <div class="info-row">
+                    <div class="info-row" style="display: flex; align-items: center; gap: 10px;">
                         <p class="info-label">Metode Pembayaran :</p>
-                        @if (strtolower($penjualan->metode_pembayaran) == 'tunai')
-                            <p class="info-capsule capsule-tunai">TUNAI</p>
-                        @else
-                            <p class="info-capsule capsule-transfer">{{ strtoupper($penjualan->metode_pembayaran) }}
-                            </p>
-                        @endif
+
+                        <div id="container-metode"
+                            style="display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+                            @if (strtolower($penjualan->metode_pembayaran) == 'tunai')
+                                <p id="capsule-metode" class="info-capsule capsule-tunai">TUNAI</p>
+                            @else
+                                <p id="capsule-metode" class="info-capsule capsule-transfer">
+                                    {{ strtoupper($penjualan->metode_pembayaran) }}</p>
+                            @endif
+
+                            <button type="button" onclick="ubahMetodeCepat({{ $penjualan->id_penjualan }})"
+                                class="btn-edit-metode">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="info-row">
                         <p class="info-label">Keuntungan Transaksi :</p>
@@ -1149,6 +1641,9 @@
                     </svg>
                 </a>
             </div>
+            <div class="detail-actions-row">
+                <a href="#" class="btn-add-item" id="btnTambahBarang">Tambah Barang</a>
+            </div>
             <div class="detail-table-scroll-wrapper">
                 <table>
                     <thead>
@@ -1160,23 +1655,40 @@
                             <th class="col-det-harga">Harga</th>
                             <th class="col-det-subtotal">Subtotal</th>
                             <th class="col-det-profit">Profit</th>
+                            <th class="col-det-aksi">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($rincianBarang as $index => $item)
-                            <tr>
-                                <td class="col-det-no">{{ $index + 1 }}</td>
-                                <td class="col-det-nama">{{ $item->barang->nama_barang ?? 'Barang Tidak Diketahui' }}
-                                </td>
-                                <td class="col-det-merek">{{ $item->barang->merek ?? '-' }}</td>
-                                <td class="col-det-jumlah">{{ $item->jumlah }}</td>
-                                <td class="col-det-harga">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                                <td class="col-det-subtotal">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
-                                <td class="col-det-profit">Rp
-                                    {{ number_format(($item->harga - $item->modal) * $item->jumlah, 0, ',', '.') }}
-                                </td>
+                        @if ($rincianBarang->isEmpty())
+                            <tr class="placeholder-row">
+                                <td colspan="8" class="placeholder-text">Tidak ada barang.</td>
                             </tr>
-                        @endforeach
+                        @else
+                            @foreach ($rincianBarang as $index => $item)
+                                <tr>
+                                    <td class="col-det-no">{{ $index + 1 }}</td>
+                                    <td class="col-det-nama">
+                                        {{ $item->barang->nama_barang ?? 'Barang Tidak Diketahui' }}</td>
+                                    <td class="col-det-merek">{{ $item->barang->merek ?? '-' }}</td>
+                                    <td class="col-det-jumlah">{{ $item->jumlah }}</td>
+                                    <td class="col-det-harga">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+                                    <td class="col-det-subtotal">Rp {{ number_format($item->subtotal, 0, ',', '.') }}
+                                    </td>
+                                    <td class="col-det-profit">Rp
+                                        {{ number_format(($item->harga - $item->modal) * $item->jumlah, 0, ',', '.') }}
+                                    </td>
+                                    <td class="col-det-aksi">
+                                        <div class="aksi-btns">
+                                            <a href="#" class="btn-edit"
+                                                data-id="{{ $item->id_detail_penjualan }}">Edit</a>
+
+                                            <a href="#" class="btn-delete-item btn-trigger-hapus"
+                                                data-id="{{ $item->id_detail_penjualan }}">Hapus</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -1208,6 +1720,157 @@
                 <div></div>
             </div>
         </div>
+        <div class="minimal-modal-overlay" id="minimalTambahOverlay">
+            <div class="minimal-modal" role="dialog" aria-modal="true">
+                <form action="{{ route('laporan.penjualan.tambah-barang') }}" method="POST">
+                    @csrf
+
+                    <input type="hidden" name="id_penjualan" value="{{ $penjualan->id_penjualan }}">
+
+                    <div class="minimal-modal-header">
+                        <h3 class="minimal-modal-title">Tambah Barang</h3>
+                        <button type="button" class="minimal-modal-close" id="minimalTambahClose"
+                            aria-label="Tutup">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="minimal-modal-body">
+                        <div class="minimal-form-grid">
+                            <div class="form-group span-2" style="position: relative;">
+                                <label for="minNamaBarang">Nama Barang</label>
+                                <input type="text" name="nama_barang" id="minNamaBarang" autocomplete="off"
+                                    spellcheck="false" required>
+                            </div>
+                            <div class="form-group span-2" style="position: relative;">
+                                <label for="minMerek">Merek</label>
+                                <input type="text" name="merek" id="minMerek" autocomplete="off"
+                                    spellcheck="false" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="minJumlah">Jumlah</label>
+                                <input type="text" name="jumlah" id="minJumlah" inputmode="numeric"
+                                    pattern="[0-9]*" autocomplete="off" spellcheck="false" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="minHarga">Harga</label>
+                                <input type="text" name="harga" id="minHarga" inputmode="numeric"
+                                    autocomplete="off" spellcheck="false" required>
+                            </div>
+                            <div class="form-group span-2">
+                                <label for="minSubtotal">Subtotal</label>
+                                <input type="text" id="minSubtotal" class="minimal-readonly" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="minimal-modal-footer">
+                        <button type="submit" class="minimal-btn-primary" id="minBtnTambah">Tambah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="minimal-modal-overlay" id="minimalEditOverlay">
+            <div class="minimal-modal" role="dialog" aria-modal="true">
+                <form id="formEditBarang" method="POST" action="">
+                    @csrf
+                    @method('PUT') <div class="minimal-modal-header">
+                        <h3 class="minimal-modal-title">Edit Barang</h3>
+                        <button type="button" class="minimal-modal-close" id="minimalEditClose" aria-label="Tutup">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="minimal-modal-body">
+                        <div class="minimal-form-grid">
+                            <div class="form-group span-2" style="position: relative;">
+                                <label for="edNamaBarang">Nama Barang</label>
+                                <input type="text" id="edNamaBarang" name="nama_barang" autocomplete="off"
+                                    spellcheck="false" required>
+                            </div>
+
+                            <div class="form-group span-2" style="position: relative;">
+                                <label for="edMerek">Merek</label>
+                                <input type="text" id="edMerek" name="merek" autocomplete="off"
+                                    spellcheck="false" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edJumlah">Jumlah</label>
+                                <input type="text" id="edJumlah" name="jumlah" inputmode="numeric"
+                                    pattern="[0-9]*" autocomplete="off" spellcheck="false" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edHarga">Harga</label>
+                                <input type="text" id="edHarga" name="harga" inputmode="numeric"
+                                    autocomplete="off" spellcheck="false" required>
+                            </div>
+
+                            <div class="form-group span-2">
+                                <label for="edSubtotal">Subtotal</label>
+                                <input type="text" id="edSubtotal" class="minimal-readonly" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="minimal-modal-footer">
+                        <button type="button" class="minimal-btn-primary" id="minBtnSimpan">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalHapus">
+            <div class="modal-content" style="position: relative;">
+                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                    <div
+                        style="background-color: #FEF2F2; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid #EF4444;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EF4444"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                            </path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <h3
+                        style="margin: 0; font-size: 20px; color: #0F172A; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                        HAPUS BARANG
+                    </h3>
+                    <p style="font-size: 14px; color: #64748B; margin-bottom: 20px; line-height: 1.5;">
+                        Anda yakin ingin menghapus <strong>barang</strong> ini?
+                    </p>
+                    <form id="formHapusBarang" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="current_url" value="{{ request()->fullUrl() }}">
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <button type="button" class="btn-cancel" id="btnTidakHapus"
+                                style="flex: 1; padding: 12px 0; border: 1.5px solid #CBD5E1; font-weight: 800;">
+                                TIDAK
+                            </button>
+                            <button type="button" class="btn-save" id="btnKonfirmasiHapus"
+                                style="flex: 1; padding: 12px 0; font-weight: 800;">
+                                IYA
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div id="toast-container"></div>
@@ -1215,6 +1878,7 @@
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <script>
+        const allBarang = @json($barang ?? []);
         const loadingOverlay = document.getElementById('loading-overlay');
 
         function triggerLoading(targetUrl) {
@@ -1224,9 +1888,491 @@
             window.location.href = targetUrl;
         }
 
+        // Fungsi pembantu untuk membersihkan angka dari simbol Rp dan titik
+        function murnikanAngka(string) {
+            if (!string) return "0";
+            return string.toString().replace(/[^\d]/g, '');
+        }
+
+        // Fungsi pembantu untuk memberikan format Rp visual
+        function formatRupiahVisual(angka) {
+            if (!angka || angka == 0 || angka == "") return "";
+            return "Rp " + parseInt(angka).toLocaleString('id-ID');
+        }
+
+        function minParseNumber(value) {
+            // Menggunakan murnikanAngka agar lebih konsisten
+            const num = Number(murnikanAngka(value));
+            return Number.isFinite(num) ? num : 0;
+        }
+
+        function minFormatRupiah(value) {
+            const num = Number(value);
+            if (!Number.isFinite(num)) return '';
+            return num.toLocaleString('id-ID');
+        }
+
+        function minCellText(row, selectorOrIndex) {
+            if (!row) return '';
+            if (typeof selectorOrIndex === 'number') {
+                const cells = row.querySelectorAll('td');
+                return cells[selectorOrIndex]?.textContent?.trim() || '';
+            }
+            const el = row.querySelector(selectorOrIndex);
+            return el?.textContent?.trim() || '';
+        }
+
+        // Logika untuk Modal Tambah
+        (function() {
+            const openBtn = document.getElementById('btnTambahBarang');
+            const overlay = document.getElementById('minimalTambahOverlay');
+            const closeBtn = document.getElementById('minimalTambahClose');
+            const btnTambah = document.getElementById('minBtnTambah');
+
+            const inNama = document.getElementById('minNamaBarang');
+            const inMerek = document.getElementById('minMerek');
+            const inJumlah = document.getElementById('minJumlah');
+            const inHarga = document.getElementById('minHarga');
+            const inSubtotal = document.getElementById('minSubtotal');
+
+            // --- PERBAIKAN INPUT HARGA (Anti-Lompat & Auto Rp) ---
+            if (inHarga) {
+                inHarga.addEventListener('input', function() {
+                    let cursorPosition = this.selectionStart;
+                    let originalLength = this.value.length;
+
+                    let val = murnikanAngka(this.value);
+                    if (val.startsWith('0')) val = val.replace(/^0+/, '');
+
+                    this.value = formatRupiahVisual(val);
+
+                    let newLength = this.value.length;
+                    let newCursorPos = cursorPosition + (newLength - originalLength);
+                    if (newCursorPos < 3 && this.value.length > 0) newCursorPos = 3;
+
+                    this.setSelectionRange(newCursorPos, newCursorPos);
+                    updateSubtotal();
+                });
+            }
+
+            if (inJumlah) {
+                inJumlah.addEventListener('input', function() {
+                    let value = this.value.replace(/[^0-9]/g, '');
+                    if (value.startsWith('0')) {
+                        value = value.replace(/^0+/, '');
+                    }
+                    this.value = value;
+                    updateSubtotal();
+                });
+            }
+
+            const dropdownNama = document.createElement('div');
+            dropdownNama.className = 'dropdown-suggestion';
+            dropdownNama.style.display = 'none';
+            if (inNama) inNama.parentNode.appendChild(dropdownNama);
+
+            const dropdownMerek = document.createElement('div');
+            dropdownMerek.className = 'dropdown-suggestion';
+            dropdownMerek.style.display = 'none';
+            if (inMerek) inMerek.parentNode.appendChild(dropdownMerek);
+
+            function setupSuggestion(inputEl, dropdownEl, filterField) {
+                if (!inputEl) return;
+                inputEl.addEventListener('input', function() {
+                    const keyword = this.value.toLowerCase();
+                    if (!keyword) {
+                        dropdownEl.style.display = 'none';
+                        if (inHarga) inHarga.value = '';
+                        updateSubtotal();
+                        return;
+                    }
+
+                    const matches = allBarang.filter(b =>
+                        (b[filterField] || "").toLowerCase().includes(keyword)
+                    ).slice(0, 3);
+
+                    if (matches.length > 0) {
+                        dropdownEl.innerHTML = '';
+                        matches.forEach(barang => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+
+                            if (filterField === 'merek') {
+                                item.innerHTML =
+                                    `<strong>${barang.merek}</strong> - <small>${barang.nama_barang}</small>`;
+                            } else {
+                                item.innerHTML =
+                                    `<strong>${barang.nama_barang}</strong> - <small>${barang.merek}</small>`;
+                            }
+
+                            item.onclick = function() {
+                                if (inNama) inNama.value = barang.nama_barang;
+                                if (inMerek) inMerek.value = barang.merek;
+                                // Memasukkan harga dengan format Rp saat pilih suggestion
+                                if (inHarga) inHarga.value = formatRupiahVisual(parseInt(barang
+                                    .harga_jual));
+                                dropdownEl.style.display = 'none';
+                                if (inJumlah) inJumlah.focus();
+                                updateSubtotal();
+                            };
+                            dropdownEl.appendChild(item);
+                        });
+                        dropdownEl.style.display = 'block';
+                    } else {
+                        dropdownEl.style.display = 'none';
+                    }
+                });
+            }
+
+            setupSuggestion(inNama, dropdownNama, 'nama_barang');
+            setupSuggestion(inMerek, dropdownMerek, 'merek');
+
+            document.addEventListener('click', function(e) {
+                if (inNama && !inNama.contains(e.target) && !dropdownNama.contains(e.target)) {
+                    dropdownNama.style.display = 'none';
+                }
+                if (inMerek && !inMerek.contains(e.target) && !dropdownMerek.contains(e.target)) {
+                    dropdownMerek.style.display = 'none';
+                }
+            });
+
+            function openModal() {
+                if (!overlay) return;
+                if (inNama) inNama.value = '';
+                if (inMerek) inMerek.value = '';
+                if (inJumlah) inJumlah.value = '';
+                if (inHarga) inHarga.value = '';
+                if (inSubtotal) inSubtotal.value = '';
+                dropdownNama.style.display = 'none';
+                dropdownMerek.style.display = 'none';
+                overlay.classList.add('active');
+                document.body.classList.add('modal-open');
+                setTimeout(() => inNama && inNama.focus(), 0);
+            }
+
+            function closeModal() {
+                if (!overlay) return;
+                overlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                dropdownNama.style.display = 'none';
+                dropdownMerek.style.display = 'none';
+            }
+
+            function updateSubtotal() {
+                const namaValid = inNama?.value.trim() !== '';
+                const merekValid = inMerek?.value.trim() !== '';
+
+                // Jika salah satu (nama atau merek) kosong, kosongkan subtotal
+                if (!namaValid || !merekValid) {
+                    if (inSubtotal) inSubtotal.value = '';
+                    return;
+                }
+
+                const jumlah = minParseNumber(inJumlah?.value || '');
+                const harga = minParseNumber(inHarga?.value || '');
+                const subtotal = jumlah * harga;
+                if (inSubtotal) inSubtotal.value = subtotal ? formatRupiahVisual(subtotal) : '';
+            }
+
+            if (openBtn) {
+                openBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openModal();
+                });
+            }
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closeModal();
+                });
+            }
+
+            if (btnTambah) {
+                btnTambah.addEventListener('click', function() {
+                    closeModal();
+                });
+            }
+        })();
+
+        // Logika untuk Modal Edit
+        (function() {
+            const overlay = document.getElementById('minimalEditOverlay');
+            const closeBtn = document.getElementById('minimalEditClose');
+            const btnSimpan = document.getElementById('minBtnSimpan');
+
+            const inNama = document.getElementById('edNamaBarang');
+            const inMerek = document.getElementById('edMerek');
+            const inJumlah = document.getElementById('edJumlah');
+            const inHarga = document.getElementById('edHarga');
+            const inSubtotal = document.getElementById('edSubtotal');
+
+            const dropdownNama = document.createElement('div');
+            dropdownNama.className = 'dropdown-suggestion';
+            dropdownNama.style.display = 'none';
+            if (inNama) inNama.parentNode.appendChild(dropdownNama);
+
+            const dropdownMerek = document.createElement('div');
+            dropdownMerek.className = 'dropdown-suggestion';
+            dropdownMerek.style.display = 'none';
+            if (inMerek) inMerek.parentNode.appendChild(dropdownMerek);
+
+            // --- PERBAIKAN INPUT HARGA EDIT ---
+            if (inHarga) {
+                inHarga.addEventListener('input', function() {
+                    let cursorPosition = this.selectionStart;
+                    let originalLength = this.value.length;
+                    let val = murnikanAngka(this.value);
+                    if (val.startsWith('0')) val = val.replace(/^0+/, '');
+                    this.value = formatRupiahVisual(val);
+                    let newCursorPos = cursorPosition + (this.value.length - originalLength);
+                    if (newCursorPos < 3 && this.value.length > 0) newCursorPos = 3;
+                    this.setSelectionRange(newCursorPos, newCursorPos);
+                    updateSubtotal();
+                });
+            }
+
+            if (inJumlah) {
+                inJumlah.addEventListener('input', function() {
+                    // 1. Ambil nilai dan hanya izinkan angka (Hapus huruf & simbol)
+                    let val = this.value.replace(/[^0-9]/g, '');
+
+                    // 2. Jika angka pertama adalah '0', hapus hingga ketemu angka 1-9
+                    if (val.startsWith('0')) {
+                        val = val.replace(/^0+/, '');
+                    }
+
+                    // 3. Masukkan kembali nilai yang sudah bersih ke dalam input
+                    this.value = val;
+
+                    // Jalankan fungsi update subtotal agar harga otomatis berubah
+                    updateSubtotal();
+                });
+            }
+
+            function openModalFromRow(row) {
+                if (!overlay || !row) return;
+
+                // 1. Ambil ID dari atribut data-id pada tombol edit di baris tersebut
+                const btnEdit = row.querySelector('.btn-edit');
+                const idDetail = btnEdit ? btnEdit.getAttribute('data-id') : null;
+                const formEdit = document.getElementById('formEditBarang');
+
+                if (formEdit && idDetail) {
+                    // Tambahkan kembali /laporan di depan karena ada prefix di Route
+                    formEdit.action = `/laporan/transaksi-penjualan/detail/update/${idDetail}`;
+                }
+
+                // 3. Ambil data dari kolom tabel
+                const nama = minCellText(row, '.col-det-nama') || minCellText(row, 1);
+                const merek = minCellText(row, '.col-det-merek') || minCellText(row, 2);
+                const jumlahText = minCellText(row, '.col-det-jumlah') || minCellText(row, 3);
+                const hargaText = minCellText(row, '.col-det-harga') || minCellText(row, 4);
+
+                // 4. Masukkan data ke dalam input modal
+                if (inNama) inNama.value = nama;
+                if (inMerek) inMerek.value = merek;
+                if (inJumlah) inJumlah.value = String(minParseNumber(jumlahText));
+                if (inHarga) inHarga.value = formatRupiahVisual(minParseNumber(hargaText));
+
+                updateSubtotal();
+
+                // 5. Tampilkan modal
+                overlay.classList.add('active');
+                document.body.classList.add('modal-open');
+                setTimeout(() => inNama && inNama.focus(), 0);
+            }
+
+            function closeModal() {
+                if (!overlay) return;
+                overlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                if (dropdownNama) dropdownNama.style.display = 'none'; // Tambahan agar dropdown hilang
+            }
+
+            // Fungsi untuk mengatur saran barang saat mengetik di field Nama Barang (Edit)
+            if (inNama) {
+                inNama.addEventListener('input', function() {
+                    const keyword = this.value.toLowerCase();
+                    if (!keyword) {
+                        dropdownNama.style.display = 'none';
+                        return;
+                    }
+
+                    const matches = allBarang.filter(b =>
+                        (b.nama_barang || "").toLowerCase().includes(keyword)
+                    ).slice(0, 3);
+
+                    if (matches.length > 0) {
+                        dropdownNama.innerHTML = '';
+                        matches.forEach(barang => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+                            item.innerHTML =
+                                `<strong>${barang.nama_barang}</strong> - <small>${barang.merek}</small>`;
+
+                            item.onclick = function() {
+                                if (inNama) inNama.value = barang.nama_barang;
+                                if (inMerek) inMerek.value = barang.merek;
+                                if (inHarga) inHarga.value = formatRupiahVisual(parseInt(barang
+                                    .harga_jual));
+                                dropdownNama.style.display = 'none';
+                                if (inJumlah) inJumlah.focus();
+                                updateSubtotal();
+                            };
+                            dropdownNama.appendChild(item);
+                        });
+                        dropdownNama.style.display = 'block';
+                    } else {
+                        dropdownNama.style.display = 'none';
+                    }
+                });
+            }
+
+            if (inMerek) {
+                inMerek.addEventListener('input', function() {
+                    const keyword = this.value.toLowerCase();
+                    if (!keyword) {
+                        dropdownMerek.style.display = 'none';
+                        return;
+                    }
+
+                    const matches = allBarang.filter(b =>
+                        (b.merek || "").toLowerCase().includes(keyword)
+                    ).slice(0, 3);
+
+                    if (matches.length > 0) {
+                        dropdownMerek.innerHTML = '';
+                        matches.forEach(barang => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+                            // Menampilkan Merek sebagai teks utama
+                            item.innerHTML =
+                                `<strong>${barang.merek}</strong> - <small>${barang.nama_barang}</small>`;
+
+                            item.onclick = function() {
+                                if (inNama) inNama.value = barang.nama_barang;
+                                if (inMerek) inMerek.value = barang.merek;
+                                if (inHarga) inHarga.value = formatRupiahVisual(parseInt(barang
+                                    .harga_jual));
+                                dropdownMerek.style.display = 'none';
+                                if (inJumlah) inJumlah.focus();
+                                updateSubtotal();
+                            };
+                            dropdownMerek.appendChild(item);
+                        });
+                        dropdownMerek.style.display = 'block';
+                    } else {
+                        dropdownMerek.style.display = 'none';
+                    }
+                });
+            }
+
+            // Menutup dropdown jika klik di luar input
+            document.addEventListener('click', function(e) {
+                if (inNama && !inNama.contains(e.target) && !dropdownNama.contains(e.target)) {
+                    dropdownNama.style.display = 'none';
+                }
+                // Tambahkan baris di bawah ini:
+                if (inMerek && !inMerek.contains(e.target) && !dropdownMerek.contains(e.target)) {
+                    dropdownMerek.style.display = 'none';
+                }
+            });
+
+            function updateSubtotal() {
+                const namaValid = inNama?.value.trim() !== '';
+                const merekValid = inMerek?.value.trim() !== '';
+
+                // Jika salah satu (nama atau merek) kosong, kosongkan subtotal
+                if (!namaValid || !merekValid) {
+                    if (inSubtotal) inSubtotal.value = '';
+                    return;
+                }
+
+                const jumlah = minParseNumber(inJumlah?.value || '');
+                const harga = minParseNumber(inHarga?.value || '');
+                const subtotal = jumlah * harga;
+                if (inSubtotal) inSubtotal.value = subtotal ? formatRupiahVisual(subtotal) : '';
+            }
+
+            document.querySelectorAll('a.btn-edit').forEach((btn) => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const row = e.currentTarget.closest('tr');
+                    openModalFromRow(row);
+                });
+            });
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closeModal();
+                });
+            }
+
+            // Cari bagian ini di dalam kode Anda
+            if (btnSimpan) {
+                btnSimpan.addEventListener('click', function() {
+                    // 1. Ambil elemen form edit (pastikan ID-nya sesuai dengan di HTML Anda)
+                    const formEdit = document.getElementById('formEditBarang');
+
+                    if (formEdit) {
+                        // 2. Tutup modal agar terasa instan
+                        closeModal();
+
+                        // 3. Kirim data ke server
+                        formEdit.submit();
+                    }
+                });
+            }
+        })();
+
+        // Logika untuk Modal Hapus & Sistem Lainnya (Tetap Sama)
+        (function() {
+            const overlay = document.getElementById('modalHapus');
+            const btnTidak = document.getElementById('btnTidakHapus');
+            const btnIya = document.getElementById('btnKonfirmasiHapus');
+
+            function openModal() {
+                if (!overlay) return;
+                overlay.classList.add('active');
+                document.body.classList.add('modal-open');
+            }
+
+            function closeModal() {
+                if (!overlay) return;
+                overlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+
+            document.querySelectorAll('a.btn-delete-item').forEach((btn) => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openModal();
+                });
+            });
+
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closeModal();
+                });
+            }
+
+            if (btnTidak) btnTidak.addEventListener('click', closeModal);
+            if (btnIya) btnIya.addEventListener('click', closeModal);
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeModal();
+            });
+        })();
+
         document.addEventListener('DOMContentLoaded', function() {
             @if (session('error_filter'))
                 showToast("{{ session('error_filter') }}");
+            @endif
+
+            @if (session('success'))
+                showSuccessToast("{{ session('success') }}");
             @endif
         });
 
@@ -1246,7 +2392,37 @@
                 <span class="toast-single-line"><strong>Error:</strong> ${message}</span>
             </div>
             <div class="toast-timer"></div>
-        `;
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.transform = "translateX(120%)";
+                toast.style.opacity = "0";
+                toast.style.transition = "all 0.3s ease";
+                setTimeout(() => toast.remove(), 400);
+            }, 2500);
+        }
+
+        function showSuccessToast(message) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = 'toast success';
+
+            const icon =
+                `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+            const title = "Success";
+
+            toast.innerHTML = `
+                <div class="toast-icon">${icon}</div>
+                <div class="toast-content">
+                    <span class="toast-single-line"><strong>${title}:</strong> ${message}</span>
+                </div>
+                <div class="toast-timer"></div>
+            `;
 
             container.appendChild(toast);
 
@@ -1262,25 +2438,16 @@
         if (filterForm) {
             filterForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-
                 const tglMulaiInput = document.getElementById('tanggal_mulai');
                 const tglAkhirInput = document.getElementById('tanggal_akhir');
                 const valMulai = tglMulaiInput.value;
                 const valAkhir = tglAkhirInput.value;
-
-                if (!valMulai || !valAkhir) {
-                    return;
-                }
-
-                if (valMulai > valAkhir) {
-                    return;
-                }
-
+                if (!valMulai || !valAkhir) return;
+                if (valMulai > valAkhir) return;
                 const url = new URL("{{ route('laporan.rekap.penjualan') }}", window.location.origin);
                 url.searchParams.set('tgl_mulai', valMulai);
                 url.searchParams.set('tgl_akhir', valAkhir);
                 url.searchParams.set('page', 1);
-
                 window.location.href = url.href;
             });
         }
@@ -1302,11 +2469,6 @@
                 e.preventDefault();
                 triggerLoading(this.getAttribute('href'));
             });
-        }
-
-        const btnBack = document.getElementById('btnBackToTransaksi');
-        if (btnBack) {
-            btnBack.addEventListener('click', function(e) {});
         }
 
         (function() {
@@ -1352,6 +2514,81 @@
                 if (window.innerWidth >= 1024) closeSidebar();
             });
         })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalHapus = document.getElementById('modalHapus');
+            const formHapus = document.getElementById('formHapusBarang');
+            const btnTidakHapus = document.getElementById('btnTidakHapus');
+            const btnKonfirmasiHapus = document.getElementById('btnKonfirmasiHapus');
+
+            // 1. Saat tombol hapus di tabel diklik
+            document.querySelectorAll('.btn-trigger-hapus').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const idDetail = this.getAttribute('data-id');
+
+                    // Set action form secara dinamis ke route yang kita buat tadi
+                    // Sesuaikan url-nya dengan struktur route kamu
+                    formHapus.action = `/laporan/transaksi-penjualan/detail/hapus/${idDetail}`;
+
+                    // Tampilkan modal
+                    modalHapus.classList.add('active');
+                });
+            });
+
+            // 2. Tombol TIDAK (Batal)
+            btnTidakHapus.addEventListener('click', function() {
+                modalHapus.classList.remove('active');
+            });
+
+            // 3. Tombol IYA (Konfirmasi)
+            btnKonfirmasiHapus.addEventListener('click', function() {
+                formHapus.submit();
+            });
+        });
+
+        function ubahMetodeCepat(id) {
+            const container = document.getElementById('container-metode');
+            const capsule = document.getElementById('capsule-metode');
+
+            container.style.opacity = '0.5';
+            container.style.pointerEvents = 'none';
+
+            const url = "/laporan/transaksi-penjualan/detail/toggle-metode/" + id;
+
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        capsule.innerText = data.new_metode;
+
+                        if (data.new_metode === 'TUNAI') {
+                            capsule.className = 'info-capsule capsule-tunai';
+                        } else {
+                            capsule.className = 'info-capsule capsule-transfer';
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    container.style.opacity = '1';
+                    container.style.pointerEvents = 'auto';
+                });
+        }
     </script>
 </body>
 

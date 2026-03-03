@@ -75,14 +75,25 @@ Route::middleware(['auth.pemilik'])->group(function () {
         // --- Laporan Penjualan ---
         Route::get('/rekap-penjualan', [LaporanRekapPenjualanController::class, 'index'])->name('laporan.rekap.penjualan');
         Route::delete('/rekap-penjualan/hapus-semua', [LaporanRekapPenjualanController::class, 'hapusSemua'])->name('laporan.rekap.hapus-semua');
+        Route::delete('/penjualan/hapus/{id_penjualan}', [PenjualanController::class, 'destroy'])->name('laporan.penjualan.destroy');
+
         Route::get('/penjualan/transaksi', [LaporanTransaksiPenjualanController::class, 'index'])->name('laporan.penjualan.transaksi');
         Route::get('/transaksi-penjualan/detail/{id_penjualan}', [LaporanDetailPenjualanController::class, 'index'])->name('laporan.penjualan.nota');
+        Route::post('/transaksi-penjualan/detail/tambah-barang', [LaporanDetailPenjualanController::class, 'tambahBarang'])->name('laporan.penjualan.tambah-barang');
+        Route::delete('/transaksi-penjualan/detail/hapus/{id_detail_penjualan}', [LaporanDetailPenjualanController::class, 'hapusBarang'])->name('laporan.penjualan.hapus-barang');
+        Route::put('/transaksi-penjualan/detail/update/{id_detail_penjualan}', [LaporanDetailPenjualanController::class, 'updateBarang'])->name('laporan.penjualan.update-barang');
+        Route::post('/transaksi-penjualan/detail/toggle-metode/{id_penjualan}', [LaporanDetailPenjualanController::class, 'toggleMetode'])->name('laporan.penjualan.toggle-metode');
 
         // --- Laporan Pembelian ---
         Route::get('/rekap-pembelian', [LaporanRekapPembelianController::class, 'index'])->name('laporan.rekap.pembelian');
         Route::delete('/rekap-pembelian/hapus-semua', [LaporanRekapPembelianController::class, 'hapusSemua'])->name('laporan.rekap.pembelian.hapus-semua');
         Route::get('/faktur-pembelian', [LaporanFakturPembelianController::class, 'index'])->name('laporan.pembelian.faktur');
         Route::get('/faktur-pembelian/detail/{id}', [LaporanDetailPembelianController::class, 'index'])->name('laporan.pembelian.detail');
+        Route::post('/faktur-pembelian/detail/tambah/{id}', [LaporanDetailPembelianController::class, 'store'])->name('laporan.pembelian.detail.store');
+        Route::delete('/faktur-pembelian/detail/hapus/{id_detail}', [LaporanDetailPembelianController::class, 'destroy'])->name('laporan.pembelian.detail.destroy');
+        Route::put('/faktur-pembelian/detail/update/{id_detail}', [LaporanDetailPembelianController::class, 'update'])->name('laporan.pembelian.detail.update');
+        Route::delete('/pembelian/hapus/{id}', [LaporanFakturPembelianController::class, 'destroy'])->name('laporan.pembelian.hapus');
+        Route::post('/faktur-pembelian/detail/toggle-metode/{id}', [LaporanDetailPembelianController::class, 'toggleMetode'])->name('laporan.pembelian.detail.toggle-metode');
     });
 
 

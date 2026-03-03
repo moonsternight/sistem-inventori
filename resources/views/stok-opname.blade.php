@@ -1309,12 +1309,15 @@
                 <label>LOKASI BARANG</label>
                 <select id="lokasi_barang">
                     <option value="" disabled {{ !$lokasi ? 'selected' : '' }} hidden>Pilih</option>
-                    <option value="Gudang A" {{ $lokasi == 'Gudang A' ? 'selected' : '' }}>Gudang A</option>
-                    <option value="Gudang B" {{ $lokasi == 'Gudang B' ? 'selected' : '' }}>Gudang B</option>
-                    <option value="Rak Depan" {{ $lokasi == 'Rak Depan' ? 'selected' : '' }}>Rak Depan</option>
-                    <option value="Rak Samping" {{ $lokasi == 'Rak Samping' ? 'selected' : '' }}>Rak Samping</option>
-                    <option value="Gudang Belakang" {{ $lokasi == 'Gudang Belakang' ? 'selected' : '' }}>Gudang
-                        Belakang</option>
+                    <option value="Lemari Kaca" {{ $lokasi == 'Lemari Kaca' ? 'selected' : '' }}>Lemari Kaca</option>
+                    <option value="Rak Cat" {{ $lokasi == 'Rak Cat' ? 'selected' : '' }}>Rak Cat</option>
+                    <option value="Samping Rak Cat" {{ $lokasi == 'Samping Rak Cat' ? 'selected' : '' }}>Samping Rak
+                        Cat</option>
+                    <option value="Belakang Rak Cat" {{ $lokasi == 'Belakang Rak Cat' ? 'selected' : '' }}>Belakang
+                        Rak Cat</option>
+                    <option value="Rak Kayu" {{ $lokasi == 'Rak Kayu' ? 'selected' : '' }}>Rak Kayu</option>
+                    <option value="Rak Gantung" {{ $lokasi == 'Rak Gantung' ? 'selected' : '' }}>Rak Gantung</option>
+                    <option value="Teras Depan" {{ $lokasi == 'Teras Depan' ? 'selected' : '' }}>Teras Depan</option>
                 </select>
             </div>
             <div class="form-group">

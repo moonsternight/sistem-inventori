@@ -948,8 +948,8 @@
 
         table th:nth-child(2),
         table td:nth-child(2) {
-            width: 160px;
-            min-width: 160px;
+            width: 190px;
+            min-width: 190px;
         }
 
         table th:nth-child(3),
@@ -960,14 +960,14 @@
 
         table th:nth-child(4),
         table td:nth-child(4) {
-            width: 90px;
-            min-width: 90px;
+            width: 120px;
+            min-width: 120px;
         }
 
         table th:nth-child(5),
         table td:nth-child(5) {
-            width: 70px;
-            min-width: 70px;
+            width: 65px;
+            min-width: 65px;
         }
 
         table th:nth-child(6),
@@ -990,8 +990,8 @@
 
         table th:nth-child(9),
         table td:nth-child(9) {
-            width: 90px;
-            min-width: 90px;
+            width: 95px;
+            min-width: 95px;
         }
 
         table th:nth-child(10),
@@ -1002,14 +1002,14 @@
 
         table th:nth-child(11),
         table td:nth-child(11) {
-            width: 115px;
-            min-width: 115px;
+            width: 125px;
+            min-width: 125px;
         }
 
         table th:nth-child(12),
         table td:nth-child(12) {
-            width: 90px;
-            min-width: 90px;
+            width: 85px;
+            min-width: 85px;
         }
 
         table th:nth-child(13),
@@ -1809,13 +1809,13 @@
             <div class="filter-group">
                 <select id="filterKategori" class="filter-select">
                     <option value="">Semua Kategori</option>
-                    <option value="Material" {{ request('kategori') == 'Material' ? 'selected' : '' }}>Material
-                    </option>
-                    <option value="Alat Listrik" {{ request('kategori') == 'Alat Listrik' ? 'selected' : '' }}>Alat
-                        Listrik</option>
-                    <option value="Cat" {{ request('kategori') == 'Cat' ? 'selected' : '' }}>Cat</option>
-                    <option value="Alat Tukang" {{ request('kategori') == 'Alat Tukang' ? 'selected' : '' }}>Alat
-                        Tukang</option>
+                    <option value="Listrik" {{ request('kategori') == 'Listrik' ? 'selected' : '' }}>Listrik</option>
+                    <option value="Alat Teknik" {{ request('kategori') == 'Alat Teknik' ? 'selected' : '' }}>Alat
+                        Teknik</option>
+                    <option value="Bahan Bangunan" {{ request('kategori') == 'Bahan Bangunan' ? 'selected' : '' }}>
+                        Bahan Bangunan</option>
+                    <option value="Alat Bangunan" {{ request('kategori') == 'Alat Bangunan' ? 'selected' : '' }}>Alat
+                        Bangunan</option>
                 </select>
             </div>
             <div class="filter-group">
@@ -1830,14 +1830,18 @@
             <div class="filter-group">
                 <select id="filterLokasi" class="filter-select">
                     <option value="">Semua Lokasi</option>
-                    <option value="Gudang A" {{ request('lokasi') == 'Gudang A' ? 'selected' : '' }}>Gudang A</option>
-                    <option value="Gudang B" {{ request('lokasi') == 'Gudang B' ? 'selected' : '' }}>Gudang B</option>
-                    <option value="Rak Depan" {{ request('lokasi') == 'Rak Depan' ? 'selected' : '' }}>Rak Depan
+                    <option value="Lemari Kaca" {{ request('lokasi') == 'Lemari Kaca' ? 'selected' : '' }}>Lemari Kaca
                     </option>
-                    <option value="Rak Samping" {{ request('lokasi') == 'Rak Samping' ? 'selected' : '' }}>Rak Samping
+                    <option value="Rak Cat" {{ request('lokasi') == 'Rak Cat' ? 'selected' : '' }}>Rak Cat</option>
+                    <option value="Samping Rak Cat" {{ request('lokasi') == 'Samping Rak Cat' ? 'selected' : '' }}>
+                        Samping Rak Cat</option>
+                    <option value="Belakang Rak Cat" {{ request('lokasi') == 'Belakang Rak Cat' ? 'selected' : '' }}>
+                        Belakang Rak Cat</option>
+                    <option value="Rak Kayu" {{ request('lokasi') == 'Rak Kayu' ? 'selected' : '' }}>Rak Kayu</option>
+                    <option value="Rak Gantung" {{ request('lokasi') == 'Rak Gantung' ? 'selected' : '' }}>Rak Gantung
                     </option>
-                    <option value="Gudang Belakang" {{ request('lokasi') == 'Gudang Belakang' ? 'selected' : '' }}>
-                        Gudang Belakang</option>
+                    <option value="Teras Depan" {{ request('lokasi') == 'Teras Depan' ? 'selected' : '' }}>Teras Depan
+                    </option>
                 </select>
             </div>
         </div>
@@ -2000,10 +2004,10 @@
                                 <select name="kategori" class="form-control-select placeholder-style" required
                                     onchange="this.classList.remove('placeholder-style')">
                                     <option value="" disabled selected hidden>Pilih Kategori</option>
-                                    <option value="Material">Material</option>
-                                    <option value="Alat Listrik">Alat Listrik</option>
-                                    <option value="Cat">Cat</option>
-                                    <option value="Alat Tukang">Alat Tukang</option>
+                                    <option value="Listrik">Listrik</option>
+                                    <option value="Alat Teknik">Alat Teknik</option>
+                                    <option value="Bahan Bangunan">Bahan Bangunan</option>
+                                    <option value="Alat Bangunan">Alat Bangunan</option>
                                 </select>
                             </div>
                             <div class="form-group" style="margin-bottom: 12px;">
@@ -2014,14 +2018,11 @@
                                     <option value="Pcs">Pcs</option>
                                     <option value="Unit">Unit</option>
                                     <option value="Set">Set</option>
-                                    <option value="Buah">Buah</option>
+                                    <option value="Pasang">Pasang</option>
                                     <option value="Batang">Batang</option>
                                     <option value="Lembar">Lembar</option>
-                                    <option value="Zak">Zak</option>
-                                    <option value="Pail">Pail</option>
                                     <option value="Galon">Galon</option>
-                                    <option value="Kotak">Kotak</option>
-                                    <option value="Pasang">Pasang</option>
+                                    <option value="Pail">Pail</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -2029,11 +2030,13 @@
                                 <select name="lokasi" class="form-control-select placeholder-style"
                                     id="lokasiSelect" required onchange="this.classList.remove('placeholder-style')">
                                     <option value="" disabled selected hidden>Pilih Lokasi</option>
-                                    <option value="Gudang A">Gudang A</option>
-                                    <option value="Gudang B">Gudang B</option>
-                                    <option value="Rak Depan">Rak Depan</option>
-                                    <option value="Rak Samping">Rak Samping</option>
-                                    <option value="Gudang Belakang">Gudang Belakang</option>
+                                    <option value="Lemari Kaca">Lemari Kaca</option>
+                                    <option value="Rak Cat">Rak Cat</option>
+                                    <option value="Samping Rak Cat">Samping Rak Cat</option>
+                                    <option value="Belakang Rak Cat">Belakang Rak Cat</option>
+                                    <option value="Rak Kayu">Rak Kayu</option>
+                                    <option value="Rak Gantung">Rak Gantung</option>
+                                    <option value="Teras Depan">Teras Depan</option>
                                 </select>
                             </div>
                         </div>
@@ -2108,10 +2111,10 @@
                                 <label>Kategori</label>
                                 <select name="kategori" id="editKategori" class="form-control-select" required>
                                     <option value="" disabled selected hidden>Pilih Kategori</option>
-                                    <option value="Material">Material</option>
-                                    <option value="Alat Listrik">Alat Listrik</option>
-                                    <option value="Cat">Cat</option>
-                                    <option value="Alat Tukang">Alat Tukang</option>
+                                    <option value="Listrik">Listrik</option>
+                                    <option value="Alat Teknik">Alat Teknik</option>
+                                    <option value="Bahan Bangunan">Bahan Bangunan</option>
+                                    <option value="Alat Bangunan">Alat Bangunan</option>
                                 </select>
                             </div>
                             <div class="form-group" style="margin-bottom: 12px;">
@@ -2121,25 +2124,24 @@
                                     <option value="Pcs">Pcs</option>
                                     <option value="Unit">Unit</option>
                                     <option value="Set">Set</option>
-                                    <option value="Buah">Buah</option>
+                                    <option value="Pasang">Pasang</option>
                                     <option value="Batang">Batang</option>
                                     <option value="Lembar">Lembar</option>
-                                    <option value="Zak">Zak</option>
-                                    <option value="Pail">Pail</option>
                                     <option value="Galon">Galon</option>
-                                    <option value="Kotak">Kotak</option>
-                                    <option value="Pasang">Pasang</option>
+                                    <option value="Pail">Pail</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Lokasi</label>
                                 <select name="lokasi" id="editLokasi" class="form-control-select" required>
                                     <option value="" disabled selected hidden>Pilih Lokasi</option>
-                                    <option value="Gudang A">Gudang A</option>
-                                    <option value="Gudang B">Gudang B</option>
-                                    <option value="Rak Depan">Rak Depan</option>
-                                    <option value="Rak Samping">Rak Samping</option>
-                                    <option value="Gudang Belakang">Gudang Belakang</option>
+                                    <option value="Lemari Kaca">Lemari Kaca</option>
+                                    <option value="Rak Cat">Rak Cat</option>
+                                    <option value="Samping Rak Cat">Samping Rak Cat</option>
+                                    <option value="Belakang Rak Cat">Belakang Rak Cat</option>
+                                    <option value="Rak Kayu">Rak Kayu</option>
+                                    <option value="Rak Gantung">Rak Gantung</option>
+                                    <option value="Teras Depan">Teras Depan</option>
                                 </select>
                             </div>
                         </div>

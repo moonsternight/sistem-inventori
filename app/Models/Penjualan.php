@@ -12,7 +12,8 @@ class Penjualan extends Model
         'no_transaksi',
         'tanggal',
         'metode_pembayaran',
-        'total'
+        'total',
+        'total_laba'
     ];
 
     public function rincian()

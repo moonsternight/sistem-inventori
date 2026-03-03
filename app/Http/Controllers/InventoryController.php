@@ -55,7 +55,6 @@ class InventoryController extends Controller
         $kategori = $request->input('kategori');
         $status   = $request->input('status');
         $lokasi   = $request->input('lokasi');
-
         $query = Barang::query();
 
         if ($nama) {
@@ -120,9 +119,7 @@ class InventoryController extends Controller
         ]);
 
         Barang::create($validated);
-
         $targetUrl = $request->input('current_url', route('inventori'));
-
         return redirect($targetUrl)->with('success', 'Barang telah disimpan.');
     }
 
@@ -141,9 +138,7 @@ class InventoryController extends Controller
         ]);
 
         $barang = Barang::findOrFail($id_barang);
-
         $barang->update($validated);
-
         $targetUrl = $request->input('current_url', route('inventori'));
         return redirect($targetUrl)->with('success', 'Data telah diperbarui. ');
     }
@@ -173,14 +168,12 @@ class InventoryController extends Controller
             $perPage = $params['per_page'] ?? 5;
             $totalBarangAktif = Barang::count();
             $maxPage = ceil($totalBarangAktif / $perPage);
-
             if ($currentPage > $maxPage && $maxPage > 0) {
                 $params['page'] = $maxPage;
                 $newQuery = http_build_query($params);
                 $targetUrl = ($urlComponents['path'] ?? route('inventori')) . '?' . $newQuery;
             }
         }
-
         return redirect($targetUrl)->with('success', 'Barang telah dihapus. ');
     }
 }

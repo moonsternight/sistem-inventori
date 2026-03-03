@@ -382,7 +382,7 @@
             border: 1.5px solid #E2E8F0;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             padding: 15px;
-            overflow-x: hidden !important;
+            overflow-x: visible !important;
             width: auto;
             box-sizing: border-box;
         }
@@ -413,22 +413,27 @@
         }
 
         .col-faktur-merek {
-            width: 100px;
+            width: 110px;
             text-align: left;
         }
 
         .col-faktur-jumlah {
-            width: 215px;
+            width: 100px;
             text-align: center;
         }
 
         .col-faktur-harga {
-            width: 135px;
+            width: 125px;
             text-align: left;
         }
 
         .col-faktur-subtotal {
-            width: 145px;
+            width: 125px;
+            text-align: left;
+        }
+
+        .col-faktur-aksi {
+            width: 170px;
             text-align: left;
         }
 
@@ -448,6 +453,98 @@
         .transaction-info {
             display: flex;
             flex-direction: column;
+        }
+
+        .detail-actions-row {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0 0 15px 0;
+        }
+
+        .btn-add-item {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 27px;
+            padding: 4.5px 15px;
+            border-radius: 4px;
+            background-color: #1E293B;
+            color: #FFFFFF;
+            border: 1.5px solid #0F172A;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add-item:hover {
+            background-color: #334155;
+            border-color: #1e293b !important;
+            transition: all 0.3s ease;
+        }
+
+        .aksi-btns {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .aksi-btns .btn-edit,
+        .aksi-btns .btn-delete-item {
+            min-width: 70px;
+        }
+
+        .btn-edit {
+            background-color: #F8FAFC;
+            color: #475569;
+            padding: 5px 15px;
+            border-radius: 4px;
+            border: 1.5px solid #94A3B8 !important;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .btn-edit:hover {
+            background-color: #1e293b;
+            border-color: #0f172a !important;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete-item {
+            background-color: #ef4444;
+            color: #FFFFFF;
+            border: 1.5px solid #9f1239 !important;
+            padding: 4.5px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .btn-delete-item:hover {
+            background-color: #dc2626;
+            border-color: #881337 !important;
+            transition: all 0.3s ease;
         }
 
         .info-row {
@@ -857,7 +954,7 @@
 
             .info-label {
                 margin: 0;
-                font-size: 12px;
+                font-size: 11px;
                 font-weight: 800;
                 color: #475569;
             }
@@ -866,12 +963,24 @@
                 margin: 0;
                 background-color: #F1F5F9;
                 color: #1E293B;
-                padding: 2px 15px;
+                padding: 2px 8px;
                 border-radius: 4px;
                 border: 1.5px solid #E2E8F0;
                 font-size: 8px;
                 font-weight: 800;
                 display: inline-block;
+            }
+
+            .btn-edit-metode {
+                width: 20px !important;
+                height: 20px !important;
+                padding: 1px !important;
+            }
+
+            .btn-edit-metode svg {
+                width: 8px !important;
+                height: 8px !important;
+                stroke-width: 3 !important;
             }
         }
 
@@ -977,6 +1086,347 @@
             to {
                 width: 0%;
             }
+        }
+
+        .minimal-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .minimal-modal-overlay.active {
+            display: flex;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        .minimal-modal {
+            width: 100%;
+            max-width: 360px;
+            background: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .minimal-modal-header {
+            padding: 14px 16px;
+            background: #F8FAFC;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .minimal-modal-title {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            color: #0F172A;
+        }
+
+        .minimal-modal-close {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 1px solid #E2E8F0;
+            background: #FFFFFF;
+            color: #64748B;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .minimal-modal-close svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .minimal-modal-body {
+            padding: 16px;
+        }
+
+        .minimal-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .minimal-form-grid .form-group {
+            margin: 0;
+        }
+
+        .minimal-form-grid .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 900;
+            color: #334155;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .minimal-form-grid .form-group input {
+            width: 100%;
+            height: 38px;
+            border-radius: 6px;
+            border: 1px solid #CBD5E1;
+            padding: 0 12px;
+            box-sizing: border-box;
+            outline: none;
+            color: #0F172A;
+            background: #FFFFFF;
+            font-size: 12px;
+        }
+
+        .minimal-form-grid .span-2 {
+            grid-column: span 2;
+        }
+
+        .minimal-readonly {
+            background: #F1F5F9 !important;
+            cursor: default;
+        }
+
+        .minimal-modal-footer {
+            padding: 14px 16px;
+            border-top: 1px solid #E2E8F0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            background: #FFFFFF;
+        }
+
+        .minimal-btn-primary {
+            background-color: #1E293B;
+            color: #FFFFFF;
+            height: 38px;
+            padding: 0 10px;
+            border-radius: 6px;
+            border: 1.5px solid #0F172A;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .minimal-btn-primary:hover {
+            background-color: #334155;
+            border-color: #1e293b !important;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 639.98px) {
+            .minimal-modal {
+                max-width: 440px;
+            }
+
+            .minimal-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .minimal-form-grid .span-2 {
+                grid-column: span 1;
+            }
+
+            .minimal-modal-footer {
+                justify-content: stretch;
+            }
+
+            .minimal-btn-primary {
+                width: 100%;
+            }
+
+            .btn-add-item {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 1023.98px) {
+            .minimal-modal-overlay {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .minimal-modal {
+                max-width: 320px;
+            }
+
+            .detail-actions-row {
+                justify-content: stretch;
+            }
+
+            #btnTambahBarang {
+                width: 100%;
+            }
+
+            .btn-add-item {
+                font-size: 12px;
+            }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: min(320px, calc(100vw - 40px));
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cancel {
+            background-color: #F1F5F9;
+            color: #475569;
+            padding: 5px 20px;
+            border-radius: 4px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 12px;
+            border: 1.5px solid #CBD5E1;
+        }
+
+        .btn-save {
+            background-color: #1e293b;
+            color: #FFFFFF;
+            padding: 5px 20px;
+            border-radius: 4px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 12px;
+            border: 1.5px solid #0f172a;
+        }
+
+        #btnKonfirmasiHapus {
+            background-color: #EF4444 !important;
+            border: 1.5px solid #9f1239 !important;
+            color: #FFFFFF !important;
+            padding: 12px 0;
+        }
+
+        .form-group-relative {
+            position: relative;
+        }
+
+        .autocomplete-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: none;
+            box-shadow: none;
+            border-radius: 8px;
+            z-index: 1000;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .autocomplete-suggestions:not(:empty) {
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .suggestion-item {
+            padding: 5px 15px;
+            cursor: pointer;
+            font-size: 10px;
+            color: #0F172A;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item strong {
+            color: #0F172A;
+            font-weight: 800;
+        }
+
+        .suggestion-item:hover strong,
+        .suggestion-item:hover small {
+            background: #f8fafc;
+            color: #10B981;
+        }
+
+        .toast.success .toast-icon {
+            background: #10B981;
+            color: #ffffff;
+            border: 1.5px solid #059669;
+        }
+
+        .toast.success .toast-timer {
+            background: #10B981;
+        }
+
+        .placeholder-row td.placeholder-text {
+            padding: 50px !important;
+            text-align: center;
+            color: #94A3B8;
+            font-style: italic;
+            border-bottom: none !important;
+            height: auto !important;
+            line-height: normal !important;
+            border-bottom: 1.5px solid #E2E8F0 !important;
+        }
+
+        /* Gaya Utama Tombol Edit Metode */
+        .btn-edit-metode {
+            background-color: #F8FAFC;
+            color: #64748B;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 4px;
+            padding: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            width: 23px;
+            height: 23px;
+            outline: none;
+            /* Menghilangkan garis biru bawaan browser saat diklik */
         }
     </style>
 </head>
@@ -1129,14 +1579,29 @@
                         <p class="info-label">Pemasok :</p>
                         <p class="info-capsule">{{ $pembelian->pemasok }}</p>
                     </div>
-                    <div class="info-row">
+                    <div class="info-row" style="display: flex; align-items: center; gap: 10px;">
                         <p class="info-label">Metode Pembayaran :</p>
-                        @if (strtolower($pembelian->metode_pembayaran) == 'tunai')
-                            <p class="info-capsule capsule-tunai">TUNAI</p>
-                        @else
-                            <p class="info-capsule capsule-transfer">{{ strtoupper($pembelian->metode_pembayaran) }}
-                            </p>
-                        @endif
+
+                        <div id="container-metode"
+                            style="display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+                            @if (strtolower($pembelian->metode_pembayaran) == 'tunai')
+                                <p id="capsule-metode" class="info-capsule capsule-tunai">TUNAI</p>
+                            @else
+                                <p id="capsule-metode" class="info-capsule capsule-transfer">
+                                    {{ strtoupper($pembelian->metode_pembayaran) }}
+                                </p>
+                            @endif
+
+                            <button type="button" onclick="toggleMetodePembelian({{ $pembelian->id_pembelian }})"
+                                class="btn-edit-metode">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <a href="{{ route('laporan.pembelian.faktur', ['tanggal' => $pembelian->tanggal]) }}"
@@ -1148,6 +1613,9 @@
                     </svg>
                 </a>
             </div>
+            <div class="detail-actions-row">
+                <a href="#" class="btn-add-item" id="btnTambahBarang">Tambah Barang</a>
+            </div>
             <div class="detail-table-scroll-wrapper">
                 <table>
                     <thead>
@@ -1158,20 +1626,41 @@
                             <th class="col-faktur-jumlah">Jumlah</th>
                             <th class="col-faktur-harga">Harga</th>
                             <th class="col-faktur-subtotal">Subtotal</th>
+                            <th class="col-faktur-aksi">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($detailBarang as $item)
-                            <tr>
-                                <td class="col-faktur-no">{{ $loop->iteration }}</td>
-                                <td class="col-faktur-nama">{{ $item->nama_barang }}</td>
-                                <td class="col-faktur-merek">{{ $item->merek }}</td>
-                                <td class="col-faktur-jumlah">{{ $item->jumlah }}</td>
-                                <td class="col-faktur-harga">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                                <td class="col-faktur-subtotal">Rp {{ number_format($item->subtotal, 0, ',', '.') }}
-                                </td>
+                        @if ($detailBarang->isEmpty())
+                            <tr class="placeholder-row">
+                                <td colspan="7" class="placeholder-text">Tidak ada barang.</td>
                             </tr>
-                        @endforeach
+                        @else
+                            @foreach ($detailBarang as $item)
+                                <tr>
+                                    <td class="col-faktur-no">{{ $loop->iteration }}</td>
+                                    <td class="col-faktur-nama">{{ $item->nama_barang }}</td>
+                                    <td class="col-faktur-merek">{{ $item->merek }}</td>
+                                    <td class="col-faktur-jumlah">{{ $item->jumlah }}</td>
+                                    <td class="col-faktur-harga">Rp {{ number_format($item->harga, 0, ',', '.') }}
+                                    </td>
+                                    <td class="col-faktur-subtotal">Rp
+                                        {{ number_format($item->subtotal, 0, ',', '.') }}
+                                    </td>
+                                    <td class="col-faktur-aksi">
+                                        <div class="aksi-btns">
+                                            <a href="#" class="btn-edit"
+                                                data-id="{{ $item->id_detail_pembelian }}"
+                                                data-nama="{{ $item->nama_barang }}"
+                                                data-merek="{{ $item->merek }}" data-jumlah="{{ $item->jumlah }}"
+                                                data-harga="{{ $item->harga }}">Edit</a>
+                                            <a href="#" class="btn-delete-item"
+                                                data-id="{{ $item->id_detail_pembelian }}"
+                                                data-nama="{{ $item->nama_barang }}">Hapus</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -1203,46 +1692,736 @@
                 <div></div>
             </div>
         </div>
+
+        <div class="minimal-modal-overlay" id="minimalTambahOverlay">
+            <div class="minimal-modal" role="dialog" aria-modal="true">
+                <div class="minimal-modal-header">
+                    <h3 class="minimal-modal-title">Tambah Barang</h3>
+                    <button type="button" class="minimal-modal-close" id="minimalTambahClose" aria-label="Tutup">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="minimal-modal-body">
+                    <div class="minimal-form-grid">
+                        <div class="form-group span-2" style="position: relative;">
+                            <label for="minNamaBarang">Nama Barang</label>
+                            <input type="text" id="minNamaBarang" autocomplete="off" spellcheck="false">
+                            <div id="min-suggestion-list" class="autocomplete-suggestions"></div>
+                        </div>
+                        <div class="form-group span-2" style="position: relative;"> <label
+                                for="minMerek">Merek</label>
+                            <input type="text" id="minMerek" autocomplete="off" spellcheck="false">
+                            <div id="min-merek-suggestion-list" class="autocomplete-suggestions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="minJumlah">Jumlah</label>
+                            <input type="text" id="minJumlah" inputmode="numeric" pattern="[0-9]*"
+                                autocomplete="off" spellcheck="false">
+                        </div>
+                        <div class="form-group">
+                            <label for="minHarga">Harga</label>
+                            <input type="text" id="minHarga" inputmode="numeric" autocomplete="off"
+                                spellcheck="false">
+                        </div>
+                        <div class="form-group span-2">
+                            <label for="minSubtotal">Subtotal</label>
+                            <input type="text" id="minSubtotal" class="minimal-readonly" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="minimal-modal-footer">
+                    <button type="button" class="minimal-btn-primary" id="minBtnTambah">Tambah</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="minimal-modal-overlay" id="minimalEditOverlay">
+            <div class="minimal-modal" role="dialog" aria-modal="true">
+                <form id="formEditBarang" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="minimal-modal-header">
+                        <h3 class="minimal-modal-title">Edit Barang</h3>
+                        <button type="button" class="minimal-modal-close" id="minimalEditClose" aria-label="Tutup">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="minimal-modal-body">
+                        <div class="minimal-form-grid">
+                            <div class="form-group span-2" style="position: relative;">
+                                <label for="edNamaBarang">Nama Barang</label>
+                                <input type="text" id="edNamaBarang" name="nama_barang" autocomplete="off"
+                                    spellcheck="false">
+                                <div id="ed-suggestion-list" class="autocomplete-suggestions"></div>
+                            </div>
+                            <div class="form-group span-2" style="position: relative;">
+                                <label for="edMerek">Merek</label>
+                                <input type="text" id="edMerek" name="merek" autocomplete="off"
+                                    spellcheck="false">
+                                <div id="ed-merek-suggestion-list" class="autocomplete-suggestions"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="edJumlah">Jumlah</label>
+                                <input type="text" id="edJumlah" name="jumlah" inputmode="numeric"
+                                    pattern="[0-9]*" autocomplete="off" spellcheck="false">
+                            </div>
+                            <div class="form-group">
+                                <label for="edHarga">Harga</label>
+                                <input type="text" id="edHarga" name="harga" inputmode="numeric"
+                                    autocomplete="off" spellcheck="false">
+                            </div>
+                            <div class="form-group span-2">
+                                <label for="edSubtotal">Subtotal</label>
+                                <input type="text" id="edSubtotal" class="minimal-readonly" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="minimal-modal-footer">
+                        <button type="submit" class="minimal-btn-primary" id="minBtnSimpan">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalHapus">
+            <div class="modal-content" style="position: relative;">
+                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                    <div
+                        style="background-color: #FEF2F2; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid #EF4444;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EF4444"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                            </path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <h3
+                        style="margin: 0; font-size: 20px; color: #0F172A; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                        HAPUS BARANG
+                    </h3>
+                    <p style="font-size: 14px; color: #64748B; margin-bottom: 20px; line-height: 1.5;">
+                        Anda yakin ingin menghapus <strong>barang</strong> ini?
+                    </p>
+                    <form id="formHapusItem" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="current_url" value="{{ request()->fullUrl() }}">
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <button type="button" class="btn-cancel" id="btnTidakHapus"
+                                style="flex: 1; padding: 12px 0; border: 1.5px solid #CBD5E1; font-weight: 800;">
+                                TIDAK
+                            </button>
+                            <button type="button" class="btn-save" id="btnKonfirmasiHapus"
+                                style="flex: 1; padding: 12px 0; font-weight: 800;">
+                                IYA
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <script>
+        const daftarBarangSistem = @json($semuaBarang);
         const loadingOverlay = document.getElementById('loading-overlay');
+        const inputHarga = document.getElementById('minHarga');
+        const inputJumlah = document.getElementById('minJumlah');
+        const inputSubtotal = document.getElementById('minSubtotal');
 
         function triggerLoading(targetUrl) {
             if (!targetUrl || targetUrl === '#') return;
-            loadingOverlay.style.display = 'flex';
-            loadingOverlay.style.opacity = '1';
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'flex';
+                loadingOverlay.style.opacity = '1';
+            }
             window.location.href = targetUrl;
         }
+
+        function minParseNumber(value) {
+            const num = Number(String(value).replace(/[^0-9]/g, ''));
+            return Number.isFinite(num) ? num : 0;
+        }
+
+        function minFormatRupiah(value) {
+            const num = Number(value);
+            if (!Number.isFinite(num)) return '';
+            return num.toLocaleString('id-ID');
+        }
+
+        function minCellText(row, selectorOrIndex) {
+            if (!row) return '';
+            if (typeof selectorOrIndex === 'number') {
+                const cells = row.querySelectorAll('td');
+                return cells[selectorOrIndex]?.textContent?.trim() || '';
+            }
+            const el = row.querySelector(selectorOrIndex);
+            return el?.textContent?.trim() || '';
+        }
+
+        function formatRupiahVisual(angka) {
+            if (!angka || angka == 0) return "";
+            return "Rp " + parseInt(angka).toLocaleString('id-ID');
+        }
+
+        function murnikanAngka(string) {
+            if (!string) return "0";
+            return string.toString().replace(/[^\d]/g, '');
+        }
+
+        if (inputHarga) {
+            inputHarga.addEventListener('input', function(e) {
+                let cursorPosition = this.selectionStart;
+                let originalLength = this.value.length;
+
+                let val = this.value.replace(/[^0-9]/g, '');
+                if (val.startsWith('0')) {
+                    val = val.replace(/^0+/, '');
+                }
+
+                if (val !== "") {
+                    this.value = formatRupiahVisual(val);
+                } else {
+                    this.value = "";
+                }
+
+                let newLength = this.value.length;
+                let difference = newLength - originalLength;
+                let newCursorPos = cursorPosition + difference;
+
+                if (newCursorPos < 3 && this.value !== "") {
+                    newCursorPos = 3;
+                }
+
+                this.setSelectionRange(newCursorPos, newCursorPos);
+                if (typeof updateSubtotal === 'function') updateSubtotal();
+            });
+        }
+
+        (function() {
+            const openBtn = document.getElementById('btnTambahBarang');
+            const overlay = document.getElementById('minimalTambahOverlay');
+            const closeBtn = document.getElementById('minimalTambahClose');
+            const btnTambah = document.getElementById('minBtnTambah');
+
+            const inNama = document.getElementById('minNamaBarang');
+            const inMerek = document.getElementById('minMerek');
+            const inJumlah = document.getElementById('minJumlah');
+            const inHarga = document.getElementById('minHarga');
+            const inSubtotal = document.getElementById('minSubtotal');
+            const suggestionList = document.getElementById('min-suggestion-list');
+            const suggestionMerekList = document.getElementById('min-merek-suggestion-list');
+
+            function openModal() {
+                if (!overlay) return;
+                if (inNama) inNama.value = '';
+                if (inMerek) inMerek.value = '';
+                if (inJumlah) inJumlah.value = '';
+                if (inHarga) inHarga.value = '';
+                if (inSubtotal) inSubtotal.value = '';
+                if (suggestionList) suggestionList.style.display = 'none';
+                if (suggestionMerekList) suggestionMerekList.style.display = 'none';
+                overlay.classList.add('active');
+                document.body.classList.add('modal-open');
+                setTimeout(() => inNama && inNama.focus(), 0);
+            }
+
+            function closeModal() {
+                if (!overlay) return;
+                overlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                if (suggestionList) suggestionList.style.display = 'none';
+                if (suggestionMerekList) suggestionMerekList.style.display = 'none';
+            }
+
+            function updateSubtotal() {
+                const namaValid = inNama?.value.trim() !== '';
+                const merekValid = inMerek?.value.trim() !== '';
+
+                if (!namaValid || !merekValid) {
+                    if (inSubtotal) inSubtotal.value = '';
+                    return;
+                }
+
+                const jumlah = minParseNumber(inJumlah?.value || '');
+                const harga = minParseNumber(inHarga?.value || '');
+                const subtotal = jumlah * harga;
+                if (inSubtotal) inSubtotal.value = subtotal ? formatRupiahVisual(subtotal) : '';
+            }
+
+            if (inNama && suggestionList) {
+                inNama.addEventListener('input', function() {
+                    const keyword = this.value.toLowerCase().trim();
+                    suggestionList.innerHTML = '';
+                    if (keyword.length < 1) {
+                        suggestionList.style.display = 'none';
+                        if (inHarga) inHarga.value = '';
+                        if (inSubtotal) inSubtotal.value = '';
+                        return;
+                    }
+                    const matches = daftarBarangSistem.filter(barang =>
+                        barang.nama_barang.toLowerCase().includes(keyword)
+                    ).slice(0, 3);
+                    if (matches.length > 0) {
+                        matches.forEach(barang => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+                            item.innerHTML =
+                                `<strong>${barang.nama_barang}</strong> - <small>${barang.merek}</small>`;
+                            item.addEventListener('click', function() {
+                                inNama.value = barang.nama_barang;
+                                if (inMerek) inMerek.value = barang.merek;
+                                if (inHarga) {
+                                    inHarga.value = formatRupiahVisual(barang.harga_beli);
+                                    updateSubtotal();
+                                }
+                                suggestionList.style.display = 'none';
+                            });
+                            suggestionList.appendChild(item);
+                        });
+                        suggestionList.style.display = 'block';
+                    } else {
+                        suggestionList.style.display = 'none';
+                    }
+                });
+            }
+
+            if (inMerek && suggestionMerekList) {
+                inMerek.addEventListener('input', function() {
+                    const keyword = this.value.toLowerCase().trim();
+                    suggestionMerekList.innerHTML = '';
+                    if (keyword.length < 1) {
+                        suggestionMerekList.style.display = 'none';
+                        if (inHarga) inHarga.value = '';
+                        if (inSubtotal) inSubtotal.value = '';
+                        return;
+                    }
+                    const matches = daftarBarangSistem.filter(barang =>
+                        barang.merek.toLowerCase().includes(keyword)
+                    ).slice(0, 3);
+                    if (matches.length > 0) {
+                        matches.forEach(barang => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+                            item.innerHTML =
+                                `<strong>${barang.merek}</strong> - <small>${barang.nama_barang}</small>`;
+                            item.addEventListener('click', function() {
+                                inMerek.value = barang.merek;
+                                if (inNama) inNama.value = barang.nama_barang;
+                                if (inHarga) {
+                                    inHarga.value = formatRupiahVisual(barang.harga_beli);
+                                    updateSubtotal();
+                                }
+                                suggestionMerekList.style.display = 'none';
+                            });
+                            suggestionMerekList.appendChild(item);
+                        });
+                        suggestionMerekList.style.display = 'block';
+                    } else {
+                        suggestionMerekList.style.display = 'none';
+                    }
+                });
+            }
+
+            document.addEventListener('click', function(e) {
+                if (inNama && suggestionList && e.target !== inNama) suggestionList.style.display = 'none';
+                if (inMerek && suggestionMerekList && e.target !== inMerek) suggestionMerekList.style.display =
+                    'none';
+            });
+
+            if (openBtn) {
+                openBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openModal();
+                });
+            }
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closeModal();
+                });
+            }
+
+            if (inJumlah) {
+                inJumlah.addEventListener('input', function() {
+                    let value = this.value.replace(/\D/g, '');
+                    if (value.startsWith('0')) {
+                        value = value.replace(/^0+/, '');
+                    }
+                    this.value = value;
+                    updateSubtotal();
+                });
+            }
+
+            if (btnTambah) {
+                btnTambah.addEventListener('click', function() {
+                    const data = {
+                        nama_barang: inNama.value,
+                        merek: inMerek.value,
+                        jumlah: inJumlah.value,
+                        harga: inHarga.value,
+                    };
+
+                    if (!data.nama_barang || !data.jumlah || !data.harga) {
+                        showToast("Mohon lengkapi semua data barang!");
+                        return;
+                    }
+
+                    const idPembelian = "{{ $pembelian->id_pembelian }}";
+                    const url = "{{ route('laporan.pembelian.detail.store', ['id' => ':id']) }}".replace(':id',
+                        idPembelian);
+
+                    fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.success) {
+                                closeModal();
+                                window.location.href = window.location.href + (window.location.href
+                                    .includes('?') ? '&' : '?') + 'success_add=1';
+                            } else {
+                                showToast(result.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            showToast("Gagal menyambung ke server.");
+                        });
+                });
+            }
+        })();
+
+        (function() {
+            const overlay = document.getElementById('minimalEditOverlay');
+            const closeBtn = document.getElementById('minimalEditClose');
+            const btnSimpan = document.getElementById('minBtnSimpan');
+            const inNama = document.getElementById('edNamaBarang');
+            const inMerek = document.getElementById('edMerek');
+            const inJumlah = document.getElementById('edJumlah');
+            const inHarga = document.getElementById('edHarga');
+            const inSubtotal = document.getElementById('edSubtotal');
+            const suggestionEditList = document.getElementById('ed-suggestion-list');
+            const suggestionMerekList = document.getElementById('ed-merek-suggestion-list');
+
+            function updateSubtotalEdit() {
+                const qty = parseInt(inJumlah?.value) || 0;
+                const price = parseInt(inHarga?.value.replace(/[^0-9]/g, '')) || 0;
+                const total = qty * price;
+                if (inSubtotal) inSubtotal.value = total ? formatRupiahVisual(total) : '';
+            }
+
+            if (inNama && suggestionEditList) {
+                inNama.addEventListener('input', function() {
+                    const keyword = this.value.toLowerCase().trim();
+                    suggestionEditList.innerHTML = '';
+                    if (keyword.length < 1) {
+                        suggestionEditList.style.display = 'none';
+                        return;
+                    }
+                    const matches = daftarBarangSistem.filter(barang =>
+                        barang.nama_barang.toLowerCase().includes(keyword)
+                    ).slice(0, 3);
+                    if (matches.length > 0) {
+                        matches.forEach(barang => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+                            item.innerHTML =
+                                `<strong>${barang.nama_barang}</strong> - <small>${barang.merek}</small>`;
+                            item.addEventListener('click', function() {
+                                inNama.value = barang.nama_barang;
+                                if (inMerek) inMerek.value = barang.merek;
+                                if (inHarga) {
+                                    inHarga.value = formatRupiahVisual(barang.harga_beli);
+                                    updateSubtotalEdit();
+                                }
+                                suggestionEditList.style.display = 'none';
+                            });
+                            suggestionEditList.appendChild(item);
+                        });
+                        suggestionEditList.style.display = 'block';
+                    } else {
+                        suggestionEditList.style.display = 'none';
+                    }
+                });
+            }
+
+            if (inMerek && suggestionMerekList) {
+                inMerek.addEventListener('input', function() {
+                    const keyword = this.value.toLowerCase().trim();
+                    suggestionMerekList.innerHTML = '';
+                    if (keyword.length < 1) {
+                        suggestionMerekList.style.display = 'none';
+                        return;
+                    }
+                    const matches = daftarBarangSistem.filter(barang =>
+                        barang.merek && barang.merek.toLowerCase().includes(keyword)
+                    ).slice(0, 3);
+                    if (matches.length > 0) {
+                        matches.forEach(barang => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+                            item.innerHTML =
+                                `<strong>${barang.merek}</strong> - <small>${barang.nama_barang}</small>`;
+                            item.addEventListener('click', function() {
+                                if (inMerek) inMerek.value = barang.merek;
+                                if (inNama) inNama.value = barang.nama_barang;
+                                if (inHarga) {
+                                    inHarga.value = formatRupiahVisual(barang.harga_beli);
+                                    updateSubtotalEdit();
+                                }
+                                suggestionMerekList.style.display = 'none';
+                            });
+                            suggestionMerekList.appendChild(item);
+                        });
+                        suggestionMerekList.style.display = 'block';
+                    } else {
+                        suggestionMerekList.style.display = 'none';
+                    }
+                });
+            }
+
+            function closeModal() {
+                if (!overlay) return;
+                overlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closeModal();
+                });
+            }
+
+            if (inJumlah) {
+                inJumlah.addEventListener('input', function() {
+                    let value = this.value.replace(/\D/g, '');
+                    if (value.startsWith('0')) {
+                        value = value.replace(/^0+/, '');
+                    }
+                    this.value = value;
+                    updateSubtotalEdit();
+                });
+            }
+
+            if (inHarga) {
+                inHarga.addEventListener('input', function(e) {
+                    let cursorPosition = this.selectionStart;
+                    let originalLength = this.value.length;
+                    let val = this.value.replace(/[^0-9]/g, '');
+                    if (val.startsWith('0')) {
+                        val = val.replace(/^0+/, '');
+                    }
+                    this.value = val !== "" ? formatRupiahVisual(val) : "";
+                    let newLength = this.value.length;
+                    let difference = newLength - originalLength;
+                    let newCursorPos = cursorPosition + difference;
+                    if (newCursorPos < 3 && this.value !== "") {
+                        newCursorPos = 3;
+                    }
+                    this.setSelectionRange(newCursorPos, newCursorPos);
+                    updateSubtotalEdit();
+                });
+            }
+
+            if (btnSimpan) {
+                btnSimpan.addEventListener('click', function() {
+                    closeModal();
+                });
+            }
+        })();
+
+        (function() {
+            const overlay = document.getElementById('modalHapus');
+            const btnTidak = document.getElementById('btnTidakHapus');
+            const btnIya = document.getElementById('btnKonfirmasiHapus');
+            const formHapus = document.getElementById('formHapusItem');
+            let targetId = null;
+
+            function openModal(id) {
+                if (!overlay) return;
+                targetId = id;
+                overlay.classList.add('active');
+                document.body.classList.add('modal-open');
+            }
+
+            function closeModal() {
+                if (!overlay) return;
+                overlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                targetId = null;
+            }
+
+            document.querySelectorAll('a.btn-delete-item').forEach((btn) => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const id = this.getAttribute('data-id');
+                    openModal(id);
+                });
+            });
+
+            if (btnIya) {
+                btnIya.addEventListener('click', function() {
+                    if (targetId && formHapus) {
+                        formHapus.action = `/laporan/faktur-pembelian/detail/hapus/${targetId}`;
+                        formHapus.submit();
+                    }
+                });
+            }
+
+            if (btnTidak) btnTidak.addEventListener('click', closeModal);
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closeModal();
+                });
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    const sidebar = document.querySelector('.sidebar');
+                    if (sidebar && sidebar.classList.contains('open')) {
+                        sidebar.classList.remove('open');
+                        document.getElementById('sidebarOverlay')?.classList.remove('active');
+                        document.body.classList.remove('sidebar-open');
+                    }
+                }
+            });
+        })();
 
         document.addEventListener('DOMContentLoaded', function() {
             @if (session('error_filter'))
                 showToast("{{ session('error_filter') }}");
             @endif
+
+            @if (session('success'))
+                showSuccessToast("{{ session('success') }}");
+            @endif
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('success_add')) {
+                showSuccessToast("Barang ditambahkan.");
+                window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+            }
+
+            const editOverlay = document.getElementById('minimalEditOverlay');
+            const editClose = document.getElementById('minimalEditClose');
+            const editForm = document.getElementById('formEditBarang');
+            const edNama = document.getElementById('edNamaBarang');
+            const edMerek = document.getElementById('edMerek');
+            const edJumlah = document.getElementById('edJumlah');
+            const edHarga = document.getElementById('edHarga');
+            const edSubtotal = document.getElementById('edSubtotal');
+
+            function hitungSubtotalEdit() {
+                const qty = parseInt(edJumlah.value) || 0;
+                const priceValue = edHarga.value.replace(/[^0-9]/g, '');
+                const price = parseInt(priceValue) || 0;
+                const total = qty * price;
+                edSubtotal.value = total ? formatRupiahVisual(total) : "";
+            }
+
+            document.querySelectorAll('.btn-edit').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const id = this.getAttribute('data-id');
+                    const nama = this.getAttribute('data-nama');
+                    const merek = this.getAttribute('data-merek');
+                    const jumlah = this.getAttribute('data-jumlah');
+                    const harga = this.getAttribute('data-harga');
+
+                    edNama.value = nama;
+                    edMerek.value = merek;
+                    edJumlah.value = jumlah;
+                    edHarga.value = formatRupiahVisual(harga);
+
+                    let urlTemplate =
+                        "{{ route('laporan.pembelian.detail.update', ['id_detail' => 'PLACEHOLDER']) }}";
+                    editForm.action = urlTemplate.replace('PLACEHOLDER', id);
+
+                    hitungSubtotalEdit();
+                    editOverlay.classList.add('active');
+                    document.body.classList.add('modal-open');
+                });
+            });
+
+            edJumlah.addEventListener('input', hitungSubtotalEdit);
+            edHarga.addEventListener('input', function(e) {
+                let cursorPosition = this.selectionStart;
+                let originalLength = this.value.length;
+                let val = this.value.replace(/[^0-9]/g, '');
+                if (val.startsWith('0')) {
+                    val = val.replace(/^0+/, '');
+                }
+                this.value = val !== "" ? formatRupiahVisual(val) : "";
+                let newLength = this.value.length;
+                let difference = newLength - originalLength;
+                let newCursorPos = cursorPosition + difference;
+                if (newCursorPos < 3 && this.value !== "") {
+                    newCursorPos = 3;
+                }
+                this.setSelectionRange(newCursorPos, newCursorPos);
+                hitungSubtotalEdit();
+            });
+
+            if (editClose) {
+                editClose.addEventListener('click', function() {
+                    editOverlay.classList.remove('active');
+                    document.body.classList.remove('modal-open');
+                });
+            }
         });
 
         function showToast(message) {
             const container = document.getElementById('toast-container');
             if (!container) return;
-
             const toast = document.createElement('div');
             toast.className = 'toast error';
-
             const icon =
                 `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
-
-            toast.innerHTML = `
-            <div class="toast-icon">${icon}</div>
-            <div class="toast-content">
-                <span class="toast-single-line"><strong>Error:</strong> ${message}</span>
-            </div>
-            <div class="toast-timer"></div>
-        `;
-
+            toast.innerHTML =
+                `<div class="toast-icon">${icon}</div><div class="toast-content"><span class="toast-single-line"><strong>Error:</strong> ${message}</span></div><div class="toast-timer"></div>`;
             container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.transform = "translateX(120%)";
+                toast.style.opacity = "0";
+                toast.style.transition = "all 0.3s ease";
+                setTimeout(() => toast.remove(), 400);
+            }, 2500);
+        }
 
+        function showSuccessToast(message) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = 'toast success';
+            const icon =
+                `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            toast.innerHTML =
+                `<div class="toast-icon">${icon}</div><div class="toast-content"><span class="toast-single-line"><strong>Success:</strong> ${message}</span></div><div class="toast-timer"></div>`;
+            container.appendChild(toast);
             setTimeout(() => {
                 toast.style.transform = "translateX(120%)";
                 toast.style.opacity = "0";
@@ -1255,25 +2434,16 @@
         if (filterForm) {
             filterForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-
                 const tglMulaiInput = document.getElementById('tanggal_mulai');
                 const tglAkhirInput = document.getElementById('tanggal_akhir');
+                if (!tglMulaiInput || !tglAkhirInput) return;
                 const valMulai = tglMulaiInput.value;
                 const valAkhir = tglAkhirInput.value;
-
-                if (!valMulai || !valAkhir) {
-                    return;
-                }
-
-                if (valMulai > valAkhir) {
-                    return;
-                }
-
+                if (!valMulai || !valAkhir || valMulai > valAkhir) return;
                 const url = new URL("{{ route('laporan.rekap.pembelian') }}", window.location.origin);
                 url.searchParams.set('tgl_mulai', valMulai);
                 url.searchParams.set('tgl_akhir', valAkhir);
                 url.searchParams.set('page', 1);
-
                 window.location.href = url.href;
             });
         }
@@ -1287,11 +2457,6 @@
                 }
             });
         });
-
-        const btnBack = document.getElementById('btnBackToFaktur');
-        if (btnBack) {
-            btnBack.addEventListener('click', function(e) {});
-        }
 
         (function() {
             const sidebar = document.querySelector('.sidebar');
@@ -1313,29 +2478,64 @@
                 document.body.classList.remove('sidebar-open');
             }
 
-            function toggleSidebar() {
-                if (!sidebar) return;
-                if (sidebar.classList.contains('open')) closeSidebar();
-                else openSidebar();
-            }
-
-            if (toggle) toggle.addEventListener('click', toggleSidebar);
+            if (toggle) toggle.addEventListener('click', () => sidebar?.classList.contains('open') ? closeSidebar() :
+                openSidebar());
             if (overlay) overlay.addEventListener('click', closeSidebar);
 
-            navLinks.forEach(function(link) {
-                link.addEventListener('click', function() {
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
                     if (window.innerWidth < 1024) closeSidebar();
                 });
             });
 
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') closeSidebar();
-            });
-
-            window.addEventListener('resize', function() {
+            window.addEventListener('resize', () => {
                 if (window.innerWidth >= 1024) closeSidebar();
             });
         })();
+
+        function toggleMetodePembelian(id) {
+            const container = document.getElementById('container-metode');
+            const capsule = document.getElementById('capsule-metode');
+
+            // 1. Efek meredup & kunci tombol (Indikator proses ke server)
+            container.style.opacity = '0.5';
+            container.style.pointerEvents = 'none';
+
+            fetch("{{ url('/laporan/faktur-pembelian/detail/toggle-metode') }}/" + id, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // 2. Update teks label secara instan
+                        capsule.innerText = data.metode_baru;
+
+                        // 3. Update warna capsule (TUNAI = Hijau, TRANSFER = Biru)
+                        if (data.metode_baru === 'TUNAI') {
+                            capsule.className = 'info-capsule capsule-tunai';
+                        } else {
+                            capsule.className = 'info-capsule capsule-transfer';
+                        }
+
+                        console.log('Sistem: Metode pembayaran berhasil diperbarui.');
+                    } else {
+                        console.error('Gagal: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error Sistem:', error);
+                })
+                .finally(() => {
+                    // 4. Kembalikan tampilan ke normal (Efek meredup hilang)
+                    container.style.opacity = '1';
+                    container.style.pointerEvents = 'auto';
+                });
+        }
     </script>
 </body>
 

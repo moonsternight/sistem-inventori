@@ -433,7 +433,7 @@
         }
 
         .col-faktur-aksi {
-            width: 108px;
+            width: 190px;
             text-align: left;
         }
 
@@ -596,6 +596,38 @@
             background-color: #1e293b;
             border-color: #0f172a !important;
             color: #FFFFFF;
+            transition: all 0.3s ease;
+        }
+
+        .aksi-btns {
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-delete-item {
+            background-color: #ef4444;
+            color: #FFFFFF;
+            border: 1.5px solid #9f1239 !important;
+            padding: 4.5px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .btn-delete-item:hover {
+            background-color: #dc2626;
+            border-color: #881337 !important;
             transition: all 0.3s ease;
         }
 
@@ -1118,6 +1150,71 @@
                 width: 0%;
             }
         }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: min(320px, calc(100vw - 40px));
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cancel {
+            background-color: #F1F5F9;
+            color: #475569;
+            padding: 5px 20px;
+            border-radius: 4px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 12px;
+            border: 1.5px solid #CBD5E1;
+        }
+
+        .btn-save {
+            background-color: #1e293b;
+            color: #FFFFFF;
+            padding: 5px 20px;
+            border-radius: 4px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 12px;
+            border: 1.5px solid #0f172a;
+        }
+
+        #btnKonfirmasiHapusFaktur {
+            background-color: #EF4444 !important;
+            border: 1.5px solid #9f1239 !important;
+            color: #FFFFFF !important;
+            padding: 12px 0;
+        }
     </style>
 </head>
 
@@ -1288,25 +1385,32 @@
                                 <td class="col-faktur-pemasok">{{ $item->pemasok }}</td>
                                 <td class="col-faktur-total">Rp {{ number_format($item->total, 0, ',', '.') }}</td>
                                 <td class="col-faktur-metode">
-                                    @if ($item->metode_pembayaran == 'Tunai')
-                                        <span class="method-badge badge-tunai">Tunai</span>
+                                    {{-- Kita gunakan strtolower agar pengecekan tidak sensitif huruf besar/kecil --}}
+                                    @if (strtolower($item->metode_pembayaran) == 'tunai')
+                                        <span class="method-badge badge-tunai">TUNAI</span>
                                     @else
                                         <span
-                                            class="method-badge badge-transfer">{{ $item->metode_pembayaran }}</span>
+                                            class="method-badge badge-transfer">{{ strtoupper($item->metode_pembayaran) }}</span>
                                     @endif
                                 </td>
                                 <td class="col-faktur-aksi">
-                                    <button type="button" class="btn-view"
-                                        onclick="window.location.href = '{{ route('laporan.pembelian.detail', ['id' => $item->id_pembelian]) }}&rekap_page={{ $rekapPage }}&tgl_mulai={{ request('tgl_mulai') }}&tgl_akhir={{ request('tgl_akhir') }}'">
-                                        Lihat
-                                    </button>
+                                    <div class="aksi-btns">
+                                        <button type="button" class="btn-view"
+                                            onclick="window.location.href = '{{ route('laporan.pembelian.detail', ['id' => $item->id_pembelian]) }}&rekap_page={{ $rekapPage }}&tgl_mulai={{ request('tgl_mulai') }}&tgl_akhir={{ request('tgl_akhir') }}'">
+                                            Lihat
+                                        </button>
+                                        <button type="button" class="btn-delete-item"
+                                            data-id="{{ $item->id_pembelian }}" onclick="openDeleteModal(this)">
+                                            Hapus
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="6"
                                     style="text-align: center; padding: 50px; color: #94a3b8; font-style: italic; font-size: 12px;">
-                                    Maaf, tidak ditemukan data faktur pada tanggal ini.
+                                    Data faktur kosong.
                                 </td>
                             </tr>
                         @endforelse
@@ -1352,6 +1456,48 @@
                 <div></div>
                 <div></div>
                 <div></div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalHapusFaktur">
+            <div class="modal-content" style="position: relative;">
+                <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+                    <div
+                        style="background-color: #FEF2F2; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid #EF4444;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EF4444"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                            </path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <h3
+                        style="margin: 0; font-size: 20px; color: #0F172A; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                        HAPUS FAKTUR
+                    </h3>
+                    <p style="font-size: 14px; color: #64748B; margin-bottom: 20px; line-height: 1.5;">
+                        Anda yakin ingin menghapus <strong>faktur</strong> ini?
+                    </p>
+                    <form id="formHapusFaktur" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="current_url" value="{{ request()->fullUrl() }}">
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <button type="button" class="btn-cancel" id="btnTidakHapusFaktur"
+                                style="flex: 1; padding: 12px 0; border: 1.5px solid #CBD5E1; font-weight: 800;">
+                                TIDAK
+                            </button>
+                            <button type="button" class="btn-save" id="btnKonfirmasiHapusFaktur"
+                                style="flex: 1; padding: 12px 0; font-weight: 800;">
+                                IYA
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </main>
@@ -1460,6 +1606,55 @@
         if (btnBack) {
             btnBack.addEventListener('click', function(e) {});
         }
+
+        function openDeleteModal(button) {
+            // Kita gunakan trim() untuk memastikan tidak ada spasi yang ikut terbawa
+            const rawId = button.getAttribute('data-id');
+            const cleanId = rawId ? rawId.trim() : '';
+
+            const form = document.getElementById('formHapusFaktur');
+            const overlay = document.getElementById('modalHapusFaktur');
+
+            if (form && cleanId) {
+                // Menyusun URL dengan ID yang sudah bersih
+                form.action = `/laporan/pembelian/hapus/${cleanId}`;
+
+                overlay.classList.add('active');
+                document.body.classList.add('modal-open');
+            }
+        }
+
+        (function() {
+            const overlay = document.getElementById('modalHapusFaktur');
+            const btnTidak = document.getElementById('btnTidakHapusFaktur');
+            const btnIya = document.getElementById('btnKonfirmasiHapusFaktur');
+            const formHapus = document.getElementById('formHapusFaktur');
+
+            function closeModal() {
+                if (!overlay) return;
+                overlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+
+            if (btnTidak) btnTidak.addEventListener('click', closeModal);
+
+            if (btnIya) {
+                btnIya.addEventListener('click', function() {
+                    // Langsung submit ke controller (Poin 7: Tanpa animasi/loading)
+                    formHapus.submit();
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closeModal();
+                });
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeModal();
+            });
+        })();
 
         (function() {
             const sidebar = document.querySelector('.sidebar');

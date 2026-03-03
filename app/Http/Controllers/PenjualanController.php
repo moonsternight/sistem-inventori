@@ -41,7 +41,6 @@ class PenjualanController extends Controller
             DB::beginTransaction();
 
             $currentNoTransaksi = $this->generateNoTransaksi();
-
             $penjualan = new Penjualan();
             $penjualan->no_transaksi = $currentNoTransaksi;
             $penjualan->metode_pembayaran = $metodePembayaran;
@@ -111,5 +110,49 @@ class PenjualanController extends Controller
         }
 
         return 'TRANS-' . $today . '-' . $nextNumber;
+    }
+
+    public function destroy($id_penjualan)
+    {
+        try {
+            DB::beginTransaction();
+
+            $penjualan = Penjualan::findOrFail($id_penjualan);
+            $details = DB::table('detail_penjualan')->where('id_penjualan', $id_penjualan)->get();
+
+            foreach ($details as $item) {
+                $barang = Barang::find($item->id_barang);
+                if ($barang) {
+                    $barang->stok_sistem += $item->jumlah;
+                    $barang->save();
+                }
+            }
+
+            DB::table('detail_penjualan')->where('id_penjualan', $id_penjualan)->delete();
+            $penjualan->delete();
+
+            DB::commit();
+
+            $previousUrl = url()->previous();
+            $urlComponents = parse_url($previousUrl);
+            parse_str($urlComponents['query'] ?? '', $params);
+
+            if (isset($params['page']) && $params['page'] > 1) {
+                $currentPage = (int)$params['page'];
+                $perPage = isset($params['per_page']) ? (int)$params['per_page'] : 5;
+                $totalRemaining = Penjualan::count();
+
+                if ($totalRemaining <= ($currentPage - 1) * $perPage) {
+                    $params['page'] = $currentPage - 1;
+                    $newUrl = ($urlComponents['path'] ?? '') . '?' . http_build_query($params);
+                    return redirect($newUrl);
+                }
+            }
+
+            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Gagal menghapus transaksi: ' . $e->getMessage());
+        }
     }
 }

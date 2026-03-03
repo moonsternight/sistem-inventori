@@ -764,10 +764,10 @@
             }
 
             #modalHapusSemua .modal-content {
-                width: min(520px, calc(100vw - 40px)) !important;
-                max-width: calc(100vw - 40px) !important;
-                margin-left: 20px;
-                margin-right: 20px;
+                width: 320px !important;
+                max-width: min(320px, calc(100vw - 40px)) !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
                 box-sizing: border-box;
             }
 
@@ -1391,7 +1391,7 @@
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="modal-overlay" id="modalHapusSemua">
-        <div class="modal-content" style="width: 300px; padding: 20px; position: relative;">
+        <div class="modal-content" style="width: 320px; padding: 20px; position: relative;">
             <div style="display: flex; justify-content: center; margin-bottom: 10px;">
                 <div
                     style="background-color: #FEF2F2; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid #EF4444;">

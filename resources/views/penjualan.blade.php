@@ -708,13 +708,13 @@
         }
 
         .col-nama {
-            width: 190px;
+            width: 200px;
             text-align: left;
             letter-spacing: 0.3px;
         }
 
         .col-merek {
-            width: 200px;
+            width: 190px;
             text-align: left;
             letter-spacing: 0.3px;
         }
@@ -793,7 +793,7 @@
             background-color: #ef4444;
             color: #FFFFFF;
             padding: 5px 15px;
-            border-radius: 6px;
+            border-radius: 4px;
             border: 1.5px solid #9f1239;
             font-size: 11px;
             font-weight: 800;

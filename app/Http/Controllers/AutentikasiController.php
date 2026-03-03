@@ -23,7 +23,6 @@ class AutentikasiController extends Controller
         }
 
         $pemilik = DB::table('pemilik')->first();
-
         if ($pemilik && Hash::check($request->pin, $pemilik->pin_hash)) {
             RateLimiter::clear($key);
             session()->forget(['error', 'remaining', 'lockout_time']);
@@ -32,14 +31,12 @@ class AutentikasiController extends Controller
         }
 
         RateLimiter::hit($key, $decaySeconds);
-
         if (RateLimiter::tooManyAttempts($key, $maxAttempts)) {
             $seconds = $decaySeconds;
             session()->put(['error' => 'limit', 'remaining' => $seconds, 'lockout_time' => time() + $seconds]);
             session()->save();
             return back();
         }
-
         return back()->with('error', 'PIN salah, silakan coba lagi.');
     }
 
