@@ -39,6 +39,43 @@
             position: relative;
         }
 
+        .back-to-landing {
+            position: fixed;
+            top: 22px;
+            left: 22px;
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #0f172a;
+            background: rgba(255, 255, 255, 0.22);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+            transition: transform 0.2s ease, background 0.2s ease;
+            z-index: 50;
+        }
+
+        .back-to-landing:hover {
+            background: rgba(255, 255, 255, 0.32);
+        }
+
+        .back-to-landing:focus-visible {
+            outline: 3px solid rgba(15, 23, 42, 0.35);
+            outline-offset: 2px;
+        }
+
+        .back-to-landing svg {
+            width: 18px;
+            height: 18px;
+            stroke: #0f172a;
+            stroke-width: 2;
+        }
+
         .login-card {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(20px) saturate(180%);
@@ -61,6 +98,14 @@
                 overflow-y: hidden !important;
                 overflow-x: hidden !important;
                 background-attachment: scroll;
+            }
+
+            .back-to-landing {
+                top: 14px;
+                left: 14px;
+                width: 42px;
+                height: 42px;
+                border-radius: 8px;
             }
 
             .login-card {
@@ -317,6 +362,12 @@
 </head>
 
 <body>
+    <a class="back-to-landing" href="{{ url('/landing') }}" aria-label="Kembali ke halaman landing">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"></path>
+        </svg>
+    </a>
+
     <div id="loading-overlay">
         <div class="loader">
             <div></div>

@@ -1809,13 +1809,12 @@
             <div class="filter-group">
                 <select id="filterKategori" class="filter-select">
                     <option value="">Semua Kategori</option>
-                    <option value="Listrik" {{ request('kategori') == 'Listrik' ? 'selected' : '' }}>Listrik</option>
-                    <option value="Alat Teknik" {{ request('kategori') == 'Alat Teknik' ? 'selected' : '' }}>Alat
-                        Teknik</option>
-                    <option value="Bahan Bangunan" {{ request('kategori') == 'Bahan Bangunan' ? 'selected' : '' }}>
-                        Bahan Bangunan</option>
-                    <option value="Alat Bangunan" {{ request('kategori') == 'Alat Bangunan' ? 'selected' : '' }}>Alat
-                        Bangunan</option>
+                    <option value="Cat & Finishing">Cat & Finishing</option>
+                    <option value="Kelistrikan">Kelistrikan</option>
+                    <option value="Aksesoris">Aksesoris</option>
+                    <option value="Alat Teknik">Alat Teknik</option>
+                    <option value="Bahan Bangunan">Bahan Bangunan</option>
+                    <option value="Alat Bangunan">Alat Bangunan</option>
                 </select>
             </div>
             <div class="filter-group">
@@ -2004,7 +2003,9 @@
                                 <select name="kategori" class="form-control-select placeholder-style" required
                                     onchange="this.classList.remove('placeholder-style')">
                                     <option value="" disabled selected hidden>Pilih Kategori</option>
-                                    <option value="Listrik">Listrik</option>
+                                    <option value="Cat & Finishing">Cat & Finishing</option>
+                                    <option value="Kelistrikan">Kelistrikan</option>
+                                    <option value="Aksesoris">Aksesoris</option>
                                     <option value="Alat Teknik">Alat Teknik</option>
                                     <option value="Bahan Bangunan">Bahan Bangunan</option>
                                     <option value="Alat Bangunan">Alat Bangunan</option>
@@ -2111,7 +2112,9 @@
                                 <label>Kategori</label>
                                 <select name="kategori" id="editKategori" class="form-control-select" required>
                                     <option value="" disabled selected hidden>Pilih Kategori</option>
-                                    <option value="Listrik">Listrik</option>
+                                    <option value="Cat & Finishing">Cat & Finishing</option>
+                                    <option value="Kelistrikan">Kelistrikan</option>
+                                    <option value="Aksesoris">Aksesoris</option>
                                     <option value="Alat Teknik">Alat Teknik</option>
                                     <option value="Bahan Bangunan">Bahan Bangunan</option>
                                     <option value="Alat Bangunan">Alat Bangunan</option>
