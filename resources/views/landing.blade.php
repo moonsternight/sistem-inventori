@@ -1275,6 +1275,10 @@
             transition-delay: 0.4s;
         }
 
+        .reveal-delay-5 {
+            transition-delay: 0.5s;
+        }
+
         /* ══════════════════════════════════
        RESPONSIVE
     ══════════════════════════════════ */
@@ -1726,7 +1730,7 @@
                 </div>
             </div>
 
-            <div class="prod-card prod-card--building reveal">
+            <div class="prod-card prod-card--building reveal reveal-delay-5">
                 <div class="prod-card-img">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M3 21h18"></path>
