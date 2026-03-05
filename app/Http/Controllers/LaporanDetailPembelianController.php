@@ -319,7 +319,11 @@ class LaporanDetailPembelianController extends Controller
                 return response()->json(['success' => false, 'message' => 'Data tidak ditemukan.'], 404);
             }
 
-            $metodeBaru = ($pembelian->metode_pembayaran === 'TUNAI') ? 'TRANSFER BCA' : 'TUNAI';
+            // --- PERBAIKAN DI SINI ---
+            // Kita bersihkan spasi dan paksa jadi huruf besar saat pengecekan saja
+            $cekMetode = trim(strtoupper($pembelian->metode_pembayaran));
+            $metodeBaru = ($cekMetode === 'TUNAI') ? 'TRANSFER BCA' : 'TUNAI';
+            // -------------------------
 
             DB::table('pembelian')
                 ->where('id_pembelian', $id)

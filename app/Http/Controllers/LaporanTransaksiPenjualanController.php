@@ -16,6 +16,14 @@ class LaporanTransaksiPenjualanController extends Controller
         $perPage = $request->query('per_page', 5);
         $rekapPage = $request->query('rekap_page', 1);
 
+        // Menghapus otomatis transaksi yang tidak memiliki nominal (kosong)
+        Penjualan::where('total', 0)->delete();
+        // ---------------------------------------
+
+        $tglMulai = $request->query('tgl_mulai');
+        $tglAkhir = $request->query('tgl_akhir');
+        $tanggal = $request->query('tanggal');
+
         if ($request->has('tgl_mulai') || $request->has('tgl_akhir')) {
 
             if (empty($tglMulai) && empty($tglAkhir)) {
@@ -50,10 +58,6 @@ class LaporanTransaksiPenjualanController extends Controller
             ->orderBy('penjualan.no_transaksi', 'asc')
             ->paginate($perPage)
             ->withQueryString();
-
-        if ($dataTransaksi->isEmpty()) {
-            return redirect()->back()->with('error_filter', 'Data rekap tidak ditemukan.');
-        }
 
         $totalLabaHalaman = $dataTransaksi->sum('laba_faktur');
         $totalOmzetHalaman = $dataTransaksi->sum('total');

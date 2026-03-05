@@ -220,12 +220,13 @@ class LaporanDetailPenjualanController extends Controller
     public function toggleMetode($id_penjualan)
     {
         try {
-            // Ambil data transaksi berdasarkan ID
-            // Sesuaikan 'Penjualan' dengan nama Model Anda jika berbeda
             $penjualan = \App\Models\Penjualan::findOrFail($id_penjualan);
 
-            // Logika Tukar: Jika TUNAI jadi TRANSFER BCA, dan sebaliknya
-            if ($penjualan->metode_pembayaran === 'TUNAI') {
+            // Ambil nilai, hapus spasi (trim), dan paksa ke huruf besar (strtoupper)
+            $metodeSaatIni = trim(strtoupper($penjualan->metode_pembayaran));
+
+            // Sekarang pengecekan jauh lebih aman dan pasti cocok
+            if ($metodeSaatIni === 'TUNAI') {
                 $penjualan->metode_pembayaran = 'TRANSFER BCA';
             } else {
                 $penjualan->metode_pembayaran = 'TUNAI';

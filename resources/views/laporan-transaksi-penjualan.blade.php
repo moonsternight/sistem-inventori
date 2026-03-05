@@ -1357,7 +1357,7 @@
                         @forelse($dataTransaksi as $index => $trx)
                             <tr>
                                 <td class="col-trx-no">
-                                    {{ ($dataTransaksi->currentPage() - 1) * $dataTransaksi->perPage() + $loop->iteration }}
+                                    {{ $dataTransaksi->total() > 0 ? ($dataTransaksi->currentPage() - 1) * $dataTransaksi->perPage() + $loop->iteration : 0 }}
                                 </td>
                                 <td class="col-trx-id">{{ $trx->no_transaksi }}</td>
                                 <td class="col-trx-total">Rp {{ number_format($trx->total, 0, ',', '.') }}</td>
