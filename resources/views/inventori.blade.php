@@ -1809,12 +1809,18 @@
             <div class="filter-group">
                 <select id="filterKategori" class="filter-select">
                     <option value="">Semua Kategori</option>
-                    <option value="Cat & Finishing">Cat & Finishing</option>
-                    <option value="Kelistrikan">Kelistrikan</option>
-                    <option value="Aksesoris">Aksesoris</option>
-                    <option value="Alat Teknik">Alat Teknik</option>
-                    <option value="Bahan Bangunan">Bahan Bangunan</option>
-                    <option value="Alat Bangunan">Alat Bangunan</option>
+                    <option value="Cat & Finishing" {{ request('kategori') == 'Cat & Finishing' ? 'selected' : '' }}>
+                        Cat & Finishing</option>
+                    <option value="Kelistrikan" {{ request('kategori') == 'Kelistrikan' ? 'selected' : '' }}>
+                        Kelistrikan</option>
+                    <option value="Aksesoris" {{ request('kategori') == 'Aksesoris' ? 'selected' : '' }}>Aksesoris
+                    </option>
+                    <option value="Alat Teknik" {{ request('kategori') == 'Alat Teknik' ? 'selected' : '' }}>Alat
+                        Teknik</option>
+                    <option value="Bahan Bangunan" {{ request('kategori') == 'Bahan Bangunan' ? 'selected' : '' }}>
+                        Bahan Bangunan</option>
+                    <option value="Alat Bangunan" {{ request('kategori') == 'Alat Bangunan' ? 'selected' : '' }}>Alat
+                        Bangunan</option>
                 </select>
             </div>
             <div class="filter-group">
@@ -1837,6 +1843,8 @@
                     <option value="Belakang Rak Cat" {{ request('lokasi') == 'Belakang Rak Cat' ? 'selected' : '' }}>
                         Belakang Rak Cat</option>
                     <option value="Rak Kayu" {{ request('lokasi') == 'Rak Kayu' ? 'selected' : '' }}>Rak Kayu</option>
+                    <option value="Rak Tengah" {{ request('lokasi') == 'Rak Tengah' ? 'selected' : '' }}>Rak Tengah
+                    </option>
                     <option value="Rak Gantung" {{ request('lokasi') == 'Rak Gantung' ? 'selected' : '' }}>Rak Gantung
                     </option>
                     <option value="Teras Depan" {{ request('lokasi') == 'Teras Depan' ? 'selected' : '' }}>Teras Depan
@@ -2019,11 +2027,12 @@
                                     <option value="Pcs">Pcs</option>
                                     <option value="Unit">Unit</option>
                                     <option value="Set">Set</option>
-                                    <option value="Pasang">Pasang</option>
                                     <option value="Batang">Batang</option>
                                     <option value="Lembar">Lembar</option>
                                     <option value="Galon">Galon</option>
                                     <option value="Pail">Pail</option>
+                                    <option value="Dus">Dus</option>
+                                    <option value="Sak">Sak</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -2036,6 +2045,7 @@
                                     <option value="Samping Rak Cat">Samping Rak Cat</option>
                                     <option value="Belakang Rak Cat">Belakang Rak Cat</option>
                                     <option value="Rak Kayu">Rak Kayu</option>
+                                    <option value="Rak Tengah">Rak Tengah</option>
                                     <option value="Rak Gantung">Rak Gantung</option>
                                     <option value="Teras Depan">Teras Depan</option>
                                 </select>
@@ -2127,11 +2137,12 @@
                                     <option value="Pcs">Pcs</option>
                                     <option value="Unit">Unit</option>
                                     <option value="Set">Set</option>
-                                    <option value="Pasang">Pasang</option>
                                     <option value="Batang">Batang</option>
                                     <option value="Lembar">Lembar</option>
                                     <option value="Galon">Galon</option>
                                     <option value="Pail">Pail</option>
+                                    <option value="Dus">Dus</option>
+                                    <option value="Sak">Sak</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -2143,6 +2154,7 @@
                                     <option value="Samping Rak Cat">Samping Rak Cat</option>
                                     <option value="Belakang Rak Cat">Belakang Rak Cat</option>
                                     <option value="Rak Kayu">Rak Kayu</option>
+                                    <option value="Rak Tengah">Rak Tengah</option>
                                     <option value="Rak Gantung">Rak Gantung</option>
                                     <option value="Teras Depan">Teras Depan</option>
                                 </select>

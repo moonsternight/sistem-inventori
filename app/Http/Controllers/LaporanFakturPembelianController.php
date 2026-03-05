@@ -42,6 +42,7 @@ class LaporanFakturPembelianController extends Controller
             ]);
         }
 
+        DB::table('pembelian')->where('total', 0)->delete();
         $transaksiPembelian = DB::table('pembelian')
             ->where('tanggal', $tanggal)
             ->orderBy('created_at', 'asc')

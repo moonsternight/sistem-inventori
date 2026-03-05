@@ -1316,6 +1316,7 @@
                     <option value="Belakang Rak Cat" {{ $lokasi == 'Belakang Rak Cat' ? 'selected' : '' }}>Belakang
                         Rak Cat</option>
                     <option value="Rak Kayu" {{ $lokasi == 'Rak Kayu' ? 'selected' : '' }}>Rak Kayu</option>
+                    <option value="Rak Tengah" {{ $lokasi == 'Rak Tengah' ? 'selected' : '' }}>Rak Tengah</option>
                     <option value="Rak Gantung" {{ $lokasi == 'Rak Gantung' ? 'selected' : '' }}>Rak Gantung</option>
                     <option value="Teras Depan" {{ $lokasi == 'Teras Depan' ? 'selected' : '' }}>Teras Depan</option>
                 </select>

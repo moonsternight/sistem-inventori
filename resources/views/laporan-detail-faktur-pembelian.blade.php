@@ -1950,18 +1950,13 @@
             }
 
             function updateSubtotal() {
-                const namaValid = inNama?.value.trim() !== '';
-                const merekValid = inMerek?.value.trim() !== '';
-
-                if (!namaValid || !merekValid) {
-                    if (inSubtotal) inSubtotal.value = '';
-                    return;
-                }
-
                 const jumlah = minParseNumber(inJumlah?.value || '');
                 const harga = minParseNumber(inHarga?.value || '');
                 const subtotal = jumlah * harga;
-                if (inSubtotal) inSubtotal.value = subtotal ? formatRupiahVisual(subtotal) : '';
+
+                if (inSubtotal) {
+                    inSubtotal.value = subtotal ? formatRupiahVisual(subtotal) : '';
+                }
             }
 
             if (inNama && suggestionList) {
@@ -2064,6 +2059,26 @@
                         value = value.replace(/^0+/, '');
                     }
                     this.value = value;
+                    updateSubtotal();
+                });
+            }
+
+            if (inHarga) {
+                inHarga.addEventListener('input', function() {
+                    let cursorPosition = this.selectionStart;
+                    let originalLength = this.value.length;
+                    let val = this.value.replace(/[^0-9]/g, '');
+                    if (val.startsWith('0')) {
+                        val = val.replace(/^0+/, '');
+                    }
+                    this.value = val !== "" ? formatRupiahVisual(val) : "";
+                    let newLength = this.value.length;
+                    let difference = newLength - originalLength;
+                    let newCursorPos = cursorPosition + difference;
+                    if (newCursorPos < 3 && this.value !== "") {
+                        newCursorPos = 3;
+                    }
+                    this.setSelectionRange(newCursorPos, newCursorPos);
                     updateSubtotal();
                 });
             }

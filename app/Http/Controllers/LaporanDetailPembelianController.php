@@ -275,23 +275,23 @@ class LaporanDetailPembelianController extends Controller
             if ($barang) {
                 $barang->stok_sistem -= $jumlahHapus;
                 $barang->save();
+            }
 
-                if ($barang && $barang->kategori == "-" && $barang->satuan == "-" && $barang->harga_jual == 0) {
-                    // Kita pastikan barang ini tidak digunakan di detail pembelian LAIN sebelum dihapus
-                    $masihDigunakan = DB::table('detail_pembelian')
-                        ->where('id_barang', $id_barang)
-                        ->exists();
+            // 3. Hapus baris di Level 3 (detail_pembelian) - DIPINDAH KE ATAS
+            DB::table('detail_pembelian')->where('id_detail_pembelian', $id_detail)->delete();
 
-                    if (!$masihDigunakan) {
-                        $barang->forceDelete();
-                    }
+            // 4. Logika Hapus Permanen Barang Baru
+            if ($barang && $barang->kategori == "-" && $barang->satuan == "-" && $barang->harga_jual == 0) {
+                // Cek sisa penggunaan setelah baris detail di atas dihapus
+                $masihDigunakan = DB::table('detail_pembelian')
+                    ->where('id_barang', $id_barang)
+                    ->exists();
+
+                if (!$masihDigunakan) {
+                    $barang->forceDelete();
                 }
             }
 
-            // 4. Hapus baris di Level 3 (detail_pembelian)
-            DB::table('detail_pembelian')->where('id_detail_pembelian', $id_detail)->delete();
-
-            // 5. Update Level 2 & 1 (Total di tabel pembelian)
             $totalTerbaru = DB::table('detail_pembelian')
                 ->where('id_pembelian', $id_pembelian)
                 ->sum('subtotal');
@@ -301,7 +301,6 @@ class LaporanDetailPembelianController extends Controller
                 ->update(['total' => $totalTerbaru]);
 
             DB::commit();
-
             return back();
         } catch (\Exception $e) {
             DB::rollBack();

@@ -56,7 +56,7 @@ class PenjualanController extends Controller
 
                 if ($barang) {
                     if ($barang->stok_sistem < (int)$item['jumlah']) {
-                        throw new \Exception("Stok " . $item['nama'] . " tidak mencukupi. Sisa: " . $barang->stok_sistem);
+                        throw new \Exception("Sisa stok " . $barang->stok_sistem);
                     }
 
                     $hargaMurni = (int) preg_replace('/[^0-9]/', '', $item['harga']);

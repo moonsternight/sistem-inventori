@@ -1272,11 +1272,11 @@
         }
 
         .reveal-delay-4 {
-            transition-delay: 0.4s;
+            transition-delay: 0.3s;
         }
 
         .reveal-delay-5 {
-            transition-delay: 0.5s;
+            transition-delay: 0.4s;
         }
 
         /* ══════════════════════════════════
