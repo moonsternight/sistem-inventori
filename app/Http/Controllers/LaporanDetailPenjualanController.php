@@ -68,7 +68,6 @@ class LaporanDetailPenjualanController extends Controller
 
         $jumlahDiminta = abs((int)$request->jumlah);
 
-        // PERBAIKAN DI SINI: Menggunakan 'stok_sistem' sesuai nama kolom database kamu
         $stokTersedia = (int)$barang->stok_sistem;
 
         if ($stokTersedia < $jumlahDiminta) {
@@ -91,7 +90,6 @@ class LaporanDetailPenjualanController extends Controller
                 'laba'         => $labaBaru,
             ]);
 
-            // PERBAIKAN DI SINI JUGA: Memotong kolom 'stok_sistem'
             $barang->decrement('stok_sistem', $jumlahDiminta);
 
             $penjualan = Penjualan::find($request->id_penjualan);
@@ -188,25 +186,15 @@ class LaporanDetailPenjualanController extends Controller
     {
         DB::beginTransaction();
         try {
-            // 1. Cari data detail penjualan berdasarkan ID
             $detail = DetailPenjualan::findOrFail($id_detail_penjualan);
-
-            // 2. Cari transaksi induknya (Penjualan)
             $penjualan = Penjualan::findOrFail($detail->id_penjualan);
-
-            // 3. Cari barang untuk mengembalikan stok ke 'stok_sistem'
             $barang = Barang::find($detail->id_barang);
             if ($barang) {
-                // Stok bertambah karena barang batal dijual
                 $barang->increment('stok_sistem', $detail->jumlah);
             }
 
-            // 4. Update total bayar dan total laba di tabel Penjualan
-            // Kita gunakan decrement karena nilai total dan laba berkurang
             $penjualan->decrement('total', $detail->subtotal);
             $penjualan->decrement('total_laba', $detail->laba);
-
-            // 5. Hapus baris detail
             $detail->delete();
 
             DB::commit();
@@ -221,11 +209,7 @@ class LaporanDetailPenjualanController extends Controller
     {
         try {
             $penjualan = \App\Models\Penjualan::findOrFail($id_penjualan);
-
-            // Ambil nilai, hapus spasi (trim), dan paksa ke huruf besar (strtoupper)
             $metodeSaatIni = trim(strtoupper($penjualan->metode_pembayaran));
-
-            // Sekarang pengecekan jauh lebih aman dan pasti cocok
             if ($metodeSaatIni === 'TUNAI') {
                 $penjualan->metode_pembayaran = 'TRANSFER BCA';
             } else {

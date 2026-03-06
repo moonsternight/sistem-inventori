@@ -44,9 +44,6 @@
             overflow-x: hidden;
         }
 
-        /* ══════════════════════════════════
-       STICKY NAV
-    ══════════════════════════════════ */
         .nav {
             position: fixed;
             top: 0;
@@ -73,7 +70,6 @@
             align-items: center;
             gap: 12px;
             text-decoration: none;
-            /* Membuat kursor tetap panah biasa dan tidak bisa diklik */
             cursor: default;
             user-select: none;
         }
@@ -102,12 +98,10 @@
             display: block;
         }
 
-        /* Container untuk mengatur jarak (gap) antara judul dan sub-judul */
         .nav-logo-text {
             display: flex;
             flex-direction: column;
             gap: 2px;
-            /* Angka ini yang membuat tulisan atas dan bawah renggang */
         }
 
         .nav-logo-name {
@@ -118,7 +112,6 @@
             line-height: 1;
         }
 
-        /* Memberi warna merah khusus pada kata 'Jaya' */
         .nav-logo-name span {
             color: #e74c3c;
         }
@@ -150,7 +143,6 @@
             color: var(--white);
         }
 
-        /* Hamburger */
         .nav-hamburger {
             display: none;
             flex-direction: column;
@@ -168,9 +160,6 @@
             transition: all 0.3s;
         }
 
-        /* ══════════════════════════════════
-       HERO
-    ══════════════════════════════════ */
         .hero {
             min-height: 100vh;
             background: var(--navy);
@@ -181,7 +170,6 @@
             position: relative;
         }
 
-        /* grid texture */
         .hero::before {
             content: '';
             position: absolute;
@@ -277,11 +265,9 @@
             border: none;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            /* Transisi lebih halus */
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            /* Jarak ikon sedikit lebih renggang agar lega */
         }
 
         .btn-red:hover {
@@ -292,7 +278,6 @@
         .btn-ghost {
             background: transparent;
             color: rgba(255, 255, 255, 0.8);
-            /* Warna teks sedikit lebih terang agar mudah dibaca */
             font-family: 'DM Sans', sans-serif;
             font-size: 14px;
             font-weight: 400;
@@ -300,7 +285,6 @@
             border-radius: 6px;
             text-decoration: none;
             border: 1px solid rgba(255, 255, 255, 0.25);
-            /* Garis sedikit lebih nyata */
             cursor: pointer;
             transition: all 0.3s ease;
             display: inline-flex;
@@ -314,7 +298,6 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        /* Trust bar */
         .trust-bar {
             display: flex;
             gap: 32px;
@@ -345,7 +328,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* Hero right — visual */
         .hero-right {
             display: flex;
             align-items: center;
@@ -362,7 +344,6 @@
             animation: fadeUp 0.8s ease 0.3s both;
         }
 
-        /* Main store card */
         .store-card {
             background: var(--navy-mid);
             border: 1px solid rgba(255, 255, 255, 0.09);
@@ -387,19 +368,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* font-size: 24px; */
-            /* Hapus/Komen bagian ini karena bukan teks lagi */
             flex-shrink: 0;
             overflow: hidden;
-            /* Memastikan logo tidak keluar dari lingkaran */
         }
 
-        /* Tambahkan kode baru ini di bawahnya untuk mengatur gambar logo */
         .store-card-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            /* Memastikan logo merah terlihat utuh di dalam lingkaran */
             display: block;
         }
 
@@ -444,17 +420,14 @@
             font-size: 14px;
             flex-shrink: 0;
             margin-top: 1px;
-            /* Merah bata transparan */
             border: 1px solid rgba(192, 57, 43, 0.25);
         }
 
         .store-info-icon svg {
             width: 50%;
             height: 50%;
-            /* Gunakan warna merah khas Mekar Jaya agar ikon terlihat tegas di atas kartu putih */
             color: #e74c3c;
             stroke-width: 2;
-            /* Ketebalan garis yang pas */
         }
 
         .store-info-label {
@@ -470,7 +443,6 @@
             font-weight: 400;
         }
 
-        /* Floating badge */
         .float-badge {
             position: absolute;
             top: -18px;
@@ -515,9 +487,6 @@
             }
         }
 
-        /* ══════════════════════════════════
-       TENTANG KAMI
-    ══════════════════════════════════ */
         .about {
             padding: 100px 72px;
             display: grid;
@@ -580,7 +549,6 @@
 
         .ah-icon {
             width: 32px;
-            /* Sedikit lebih besar dari font-size agar proporsional */
             height: 32px;
             flex-shrink: 0;
             display: flex;
@@ -591,10 +559,8 @@
         .ah-icon svg {
             width: 100%;
             height: 100%;
-            /* Gunakan warna putih dengan sedikit opasitas agar terlihat elegan di background gelap */
             color: rgba(255, 255, 255, 0.8);
             stroke-width: 1.8;
-            /* Ketebalan garis agar tidak terlalu berat */
         }
 
         .ah-text {
@@ -607,7 +573,6 @@
             color: var(--white);
         }
 
-        /* About right: stacked cards */
         .about-cards {
             display: flex;
             flex-direction: column;
@@ -639,10 +604,8 @@
 
         .about-card-icon svg {
             width: 22px;
-            /* Ukuran ikon di dalam kotak */
             height: 22px;
             color: #c0392b;
-            /* Warna merah tegas untuk garis ikon */
             stroke-width: 2;
         }
 
@@ -660,9 +623,6 @@
             line-height: 1.65;
         }
 
-        /* ══════════════════════════════════
-       barang UNGGULAN
-    ══════════════════════════════════ */
         .products {
             padding: 100px 72px;
             background: var(--navy);
@@ -735,13 +695,6 @@
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.25s;
-        }
-
-        .prod-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(192, 57, 43, 0.35);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
         }
 
         .prod-card-img {
@@ -822,9 +775,6 @@
             z-index: 2;
         }
 
-        /* ══════════════════════════════════
-       KEUNGGULAN
-    ══════════════════════════════════ */
         .keunggulan {
             padding: 100px 72px;
             background: var(--bg);
@@ -874,27 +824,6 @@
             overflow: hidden;
         }
 
-        .keung-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: transparent;
-            transition: background 0.25s;
-        }
-
-        .keung-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 16px 40px rgba(26, 35, 50, 0.1);
-            border-color: rgba(192, 57, 43, 0.2);
-        }
-
-        .keung-card:hover::before {
-            background: var(--red);
-        }
-
         .keung-num {
             font-family: 'Playfair Display', serif;
             font-size: 48px;
@@ -907,23 +836,16 @@
         .keung-icon {
             margin-bottom: 16px;
             display: flex;
-            /* Menggunakan flex agar ikon mudah diatur posisinya */
             align-items: center;
             justify-content: flex-start;
-            /* Ikon rata kiri sesuai teks */
             height: 40px;
-            /* Memberikan ruang tinggi yang konsisten */
         }
 
-        /* Mengatur ukuran dan warna ikon SVG */
         .keung-icon svg {
             width: 32px;
-            /* Ukuran yang mirip dengan font-size 30px Anda sebelumnya */
             height: 32px;
             color: #c0392b;
-            /* Warna merah bata khas Toko Mekar Jaya */
             stroke-width: 2;
-            /* Ketebalan garis agar terlihat jelas */
             transition: all 0.3s ease;
         }
 
@@ -941,9 +863,6 @@
             line-height: 1.75;
         }
 
-        /* ══════════════════════════════════
-       JAM OPERASIONAL + KONTAK
-    ══════════════════════════════════ */
         .info-section {
             padding: 100px 72px;
             background: var(--navy);
@@ -998,7 +917,6 @@
             margin-bottom: 32px;
         }
 
-        /* Jam operasional table */
         .jam-table {
             width: 100%;
         }
@@ -1038,17 +956,14 @@
             border: 1px solid rgba(90, 219, 122, 0.2);
         }
 
-        /* Kontak cards container */
         .kontak-cards {
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
 
-        /* Kartu kontak utama */
         .kontak-card {
             background: rgba(255, 255, 255, 0.04);
-            /* Background kartu gelap transparan */
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 10px;
             padding: 18px 20px;
@@ -1057,42 +972,27 @@
             gap: 16px;
             transition: all 0.3s;
             cursor: default;
-            /* Kursor panah standar */
         }
 
-        /* KUNCI PERUBAHAN: Kotak Alas Ikon */
         .kontak-card-icon {
-            /* Ukuran kotak alas */
             width: 40px;
             height: 40px;
             flex-shrink: 0;
-
-            /* Perubahan alas (kotak latar belakang) */
             background: rgba(192, 57, 43, 0.15);
-            /* Merah bata transparan */
             border: 1px solid rgba(192, 57, 43, 0.25);
-            /* Border tipis merah */
             border-radius: 6px;
-            /* Sesuai permintaan Anda */
-
-            /* Penyelarasan ikon SVG di tengah */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* Mengatur ukuran dan warna ikon SVG di dalamnya */
         .kontak-card-icon svg {
             width: 20px;
-            /* Ukuran ikon SVG */
             height: 20px;
             color: #c0392b;
-            /* Warna merah tegas untuk garis ikon */
             stroke-width: 1.8;
-            /* Ketebalan garis agar seimbang */
         }
 
-        /* Label & Nilai Kontak */
         .kontak-card-label {
             font-size: 10px;
             color: rgba(255, 255, 255, 0.35);
@@ -1104,18 +1004,13 @@
         .kontak-card-val {
             font-size: 14px;
             color: #ffffff;
-            /* Putih bersih agar kontras */
             font-weight: 400;
         }
 
-        /* ══════════════════════════════════
-       CTA BOTTOM
-    ══════════════════════════════════ */
         .cta-bottom {
             background: var(--bg);
             padding: 80px 72px;
         }
-
 
         .cta-text-title {
             font-family: 'Playfair Display', serif;
@@ -1149,9 +1044,6 @@
             background: rgba(255, 255, 255, 0.85);
         }
 
-        /* ══════════════════════════════════
-       FOOTER
-    ══════════════════════════════════ */
         footer {
             background: #e8ecf0;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -1233,9 +1125,6 @@
             color: rgba(15, 23, 42, 0.78);
         }
 
-        /* ══════════════════════════════════
-       ANIMATIONS & SCROLL REVEAL
-    ══════════════════════════════════ */
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -1279,9 +1168,6 @@
             transition-delay: 0.4s;
         }
 
-        /* ══════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════ */
         @media (max-width: 1024px) {
             .prod-grid {
                 grid-template-columns: 1fr;
@@ -1382,7 +1268,6 @@
 
 <body>
 
-    <!-- ══════════════ NAV ══════════════ -->
     <nav class="nav" id="mainNav">
         <div class="nav-logo">
             <div class="logo-box">
@@ -1406,7 +1291,6 @@
         </div>
     </nav>
 
-    <!-- ══════════════ HERO ══════════════ -->
     <section class="hero">
         <div class="hero-left">
             <div class="hero-eyebrow">
@@ -1535,7 +1419,6 @@
         </div>
     </section>
 
-    <!-- ══════════════ TENTANG ══════════════ -->
     <section class="about" id="tentang">
         <div class="reveal">
             <div class="about-label">Tentang Kami</div>
@@ -1639,7 +1522,6 @@
         </div>
     </section>
 
-    <!-- ══════════════ barang ══════════════ -->
     <section class="products" id="barang">
         <div class="section-head">
             <div>
@@ -1662,8 +1544,8 @@
                 <div class="prod-card-body">
                     <div class="prod-card-cat">Kategori</div>
                     <div class="prod-card-name">Cat &amp; Finishing</div>
-                    <div class="prod-card-desc">Tersedia berbagai pilihan cat tembok dan bahan finishing
-                        untuk hasil akhir yang rapi dan tahan lama.</div>
+                    <div class="prod-card-desc">Tersedia berbagai pilihan cat tembok, cat besi, cat kayu, vernis, cat
+                        batu alam, hingga cat semprot Pylox untuk hasil akhir yang rapi dan tahan lama.</div>
                 </div>
             </div>
             <div class="prod-card prod-card--electric reveal reveal-delay-1">
@@ -1675,8 +1557,8 @@
                 <div class="prod-card-body">
                     <div class="prod-card-cat">Kategori</div>
                     <div class="prod-card-name">Kelistrikan</div>
-                    <div class="prod-card-desc">Menyediakan perlengkapan listrik seperti lampu, steker, fitting, dan
-                        stop kontak.</div>
+                    <div class="prod-card-desc">Menyediakan perlengkapan listrik seperti stop kontak, steker, fitting,
+                        hingga berbagai jenis bohlam, lampu emergency, dan lampu sorot untuk pencahayaan maksimal.</div>
                 </div>
             </div>
             <div class="prod-card prod-card--accessory reveal reveal-delay-2">
@@ -1692,8 +1574,9 @@
                 <div class="prod-card-body">
                     <div class="prod-card-cat">Kategori</div>
                     <div class="prod-card-name">Aksesoris</div>
-                    <div class="prod-card-desc">Beragam aksesoris pendukung bangunan seperti kunci, gembok, dan tandon
-                        air.</div>
+                    <div class="prod-card-desc">Menyediakan kunci pintu, gembok, pintu kamar mandi, tandon air, gerobak
+                        sorong, hingga sarung tangan karet dan rajut untuk melengkapi kebutuhan kerja yang aman.
+                    </div>
                 </div>
             </div>
             <div class="prod-card prod-card--tools reveal reveal-delay-3">
@@ -1707,8 +1590,9 @@
                 <div class="prod-card-body">
                     <div class="prod-card-cat">Kategori</div>
                     <div class="prod-card-name">Alat Teknik</div>
-                    <div class="prod-card-desc">Tersedia berbagai alat teknik yang membantu pekerjaan konstruksi dan
-                        perbaikan.</div>
+                    <div class="prod-card-desc">Menyediakan mesin bor, gerinda, profil kayu, mesin gergaji, potong
+                        keramik, hingga berbagai pilihan pompa sumur dan pompa semi untuk mendukung kelancaran pekerjaan
+                        teknik.</div>
                 </div>
             </div>
             <div class="prod-card prod-card--material reveal reveal-delay-4">
@@ -1725,8 +1609,8 @@
                 <div class="prod-card-body">
                     <div class="prod-card-cat">Kategori</div>
                     <div class="prod-card-name">Bahan Bangunan</div>
-                    <div class="prod-card-desc">Menyediakan bahan bangunan utama untuk kebutuhan pembangunan maupun
-                        renovasi.</div>
+                    <div class="prod-card-desc">Menyediakan semen, keramik, triplek, berbagai jenis atap, hingga reng
+                        dan kanal baja ringan, serta pilihan pipa dan hollow untuk kebutuhan konstruksi yang kuat.</div>
                 </div>
             </div>
 
@@ -1743,8 +1627,8 @@
                 <div class="prod-card-body">
                     <div class="prod-card-cat">Kategori</div>
                     <div class="prod-card-name">Alat Bangunan</div>
-                    <div class="prod-card-desc">Peralatan bangunan dan konstruksi untuk mendukung pekerjaan proyek,
-                        perbaikan, dan renovasi.</div>
+                    <div class="prod-card-desc">Menyediakan kuas dan rol cat, sekop, waterpass, sendok semen, meteran,
+                        hingga berbagai jenis gergaji dan palu untuk memudahkan segala aktivitas pertukangan.</div>
                 </div>
             </div>
         </div>
@@ -1756,7 +1640,6 @@
         </div>
     </section>
 
-    <!-- ══════════════ KEUNGGULAN ══════════════ -->
     <section class="keunggulan" id="keunggulan">
         <div class="keunggulan-header reveal">
             <span class="keunggulan-label">Mengapa Pilih Kami</span>
@@ -1852,7 +1735,6 @@
         </div>
     </section>
 
-    <!-- ══════════════ JAM + KONTAK ══════════════ -->
     <section class="info-section" id="kontak">
         <div class="info-col reveal">
             <div class="info-label">Jam Operasional</div>
@@ -1965,7 +1847,6 @@
         </div>
     </section>
 
-    <!-- ══════════════ FOOTER ══════════════ -->
     <footer>
         <div class="footer-top">
             <div>
@@ -1997,12 +1878,10 @@
     </footer>
 
     <script>
-        /* Sticky nav shadow */
         window.addEventListener('scroll', () => {
             document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
         });
 
-        /* Scroll reveal */
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => {
@@ -2013,7 +1892,6 @@
         });
         reveals.forEach(el => observer.observe(el));
 
-        /* Hamburger (mobile) */
         function toggleMenu() {
             const links = document.querySelector('.nav-links');
             if (links.style.display === 'flex') {
@@ -2028,7 +1906,6 @@
             }
         }
 
-        /* Highlight active nav link */
         const sections = document.querySelectorAll('section[id]');
         window.addEventListener('scroll', () => {
             let current = '';

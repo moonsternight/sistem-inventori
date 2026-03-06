@@ -60,7 +60,6 @@ class LaporanDetailPembelianController extends Controller
 
     public function store(Request $request, $id_pembelian)
     {
-        // 1. Validasi Input Dasar
         $request->validate([
             'nama_barang' => 'required',
             'merek' => 'required',
@@ -68,7 +67,6 @@ class LaporanDetailPembelianController extends Controller
             'harga' => 'required',
         ]);
 
-        // Bersihkan format Rupiah agar menjadi angka murni
         $hargaMurni = (int) preg_replace('/[^\d]/', '', $request->harga);
         $jumlah = (int) $request->jumlah;
         $subtotal = $hargaMurni * $jumlah;
@@ -76,19 +74,15 @@ class LaporanDetailPembelianController extends Controller
         try {
             DB::beginTransaction();
 
-            // 2. Logika "Cek atau Buat" Barang (Inventori)
-            // Cari barang berdasarkan Nama dan Merek
             $barang = \App\Models\Barang::where('nama_barang', $request->nama_barang)
                 ->where('merek', $request->merek)
                 ->first();
 
             if ($barang) {
-                // Jika sudah ada, update stok dan harga beli terakhir
                 $barang->stok_sistem += $jumlah;
                 $barang->harga_beli = $hargaMurni;
                 $barang->save();
             } else {
-                // Jika tidak ada, buat sebagai barang "Baru"
                 $barang = \App\Models\Barang::create([
                     'nama_barang'   => $request->nama_barang,
                     'merek'         => $request->merek,
@@ -103,7 +97,6 @@ class LaporanDetailPembelianController extends Controller
                 ]);
             }
 
-            // 3. Simpan ke Tabel detail_pembelian (Level 3)
             DB::table('detail_pembelian')->insert([
                 'id_pembelian' => $id_pembelian,
                 'id_barang'    => $barang->id_barang,
@@ -112,8 +105,6 @@ class LaporanDetailPembelianController extends Controller
                 'subtotal'     => $subtotal,
             ]);
 
-            // 4. Update Total Pembayaran di Tabel pembelian (Level 2)
-            // Hitung ulang semua subtotal untuk faktur ini
             $totalTerbaru = DB::table('detail_pembelian')
                 ->where('id_pembelian', $id_pembelian)
                 ->sum('subtotal');
@@ -133,7 +124,7 @@ class LaporanDetailPembelianController extends Controller
                     'jumlah'      => $jumlah,
                     'harga'       => $hargaMurni,
                     'subtotal'    => $subtotal,
-                    'total_faktur' => $totalTerbaru // Untuk update Level 2 & 1 secara visual
+                    'total_faktur' => $totalTerbaru
                 ]
             ]);
         } catch (\Exception $e) {
@@ -147,7 +138,6 @@ class LaporanDetailPembelianController extends Controller
 
     public function update(Request $request, $id_detail)
     {
-        // Validasi input
         $request->validate([
             'nama_barang' => 'required',
             'merek' => 'required',
@@ -155,7 +145,6 @@ class LaporanDetailPembelianController extends Controller
             'harga' => 'required',
         ]);
 
-        // Bersihkan format harga (Penting!)
         $hargaMurni = (int) preg_replace('/[^\d]/', '', $request->harga);
         $jumlahBaru = (int) $request->jumlah;
         $subtotalBaru = $hargaMurni * $jumlahBaru;
@@ -163,21 +152,17 @@ class LaporanDetailPembelianController extends Controller
         try {
             DB::beginTransaction();
 
-            // 1. Ambil data lama
             $detailLama = DB::table('detail_pembelian')->where('id_detail_pembelian', $id_detail)->first();
             $barangLama = \App\Models\Barang::find($detailLama->id_barang);
-
-            // 2. Cari atau Buat Barang Baru (Barang B) berdasarkan Nama & Merek dari Form
             $barangBaru = \App\Models\Barang::where('nama_barang', $request->nama_barang)
                 ->where('merek', $request->merek)
                 ->first();
 
-            // Jika barang belum ada di inventori, buat baru (Skenario Barang Baru B)
             if (!$barangBaru) {
                 $barangBaru = \App\Models\Barang::create([
                     'nama_barang'   => $request->nama_barang,
                     'merek'         => $request->merek,
-                    'stok_sistem'   => 0, // Mulai dari 0, nanti ditambah di bawah
+                    'stok_sistem'   => 0,
                     'harga_beli'    => $hargaMurni,
                     'kategori'      => "-",
                     'satuan'        => "-",
@@ -188,26 +173,17 @@ class LaporanDetailPembelianController extends Controller
                 ]);
             }
 
-            // --- LOGIKA STOK & PERGANTIAN BARANG ---
-
-            // --- LOGIKA STOK & PERGANTIAN BARANG ---
-
             if ($detailLama->id_barang == $barangBaru->id_barang) {
-                // Skenario Barang Tetap (Logika sudah benar)
                 $selisih = $jumlahBaru - $detailLama->jumlah;
                 $barangBaru->stok_sistem += $selisih;
                 $barangBaru->harga_beli = $hargaMurni;
                 $barangBaru->save();
                 $pesan = "Data telah diperbarui.";
             } else {
-                // SKENARIO: Ganti Barang (Urutan harus benar!)
 
-                // 1. Balikkan stok barang lama dulu
                 $barangLama->stok_sistem -= $detailLama->jumlah;
                 $barangLama->save();
 
-                // 2. UPDATE DETAILNYA DULU (Penting!)
-                // Kita pindahkan id_barang ke barang yang baru agar relasinya terputus dari barang lama
                 DB::table('detail_pembelian')->where('id_detail_pembelian', $id_detail)->update([
                     'id_barang' => $barangBaru->id_barang,
                     'jumlah' => $jumlahBaru,
@@ -215,13 +191,10 @@ class LaporanDetailPembelianController extends Controller
                     'subtotal' => $subtotalBaru,
                 ]);
 
-                // 3. BARU HAPUS BARANG LAMA
-                // Sekarang barang lama sudah "bebas" karena tidak ada lagi baris di detail_pembelian yang menunjuk ke dia
                 if ($barangLama && $barangLama->kategori == "-" && $barangLama->satuan == "-" && $barangLama->harga_jual == 0) {
                     $barangLama->forceDelete();
                 }
 
-                // 4. Update stok barang baru
                 $barangBaru->stok_sistem += $jumlahBaru;
                 $barangBaru->harga_beli = $hargaMurni;
                 $barangBaru->save();
@@ -229,7 +202,6 @@ class LaporanDetailPembelianController extends Controller
                 $pesan = "Barang telah diperbarui.";
             }
 
-            // --- UPDATE DATA DETAIL (LEVEL 3) ---
             DB::table('detail_pembelian')->where('id_detail_pembelian', $id_detail)->update([
                 'id_barang' => $barangBaru->id_barang,
                 'jumlah' => $jumlahBaru,
@@ -237,7 +209,6 @@ class LaporanDetailPembelianController extends Controller
                 'subtotal' => $subtotalBaru,
             ]);
 
-            // --- UPDATE TOTAL FAKTUR (LEVEL 2 & 1) ---
             $totalTerbaru = DB::table('detail_pembelian')
                 ->where('id_pembelian', $detailLama->id_pembelian)
                 ->sum('subtotal');
@@ -260,7 +231,6 @@ class LaporanDetailPembelianController extends Controller
         try {
             DB::beginTransaction();
 
-            // 1. Ambil data detail yang akan dihapus
             $detail = DB::table('detail_pembelian')->where('id_detail_pembelian', $id_detail)->first();
             if (!$detail) {
                 return back()->with('error_filter', 'Data tidak ditemukan.');
@@ -269,20 +239,15 @@ class LaporanDetailPembelianController extends Controller
             $id_pembelian = $detail->id_pembelian;
             $id_barang = $detail->id_barang;
             $jumlahHapus = $detail->jumlah;
-
-            // 2. Update Stok Barang (Kurangi stok karena pembelian dibatalkan)
             $barang = \App\Models\Barang::find($id_barang);
             if ($barang) {
                 $barang->stok_sistem -= $jumlahHapus;
                 $barang->save();
             }
 
-            // 3. Hapus baris di Level 3 (detail_pembelian) - DIPINDAH KE ATAS
             DB::table('detail_pembelian')->where('id_detail_pembelian', $id_detail)->delete();
 
-            // 4. Logika Hapus Permanen Barang Baru
             if ($barang && $barang->kategori == "-" && $barang->satuan == "-" && $barang->harga_jual == 0) {
-                // Cek sisa penggunaan setelah baris detail di atas dihapus
                 $masihDigunakan = DB::table('detail_pembelian')
                     ->where('id_barang', $id_barang)
                     ->exists();
@@ -319,11 +284,8 @@ class LaporanDetailPembelianController extends Controller
                 return response()->json(['success' => false, 'message' => 'Data tidak ditemukan.'], 404);
             }
 
-            // --- PERBAIKAN DI SINI ---
-            // Kita bersihkan spasi dan paksa jadi huruf besar saat pengecekan saja
             $cekMetode = trim(strtoupper($pembelian->metode_pembayaran));
             $metodeBaru = ($cekMetode === 'TUNAI') ? 'TRANSFER BCA' : 'TUNAI';
-            // -------------------------
 
             DB::table('pembelian')
                 ->where('id_pembelian', $id)

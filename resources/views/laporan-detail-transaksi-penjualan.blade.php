@@ -529,7 +529,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Gaya Utama Tombol Edit Metode */
         .btn-edit-metode {
             background-color: #F8FAFC;
             color: #64748B;
@@ -544,7 +543,6 @@
             width: 23px;
             height: 23px;
             outline: none;
-            /* Menghilangkan garis biru bawaan browser saat diklik */
         }
 
         .btn-delete-item {
@@ -1888,20 +1886,17 @@
             window.location.href = targetUrl;
         }
 
-        // Fungsi pembantu untuk membersihkan angka dari simbol Rp dan titik
         function murnikanAngka(string) {
             if (!string) return "0";
             return string.toString().replace(/[^\d]/g, '');
         }
 
-        // Fungsi pembantu untuk memberikan format Rp visual
         function formatRupiahVisual(angka) {
             if (!angka || angka == 0 || angka == "") return "";
             return "Rp " + parseInt(angka).toLocaleString('id-ID');
         }
 
         function minParseNumber(value) {
-            // Menggunakan murnikanAngka agar lebih konsisten
             const num = Number(murnikanAngka(value));
             return Number.isFinite(num) ? num : 0;
         }
@@ -1922,7 +1917,6 @@
             return el?.textContent?.trim() || '';
         }
 
-        // Logika untuk Modal Tambah
         (function() {
             const openBtn = document.getElementById('btnTambahBarang');
             const overlay = document.getElementById('minimalTambahOverlay');
@@ -1935,7 +1929,6 @@
             const inHarga = document.getElementById('minHarga');
             const inSubtotal = document.getElementById('minSubtotal');
 
-            // --- PERBAIKAN INPUT HARGA (Anti-Lompat & Auto Rp) ---
             if (inHarga) {
                 inHarga.addEventListener('input', function() {
                     let cursorPosition = this.selectionStart;
@@ -2008,7 +2001,6 @@
                             item.onclick = function() {
                                 if (inNama) inNama.value = barang.nama_barang;
                                 if (inMerek) inMerek.value = barang.merek;
-                                // Memasukkan harga dengan format Rp saat pilih suggestion
                                 if (inHarga) inHarga.value = formatRupiahVisual(parseInt(barang
                                     .harga_jual));
                                 dropdownEl.style.display = 'none';
@@ -2062,7 +2054,6 @@
                 const namaValid = inNama?.value.trim() !== '';
                 const merekValid = inMerek?.value.trim() !== '';
 
-                // Jika salah satu (nama atau merek) kosong, kosongkan subtotal
                 if (!namaValid || !merekValid) {
                     if (inSubtotal) inSubtotal.value = '';
                     return;
@@ -2095,7 +2086,6 @@
             }
         })();
 
-        // Logika untuk Modal Edit
         (function() {
             const overlay = document.getElementById('minimalEditOverlay');
             const closeBtn = document.getElementById('minimalEditClose');
@@ -2117,7 +2107,6 @@
             dropdownMerek.style.display = 'none';
             if (inMerek) inMerek.parentNode.appendChild(dropdownMerek);
 
-            // --- PERBAIKAN INPUT HARGA EDIT ---
             if (inHarga) {
                 inHarga.addEventListener('input', function() {
                     let cursorPosition = this.selectionStart;
@@ -2134,18 +2123,14 @@
 
             if (inJumlah) {
                 inJumlah.addEventListener('input', function() {
-                    // 1. Ambil nilai dan hanya izinkan angka (Hapus huruf & simbol)
                     let val = this.value.replace(/[^0-9]/g, '');
 
-                    // 2. Jika angka pertama adalah '0', hapus hingga ketemu angka 1-9
                     if (val.startsWith('0')) {
                         val = val.replace(/^0+/, '');
                     }
 
-                    // 3. Masukkan kembali nilai yang sudah bersih ke dalam input
                     this.value = val;
 
-                    // Jalankan fungsi update subtotal agar harga otomatis berubah
                     updateSubtotal();
                 });
             }
@@ -2153,23 +2138,19 @@
             function openModalFromRow(row) {
                 if (!overlay || !row) return;
 
-                // 1. Ambil ID dari atribut data-id pada tombol edit di baris tersebut
                 const btnEdit = row.querySelector('.btn-edit');
                 const idDetail = btnEdit ? btnEdit.getAttribute('data-id') : null;
                 const formEdit = document.getElementById('formEditBarang');
 
                 if (formEdit && idDetail) {
-                    // Tambahkan kembali /laporan di depan karena ada prefix di Route
                     formEdit.action = `/laporan/transaksi-penjualan/detail/update/${idDetail}`;
                 }
 
-                // 3. Ambil data dari kolom tabel
                 const nama = minCellText(row, '.col-det-nama') || minCellText(row, 1);
                 const merek = minCellText(row, '.col-det-merek') || minCellText(row, 2);
                 const jumlahText = minCellText(row, '.col-det-jumlah') || minCellText(row, 3);
                 const hargaText = minCellText(row, '.col-det-harga') || minCellText(row, 4);
 
-                // 4. Masukkan data ke dalam input modal
                 if (inNama) inNama.value = nama;
                 if (inMerek) inMerek.value = merek;
                 if (inJumlah) inJumlah.value = String(minParseNumber(jumlahText));
@@ -2177,7 +2158,6 @@
 
                 updateSubtotal();
 
-                // 5. Tampilkan modal
                 overlay.classList.add('active');
                 document.body.classList.add('modal-open');
                 setTimeout(() => inNama && inNama.focus(), 0);
@@ -2187,10 +2167,9 @@
                 if (!overlay) return;
                 overlay.classList.remove('active');
                 document.body.classList.remove('modal-open');
-                if (dropdownNama) dropdownNama.style.display = 'none'; // Tambahan agar dropdown hilang
+                if (dropdownNama) dropdownNama.style.display = 'none';
             }
 
-            // Fungsi untuk mengatur saran barang saat mengetik di field Nama Barang (Edit)
             if (inNama) {
                 inNama.addEventListener('input', function() {
                     const keyword = this.value.toLowerCase();
@@ -2246,7 +2225,6 @@
                         matches.forEach(barang => {
                             const item = document.createElement('div');
                             item.className = 'suggestion-item';
-                            // Menampilkan Merek sebagai teks utama
                             item.innerHTML =
                                 `<strong>${barang.merek}</strong> - <small>${barang.nama_barang}</small>`;
 
@@ -2268,12 +2246,10 @@
                 });
             }
 
-            // Menutup dropdown jika klik di luar input
             document.addEventListener('click', function(e) {
                 if (inNama && !inNama.contains(e.target) && !dropdownNama.contains(e.target)) {
                     dropdownNama.style.display = 'none';
                 }
-                // Tambahkan baris di bawah ini:
                 if (inMerek && !inMerek.contains(e.target) && !dropdownMerek.contains(e.target)) {
                     dropdownMerek.style.display = 'none';
                 }
@@ -2282,8 +2258,6 @@
             function updateSubtotal() {
                 const namaValid = inNama?.value.trim() !== '';
                 const merekValid = inMerek?.value.trim() !== '';
-
-                // Jika salah satu (nama atau merek) kosong, kosongkan subtotal
                 if (!namaValid || !merekValid) {
                     if (inSubtotal) inSubtotal.value = '';
                     return;
@@ -2310,24 +2284,18 @@
                 });
             }
 
-            // Cari bagian ini di dalam kode Anda
             if (btnSimpan) {
                 btnSimpan.addEventListener('click', function() {
-                    // 1. Ambil elemen form edit (pastikan ID-nya sesuai dengan di HTML Anda)
                     const formEdit = document.getElementById('formEditBarang');
 
                     if (formEdit) {
-                        // 2. Tutup modal agar terasa instan
                         closeModal();
-
-                        // 3. Kirim data ke server
                         formEdit.submit();
                     }
                 });
             }
         })();
 
-        // Logika untuk Modal Hapus & Sistem Lainnya (Tetap Sama)
         (function() {
             const overlay = document.getElementById('modalHapus');
             const btnTidak = document.getElementById('btnTidakHapus');
@@ -2521,27 +2489,19 @@
             const btnTidakHapus = document.getElementById('btnTidakHapus');
             const btnKonfirmasiHapus = document.getElementById('btnKonfirmasiHapus');
 
-            // 1. Saat tombol hapus di tabel diklik
             document.querySelectorAll('.btn-trigger-hapus').forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
                     const idDetail = this.getAttribute('data-id');
-
-                    // Set action form secara dinamis ke route yang kita buat tadi
-                    // Sesuaikan url-nya dengan struktur route kamu
                     formHapus.action = `/laporan/transaksi-penjualan/detail/hapus/${idDetail}`;
-
-                    // Tampilkan modal
                     modalHapus.classList.add('active');
                 });
             });
 
-            // 2. Tombol TIDAK (Batal)
             btnTidakHapus.addEventListener('click', function() {
                 modalHapus.classList.remove('active');
             });
 
-            // 3. Tombol IYA (Konfirmasi)
             btnKonfirmasiHapus.addEventListener('click', function() {
                 formHapus.submit();
             });

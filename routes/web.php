@@ -29,11 +29,11 @@ use App\Http\Controllers\StokOpnameController;
 // 1. AUTENTIKASI
 // ==========================================================
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('landing');
+})->name('landing');
 
 Route::get('/landing', function () {
-    return view('landing');
+    return redirect()->route('landing');
 });
 
 Route::get('/login', function () {
@@ -80,7 +80,6 @@ Route::middleware(['auth.pemilik'])->group(function () {
         Route::get('/rekap-penjualan', [LaporanRekapPenjualanController::class, 'index'])->name('laporan.rekap.penjualan');
         Route::delete('/rekap-penjualan/hapus-semua', [LaporanRekapPenjualanController::class, 'hapusSemua'])->name('laporan.rekap.hapus-semua');
         Route::delete('/penjualan/hapus/{id_penjualan}', [PenjualanController::class, 'destroy'])->name('laporan.penjualan.destroy');
-
         Route::get('/penjualan/transaksi', [LaporanTransaksiPenjualanController::class, 'index'])->name('laporan.penjualan.transaksi');
         Route::get('/transaksi-penjualan/detail/{id_penjualan}', [LaporanDetailPenjualanController::class, 'index'])->name('laporan.penjualan.nota');
         Route::post('/transaksi-penjualan/detail/tambah-barang', [LaporanDetailPenjualanController::class, 'tambahBarang'])->name('laporan.penjualan.tambah-barang');

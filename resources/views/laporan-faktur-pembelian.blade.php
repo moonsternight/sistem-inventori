@@ -1385,7 +1385,6 @@
                                 <td class="col-faktur-pemasok">{{ $item->pemasok }}</td>
                                 <td class="col-faktur-total">Rp {{ number_format($item->total, 0, ',', '.') }}</td>
                                 <td class="col-faktur-metode">
-                                    {{-- Kita gunakan strtolower agar pengecekan tidak sensitif huruf besar/kecil --}}
                                     @if (strtolower($item->metode_pembayaran) == 'tunai')
                                         <span class="method-badge badge-tunai">TUNAI</span>
                                     @else
@@ -1608,7 +1607,6 @@
         }
 
         function openDeleteModal(button) {
-            // Kita gunakan trim() untuk memastikan tidak ada spasi yang ikut terbawa
             const rawId = button.getAttribute('data-id');
             const cleanId = rawId ? rawId.trim() : '';
 
@@ -1616,7 +1614,6 @@
             const overlay = document.getElementById('modalHapusFaktur');
 
             if (form && cleanId) {
-                // Menyusun URL dengan ID yang sudah bersih
                 form.action = `/laporan/pembelian/hapus/${cleanId}`;
 
                 overlay.classList.add('active');
@@ -1640,7 +1637,6 @@
 
             if (btnIya) {
                 btnIya.addEventListener('click', function() {
-                    // Langsung submit ke controller (Poin 7: Tanpa animasi/loading)
                     formHapus.submit();
                 });
             }

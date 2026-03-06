@@ -16,9 +16,7 @@ class LaporanTransaksiPenjualanController extends Controller
         $perPage = $request->query('per_page', 5);
         $rekapPage = $request->query('rekap_page', 1);
 
-        // Menghapus otomatis transaksi yang tidak memiliki nominal (kosong)
         Penjualan::where('total', 0)->delete();
-        // ---------------------------------------
 
         $tglMulai = $request->query('tgl_mulai');
         $tglAkhir = $request->query('tgl_akhir');
