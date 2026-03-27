@@ -441,14 +441,25 @@
             const timerDisplay = document.getElementById('countdown-timer');
             const errorContainer = document.getElementById('error-container');
             const pinInput = document.querySelector('.pin-input');
+            const btnMasuk = document.querySelector('.btn-masuk');
 
             if (timerDisplay) {
+                if (btnMasuk) {
+                    btnMasuk.disabled = true;
+                }
+                if (pinInput) pinInput.disabled = true;
+
                 let time = parseInt(timerDisplay.getAttribute('data-seconds')) || 60;
 
                 const countdown = setInterval(function() {
                     if (time <= 0) {
                         clearInterval(countdown);
                         if (errorContainer) errorContainer.remove();
+
+                        if (btnMasuk) {
+                            btnMasuk.disabled = false;
+                        }
+
                         if (pinInput) {
                             pinInput.disabled = false;
                             pinInput.focus();

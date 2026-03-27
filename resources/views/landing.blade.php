@@ -185,7 +185,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 80px 60px 56px 72px;
+            padding: 80px 60px 80px 72px;
             position: relative;
             z-index: 2;
         }
@@ -298,41 +298,11 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        .trust-bar {
-            display: flex;
-            gap: 32px;
-            margin-top: 56px;
-            animation: fadeUp 0.8s ease 0.4s both;
-        }
-
-        .trust-item {
-            display: flex;
-            flex-direction: column;
-            border-left: 2px solid rgba(192, 57, 43, 0.4);
-            padding-left: 14px;
-        }
-
-        .trust-num {
-            font-family: 'Playfair Display', serif;
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--white);
-            line-height: 1;
-        }
-
-        .trust-label {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.38);
-            font-weight: 300;
-            margin-top: 3px;
-            letter-spacing: 0.3px;
-        }
-
         .hero-right {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 56px 72px 56px 40px;
+            padding: 56px 72px 80px 40px;
             position: relative;
             z-index: 2;
         }
@@ -1192,7 +1162,7 @@
             }
 
             .hero-left {
-                padding: 60px 28px 48px;
+                padding: 60px 28px 60px;
             }
 
             .hero-right {
@@ -1281,7 +1251,7 @@
 
         <ul class="nav-links">
             <li><a href="#tentang">Tentang Kami</a></li>
-            <li><a href="#barang">Barang</a></li>
+            <li><a href="#kategori-barang">Kategori Barang</a></li>
             <li><a href="#keunggulan">Keunggulan</a></li>
             <li><a href="#kontak">Kontak</a></li>
         </ul>
@@ -1295,7 +1265,7 @@
         <div class="hero-left">
             <div class="hero-eyebrow">
                 <div class="hero-eyebrow-line"></div>
-                <div class="hero-eyebrow-text">Berdiri sejak 1998 · Jl. Yos Sudarso No.184</div>
+                <div class="hero-eyebrow-text">Berdiri sejak 1994 · Jl. Yos Sudarso No.184</div>
             </div>
 
             <h1 class="hero-title">Toko Besi &<br><em>Bahan Bangunan</em></h1>
@@ -1307,7 +1277,7 @@
             </p>
 
             <div class="hero-actions">
-                <a href="#barang" class="btn-red">
+                <a href="#kategori-barang" class="btn-red">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path
@@ -1321,22 +1291,12 @@
                 <a href="#kontak" class="btn-ghost">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                        </path>
                     </svg>
-                    Lokasi Toko
+                    Kontak
                 </a>
-            </div>
-
-            <div class="trust-bar">
-                <div class="trust-item">
-                    <div class="trust-num">25+</div>
-                    <div class="trust-label">Tahun Berkarya</div>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-num">±200</div>
-                    <div class="trust-label">Jenis Barang</div>
-                </div>
             </div>
         </div>
 
@@ -1424,8 +1384,8 @@
             <div class="about-label">Tentang Kami</div>
             <h2 class="about-title">Lebih dari Sekadar<br><em>Toko Bangunan</em></h2>
             <p class="about-text">
-                Berdiri sejak 1998, Toko Mekar Jaya menyediakan berbagai kebutuhan material besi dan bahan bangunan.
-                Toko ini melayani kebutuhan kontraktor, pemborong, maupun pemilik rumah.
+                Berdiri sejak 1994, Toko Mekar Jaya menyediakan berbagai material besi dan bahan bangunan untuk
+                kebutuhan pembangunan.
             </p>
             <p class="about-text">
                 Berlokasi di Jl. Yos Sudarso No.184, toko ini mudah dijangkau dan menyediakan berbagai jenis barang
@@ -1513,7 +1473,7 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="about-card-title">Berbagai Pembayaran</div>
+                        <div class="about-card-title">Metode Pembayaran</div>
                         <div class="about-card-desc">Pembayaran dapat dilakukan secara tunai maupun melalui transfer
                             BCA sesuai kebutuhan transaksi.</div>
                     </div>
@@ -1522,7 +1482,7 @@
         </div>
     </section>
 
-    <section class="products" id="barang">
+    <section class="products" id="kategori-barang">
         <div class="section-head">
             <div>
                 <div class="section-label">Barang Kami</div>
@@ -1545,7 +1505,7 @@
                     <div class="prod-card-cat">Kategori</div>
                     <div class="prod-card-name">Cat &amp; Finishing</div>
                     <div class="prod-card-desc">Tersedia berbagai pilihan cat tembok, cat besi, cat kayu, vernis, cat
-                        batu alam, hingga cat semprot Pylox untuk hasil akhir yang rapi dan tahan lama.</div>
+                        batu alam, cat semprot Pylox, dan lainnya untuk hasil akhir yang rapi dan tahan lama.</div>
                 </div>
             </div>
             <div class="prod-card prod-card--electric reveal reveal-delay-1">
@@ -1573,9 +1533,9 @@
                 </div>
                 <div class="prod-card-body">
                     <div class="prod-card-cat">Kategori</div>
-                    <div class="prod-card-name">Aksesoris</div>
-                    <div class="prod-card-desc">Menyediakan kunci pintu, gembok, pintu kamar mandi, tandon air, gerobak
-                        sorong, hingga sarung tangan karet dan rajut untuk melengkapi kebutuhan kerja yang aman.
+                    <div class="prod-card-name">Perlengkapan</div>
+                    <div class="prod-card-desc">Menyediakan kunci pintu, gembok, pintu kamar mandi, tandon air, pilihan
+                        kran, dan perlengkapan lainnya untuk memenuhi berbagai kebutuhan.
                     </div>
                 </div>
             </div>
@@ -1590,9 +1550,9 @@
                 <div class="prod-card-body">
                     <div class="prod-card-cat">Kategori</div>
                     <div class="prod-card-name">Alat Teknik</div>
-                    <div class="prod-card-desc">Menyediakan mesin bor, gerinda, profil kayu, mesin gergaji, potong
-                        keramik, hingga berbagai pilihan pompa sumur dan pompa semi untuk mendukung kelancaran pekerjaan
-                        teknik.</div>
+                    <div class="prod-card-desc">Menyediakan mesin bor, gerinda, mesin gergaji, potong keramik, berbagai
+                        pilihan pompa sumur, dan peralatan lainnya untuk mendukung kelancaran
+                        pekerjaan teknik.</div>
                 </div>
             </div>
             <div class="prod-card prod-card--material reveal reveal-delay-4">
@@ -1627,8 +1587,8 @@
                 <div class="prod-card-body">
                     <div class="prod-card-cat">Kategori</div>
                     <div class="prod-card-name">Alat Bangunan</div>
-                    <div class="prod-card-desc">Menyediakan kuas dan rol cat, sekop, waterpass, sendok semen, meteran,
-                        hingga berbagai jenis gergaji dan palu untuk memudahkan segala aktivitas pertukangan.</div>
+                    <div class="prod-card-desc">Menyediakan gergaji, linggis, sekop, waterpass, sendok semen, meteran,
+                        palu, dan alat bangunan lainnya untuk memudahkan segala aktivitas pertukangan.</div>
                 </div>
             </div>
         </div>
@@ -1852,7 +1812,7 @@
             <div>
                 <div class="footer-brand-name"><span></span> Toko Mekar Jaya</div>
                 <div class="footer-brand-desc">
-                    Toko besi dan bahan bangunan sejak 1998. Menyediakan berbagai kebutuhan material untuk pembangunan
+                    Toko besi dan bahan bangunan sejak 1994. Menyediakan berbagai kebutuhan material untuk pembangunan
                     dan perbaikan bangunan.
                 </div>
             </div>
@@ -1860,7 +1820,7 @@
                 <div class="footer-col-title">Navigasi</div>
                 <ul class="footer-links">
                     <li><a href="#tentang">Tentang Kami</a></li>
-                    <li><a href="#barang">Barang</a></li>
+                    <li><a href="#kategori-barang">Kategori Barang</a></li>
                     <li><a href="#keunggulan">Keunggulan</a></li>
                     <li><a href="#kontak">Kontak</a></li>
                 </ul>

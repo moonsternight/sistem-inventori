@@ -1309,21 +1309,17 @@
                 <label>LOKASI BARANG</label>
                 <select id="lokasi_barang">
                     <option value="" disabled {{ !$lokasi ? 'selected' : '' }} hidden>Pilih</option>
-                    <option value="" disabled {{ !$lokasi ? 'selected' : '' }} hidden>Pilih</option>
+                    <option value="Lemari Kaca" {{ $lokasi == 'Lemari Kaca' ? 'selected' : '' }}>Lemari Kaca</option>
                     <option value="Rak Besi 01" {{ $lokasi == 'Rak Besi 01' ? 'selected' : '' }}>Rak Besi 01</option>
                     <option value="Rak Besi 02" {{ $lokasi == 'Rak Besi 02' ? 'selected' : '' }}>Rak Besi 02</option>
-                    <option value="Rak Cat 01" {{ $lokasi == 'Rak Cat 01' ? 'selected' : '' }}>Rak Cat 01</option>
-                    <option value="Rak Cat 02" {{ $lokasi == 'Rak Cat 02' ? 'selected' : '' }}>Rak Cat 02</option>
-                    <option value="Rak Cat 03" {{ $lokasi == 'Rak Cat 03' ? 'selected' : '' }}>Rak Cat 03</option>
+                    <option value="Rak Besi 03" {{ $lokasi == 'Rak Besi 03' ? 'selected' : '' }}>Rak Besi 03</option>
+                    <option value="Rak Besi 04" {{ $lokasi == 'Rak Besi 04' ? 'selected' : '' }}>Rak Besi 04</option>
                     <option value="Rak Kayu 01" {{ $lokasi == 'Rak Kayu 01' ? 'selected' : '' }}>Rak Kayu 01</option>
                     <option value="Rak Kayu 02" {{ $lokasi == 'Rak Kayu 02' ? 'selected' : '' }}>Rak Kayu 02</option>
-                    <option value="Belakang Rak Cat" {{ $lokasi == 'Belakang Rak Cat' ? 'selected' : '' }}>Belakang
-                        Rak Cat</option>
-                    <option value="Samping Rak Cat" {{ $lokasi == 'Samping Rak Cat' ? 'selected' : '' }}>Samping Rak
-                        Cat</option>
-                    <option value="Rak Gantung" {{ $lokasi == 'Rak Gantung' ? 'selected' : '' }}>Rak Gantung</option>
+                    <option value="Rak Kayu 03" {{ $lokasi == 'Rak Kayu 03' ? 'selected' : '' }}>Rak Kayu 03</option>
+                    <option value="Bagian Belakang" {{ $lokasi == 'Bagian Belakang' ? 'selected' : '' }}>Bagian
+                        Belakang</option>
                     <option value="Teras Depan" {{ $lokasi == 'Teras Depan' ? 'selected' : '' }}>Teras Depan</option>
-                    <option value="Lemari Kaca" {{ $lokasi == 'Lemari Kaca' ? 'selected' : '' }}>Lemari Kaca</option>
                 </select>
             </div>
             <div class="form-group">
@@ -1331,7 +1327,7 @@
             </div>
             <div class="form-group">
                 <button type="button" class="btn-opname btn-excel" onclick="exportToExcel()">
-                    Eksport Excel
+                    Export Excel
                 </button>
             </div>
             <div class="form-group">

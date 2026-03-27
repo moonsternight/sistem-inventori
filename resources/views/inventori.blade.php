@@ -1813,7 +1813,8 @@
                         Cat & Finishing</option>
                     <option value="Kelistrikan" {{ request('kategori') == 'Kelistrikan' ? 'selected' : '' }}>
                         Kelistrikan</option>
-                    <option value="Aksesoris" {{ request('kategori') == 'Aksesoris' ? 'selected' : '' }}>Aksesoris
+                    <option value="Perlengkapan" {{ request('kategori') == 'Perlengkapan' ? 'selected' : '' }}>
+                        Perlengkapan
                     </option>
                     <option value="Alat Teknik" {{ request('kategori') == 'Alat Teknik' ? 'selected' : '' }}>Alat
                         Teknik</option>
@@ -1835,29 +1836,25 @@
             <div class="filter-group">
                 <select id="filterLokasi" class="filter-select">
                     <option value="">Semua Lokasi</option>
+                    <option value="Lemari Kaca" {{ request('lokasi') == 'Lemari Kaca' ? 'selected' : '' }}>Lemari Kaca
+                    </option>
                     <option value="Rak Besi 01" {{ request('lokasi') == 'Rak Besi 01' ? 'selected' : '' }}>Rak Besi 01
                     </option>
                     <option value="Rak Besi 02" {{ request('lokasi') == 'Rak Besi 02' ? 'selected' : '' }}>Rak Besi 02
                     </option>
-                    <option value="Rak Cat 01" {{ request('lokasi') == 'Rak Cat 01' ? 'selected' : '' }}>Rak Cat 01
+                    <option value="Rak Besi 03" {{ request('lokasi') == 'Rak Besi 03' ? 'selected' : '' }}>Rak Besi 03
                     </option>
-                    <option value="Rak Cat 02" {{ request('lokasi') == 'Rak Cat 02' ? 'selected' : '' }}>Rak Cat 02
-                    </option>
-                    <option value="Rak Cat 03" {{ request('lokasi') == 'Rak Cat 03' ? 'selected' : '' }}>Rak Cat 03
+                    <option value="Rak Besi 04" {{ request('lokasi') == 'Rak Besi 04' ? 'selected' : '' }}>Rak Besi 04
                     </option>
                     <option value="Rak Kayu 01" {{ request('lokasi') == 'Rak Kayu 01' ? 'selected' : '' }}>Rak Kayu 01
                     </option>
                     <option value="Rak Kayu 02" {{ request('lokasi') == 'Rak Kayu 02' ? 'selected' : '' }}>Rak Kayu 02
                     </option>
-                    <option value="Belakang Rak Cat" {{ request('lokasi') == 'Belakang Rak Cat' ? 'selected' : '' }}>
-                        Belakang Rak Cat</option>
-                    <option value="Samping Rak Cat" {{ request('lokasi') == 'Samping Rak Cat' ? 'selected' : '' }}>
-                        Samping Rak Cat</option>
-                    <option value="Rak Gantung" {{ request('lokasi') == 'Rak Gantung' ? 'selected' : '' }}>Rak Gantung
+                    <option value="Rak Kayu 03" {{ request('lokasi') == 'Rak Kayu 03' ? 'selected' : '' }}>Rak Kayu 03
                     </option>
+                    <option value="Bagian Belakang" {{ request('lokasi') == 'Bagian Belakang' ? 'selected' : '' }}>
+                        Bagian Belakang</option>
                     <option value="Teras Depan" {{ request('lokasi') == 'Teras Depan' ? 'selected' : '' }}>Teras Depan
-                    </option>
-                    <option value="Lemari Kaca" {{ request('lokasi') == 'Lemari Kaca' ? 'selected' : '' }}>Lemari Kaca
                     </option>
                 </select>
             </div>
@@ -2023,7 +2020,7 @@
                                     <option value="" disabled selected hidden>Pilih Kategori</option>
                                     <option value="Cat & Finishing">Cat & Finishing</option>
                                     <option value="Kelistrikan">Kelistrikan</option>
-                                    <option value="Aksesoris">Aksesoris</option>
+                                    <option value="Perlengkapan">Perlengkapan</option>
                                     <option value="Alat Teknik">Alat Teknik</option>
                                     <option value="Bahan Bangunan">Bahan Bangunan</option>
                                     <option value="Alat Bangunan">Alat Bangunan</option>
@@ -2036,9 +2033,11 @@
                                     <option value="" disabled selected hidden>Pilih Satuan</option>
                                     <option value="Pcs">Pcs</option>
                                     <option value="Unit">Unit</option>
+                                    <option value="Bungkus">Bungkus</option>
                                     <option value="Set">Set</option>
                                     <option value="Batang">Batang</option>
                                     <option value="Lembar">Lembar</option>
+                                    <option value="Kaleng">Kaleng</option>
                                     <option value="Galon">Galon</option>
                                     <option value="Pail">Pail</option>
                                     <option value="Dus">Dus</option>
@@ -2050,18 +2049,16 @@
                                 <select name="lokasi" class="form-control-select placeholder-style"
                                     id="lokasiSelect" required onchange="this.classList.remove('placeholder-style')">
                                     <option value="" disabled selected hidden>Pilih Lokasi</option>
+                                    <option value="Lemari Kaca">Lemari Kaca</option>
                                     <option value="Rak Besi 01">Rak Besi 01</option>
                                     <option value="Rak Besi 02">Rak Besi 02</option>
-                                    <option value="Rak Cat 01">Rak Cat 01</option>
-                                    <option value="Rak Cat 02">Rak Cat 02</option>
-                                    <option value="Rak Cat 03">Rak Cat 03</option>
+                                    <option value="Rak Besi 03">Rak Besi 03</option>
+                                    <option value="Rak Besi 04">Rak Besi 04</option>
                                     <option value="Rak Kayu 01">Rak Kayu 01</option>
                                     <option value="Rak Kayu 02">Rak Kayu 02</option>
-                                    <option value="Belakang Rak Cat">Belakang Rak Cat</option>
-                                    <option value="Samping Rak Cat">Samping Rak Cat</option>
-                                    <option value="Rak Gantung">Rak Gantung</option>
+                                    <option value="Rak Kayu 03">Rak Kayu 03</option>
+                                    <option value="Bagian Belakang">Bagian Belakang</option>
                                     <option value="Teras Depan">Teras Depan</option>
-                                    <option value="Lemari Kaca">Lemari Kaca</option>
                                 </select>
                             </div>
                         </div>
@@ -2138,7 +2135,7 @@
                                     <option value="" disabled selected hidden>Pilih Kategori</option>
                                     <option value="Cat & Finishing">Cat & Finishing</option>
                                     <option value="Kelistrikan">Kelistrikan</option>
-                                    <option value="Aksesoris">Aksesoris</option>
+                                    <option value="Perlengkapan">Perlengkapan</option>
                                     <option value="Alat Teknik">Alat Teknik</option>
                                     <option value="Bahan Bangunan">Bahan Bangunan</option>
                                     <option value="Alat Bangunan">Alat Bangunan</option>
@@ -2150,9 +2147,11 @@
                                     <option value="" disabled selected hidden>Pilih Satuan</option>
                                     <option value="Pcs">Pcs</option>
                                     <option value="Unit">Unit</option>
+                                    <option value="Bungkus">Bungkus</option>
                                     <option value="Set">Set</option>
                                     <option value="Batang">Batang</option>
                                     <option value="Lembar">Lembar</option>
+                                    <option value="Kaleng">Kaleng</option>
                                     <option value="Galon">Galon</option>
                                     <option value="Pail">Pail</option>
                                     <option value="Dus">Dus</option>
@@ -2163,18 +2162,16 @@
                                 <label>Lokasi</label>
                                 <select name="lokasi" id="editLokasi" class="form-control-select" required>
                                     <option value="" disabled selected hidden>Pilih Lokasi</option>
+                                    <option value="Lemari Kaca">Lemari Kaca</option>
                                     <option value="Rak Besi 01">Rak Besi 01</option>
                                     <option value="Rak Besi 02">Rak Besi 02</option>
-                                    <option value="Rak Cat 01">Rak Cat 01</option>
-                                    <option value="Rak Cat 02">Rak Cat 02</option>
-                                    <option value="Rak Cat 03">Rak Cat 03</option>
+                                    <option value="Rak Besi 03">Rak Besi 03</option>
+                                    <option value="Rak Besi 04">Rak Besi 04</option>
                                     <option value="Rak Kayu 01">Rak Kayu 01</option>
                                     <option value="Rak Kayu 02">Rak Kayu 02</option>
-                                    <option value="Belakang Rak Cat">Belakang Rak Cat</option>
-                                    <option value="Samping Rak Cat">Samping Rak Cat</option>
-                                    <option value="Rak Gantung">Rak Gantung</option>
+                                    <option value="Rak Kayu 03">Rak Kayu 03</option>
+                                    <option value="Bagian Belakang">Bagian Belakang</option>
                                     <option value="Teras Depan">Teras Depan</option>
-                                    <option value="Lemari Kaca">Lemari Kaca</option>
                                 </select>
                             </div>
                         </div>

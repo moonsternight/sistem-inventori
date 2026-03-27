@@ -43,7 +43,6 @@ Route::get('/login', function () {
 Route::post('/proses-login', [AutentikasiController::class, 'login'])->name('login.proses');
 Route::get('/keluar', [AutentikasiController::class, 'logout'])->name('keluar');
 
-
 // ==========================================================
 // PROTEKSI MIDDLEWARE AUTH
 // ==========================================================
